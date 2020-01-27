@@ -19,6 +19,7 @@ class Bridge(QObject):
 
     @Slot(int, result=float)
     def rpm(self, limit):
+        speed = random.randrange(13)
         limit = float(limit)
 
         if limit > speed:
