@@ -2,10 +2,13 @@ import sys
 import os
 from os.path import abspath, dirname, join
 
-from PySide2.QtCore import QObject, Slot, QUrl, Signal
-from PySide2.QtGui import QGuiApplication
-from PySide2.QtQml import QQmlApplicationEngine
-from PySide2.QtQuick import QQuickView
+
+from PyQt5.QtCore import QObject, QUrl
+from PyQt5.QtCore import pyqtSlot as Slot
+from PyQt5.QtCore import pyqtSignal as Signal
+from PyQt5.QtGui import QGuiApplication
+from PyQt5.QtQml import QQmlApplicationEngine
+from PyQt5.QtQuick import QQuickView
 
 import random
 
@@ -49,4 +52,3 @@ if __name__ == '__main__':
         sys.exit(-1)
 
     sys.exit(app.exec_())
-
