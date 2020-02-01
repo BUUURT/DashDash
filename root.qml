@@ -1,5 +1,5 @@
 import QtQuick 2.0
-import QtQuick.Layouts 1.12
+import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.12
 import QtQuick.Window 2.12
 import QtQuick.Controls.Material 2.12
@@ -9,13 +9,16 @@ import QtQuick 2.0
 ApplicationWindow {
     width: 800
     height: 480
+    id: core
     visible: true
     Rectangle {
         id: background
         x: 0
         y: 0
-        width: 800
-        height: 480
+        width: core.width
+        height: core.height
+//        width: 800
+//        height: 480
         color: "#282828"
 
         Text {
@@ -53,7 +56,7 @@ ApplicationWindow {
             columns: 13
 
             Timer {
-                interval: 1000
+                interval: 10
                 running: true
                 repeat: true
                 onTriggered: {
@@ -320,6 +323,13 @@ ApplicationWindow {
                     anchors.horizontalCenter: parent.horizontalCenter
                 }
             }
+        }
+
+        Button {
+            id: button
+            x: 527
+            y: 310
+            text: qsTr("Button")
         }
     }
 

@@ -1,6 +1,8 @@
+import time
 import sys
 import os
 from os.path import abspath, dirname, join
+
 
 
 from PyQt5.QtCore import QObject, QUrl
@@ -18,16 +20,20 @@ class Bridge(QObject):
 
     @Slot(result=str)
     def speed(self):
-        return str(random.randrange(99))
+
+        return str(time.time()).split('.')[1][:2]
 
     @Slot(int, result=float)
     def rpm(self, limit):
-        speed = random.randrange(13)
-        limit = float(limit)
+        limit = limit
+        speed = str(time.time()).split('.')[1][0]
+
+        speed = int(speed)+4
+#        print(speed)
+
 
         if limit > speed:
             return float(0.1)
-
         if limit <= speed:
             return float(1.0)
 
