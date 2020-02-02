@@ -42,6 +42,7 @@ if __name__ == '__main__':
     app = QGuiApplication(sys.argv)
     engine = QQmlApplicationEngine()
 
+
     # Instance of the Python object
     bridge = Bridge()
 
@@ -51,10 +52,11 @@ if __name__ == '__main__':
 
     # Get the path of the current directory, and then add the name
     # of the QML file, to load it.
+    # qmlFile = join(dirname(__file__), 'threeD.qml')
     qmlFile = join(dirname(__file__), 'root.qml')
     engine.load(abspath(qmlFile))
 
-    if not engine.rootObjects():
-        sys.exit(-1)
+    # if not engine.rootObjects():
+    #     sys.exit(-1)
 
     sys.exit(app.exec_())

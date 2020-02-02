@@ -11,6 +11,7 @@ ApplicationWindow {
     height: 480
     id: core
     visible: true
+    visibility: "FullScreen"
     Rectangle {
         id: background
         x: 0
