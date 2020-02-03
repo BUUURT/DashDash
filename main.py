@@ -3,6 +3,7 @@ import sys
 import os
 from os.path import abspath, dirname, join
 
+from demoHall import calculate_speed
 
 
 from PyQt5.QtCore import QObject, QUrl
@@ -20,6 +21,7 @@ class Bridge(QObject):
 
     @Slot(result=str)
     def speed(self):
+        return calculate_speed()
 
         return str(time.time()).split('.')[1][:2]
 
