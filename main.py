@@ -21,7 +21,7 @@ class Bridge(QObject):
 
     @Slot(result=str)
     def speed(self):
-        return calculate_speed()
+        return calculate_speed(20)
 
         return str(time.time()).split('.')[1][:2]
 
