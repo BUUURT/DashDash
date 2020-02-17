@@ -3,7 +3,6 @@ import sys
 import os
 from os.path import abspath, dirname, join
 
-from demoHall import calculate_speed
 
 
 from PyQt5.QtCore import QObject, QUrl
@@ -19,26 +18,36 @@ import random
 
 class Bridge(QObject):
 
+    @Slot(result=int)
+    def rander(self):
+        r = random.randint(0,360)
+        return r
+
+
     @Slot(result=str)
     def speed(self):
-        return calculate_speed(20)
-
-        return str(time.time()).split('.')[1][:2]
-
-    @Slot(int, result=float)
-    def rpm(self, limit):
-        limit = limit
-        speed = str(time.time()).split('.')[1][0]
-
-        speed = int(speed)+4
-#        print(speed)
+        x = str(time.time())
+        y = x.split('.')[1][:2]
+        y = float(y)*0.01
+        speed = 30.0*y
+        speed = str(int(speed))
+        return speed
 
 
-        if limit > speed:
-            return float(0.1)
-        if limit <= speed:
-            return float(1.0)
+    @Slot(result=int)
+    def rpm(self):
+        x = str(time.time())
+        y = x.split('.')[0][-1:]
+        y = float(y)*0.1
+        speed = 14000.0*y
+        return int(speed)
 
+    @Slot(result=int)
+    def spin(self):
+        i = str(time.time())
+        n = i.split('.')[1][0]
+        n = int(n)*36
+        return int(n)
 
 if __name__ == '__main__':
     app = QGuiApplication(sys.argv)
@@ -54,8 +63,8 @@ if __name__ == '__main__':
 
     # Get the path of the current directory, and then add the name
     # of the QML file, to load it.
-    # qmlFile = join(dirname(__file__), 'threeD.qml')
-    qmlFile = join(dirname(__file__), 'root.qml')
+    qmlFile = join(dirname(__file__), 'Dash_V8.qml')
+#    qmlFile = join(dirname(__file__), 'ani.qml')
     engine.load(abspath(qmlFile))
 
     # if not engine.rootObjects():
