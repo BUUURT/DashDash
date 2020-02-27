@@ -69,8 +69,8 @@ if __name__ == '__main__':
 
     # Get the path of the current directory, and then add the name
     # of the QML file, to load it.
-#    qmlFile = join(dirname(__file__), 'Dash_V8.qml')
-    qmlFile = join(dirname(__file__), 'test.qml')
+    qmlFile = join(dirname(__file__), 'Dash_V8.qml')
+    # qmlFile = join(dirname(__file__), 'test.qml')
     engine.load(abspath(qmlFile))
 
     # if not engine.rootObjects():

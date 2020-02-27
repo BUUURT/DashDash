@@ -40,10 +40,10 @@ ApplicationWindow {
         }
     }
 
-//    Behavior on rpm {
-//        NumberAnimation { properties: "rpm"; duration: 1000 }
+   Behavior on rpm {
+       NumberAnimation { properties: "rpm"; duration: 1000 }
 
-//    }
+   }
 
 
     onRpmChanged: {
