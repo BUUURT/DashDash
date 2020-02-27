@@ -39,7 +39,7 @@ class Bridge(QObject):
         x = str(time.time())
         y = x.split('.')[0][-1:]
         y = float(y)*0.1
-        speed = 14000.0*y
+        speed = 360.0*y
         return int(speed)
 
     @Slot(result=int)
@@ -48,6 +48,12 @@ class Bridge(QObject):
         n = i.split('.')[1][0]
         n = int(n)*36
         return int(n)
+
+
+    @Slot(result=int)
+    def rand(self):
+        i = random.randrange(360)
+        return int(i)
 
 if __name__ == '__main__':
     app = QGuiApplication(sys.argv)
@@ -63,8 +69,8 @@ if __name__ == '__main__':
 
     # Get the path of the current directory, and then add the name
     # of the QML file, to load it.
-    qmlFile = join(dirname(__file__), 'Dash_V8.qml')
-#    qmlFile = join(dirname(__file__), 'screentest.qml')
+#    qmlFile = join(dirname(__file__), 'Dash_V8.qml')
+    qmlFile = join(dirname(__file__), 'test.qml')
     engine.load(abspath(qmlFile))
 
     # if not engine.rootObjects():
