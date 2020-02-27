@@ -39,7 +39,7 @@ class Bridge(QObject):
         x = str(time.time())
         y = x.split('.')[0][-1:]
         y = float(y)*0.1
-        speed = 360.0*y
+        speed = 14000*y
         return int(speed)
 
     @Slot(result=int)
