@@ -40,10 +40,10 @@ ApplicationWindow {
         }
     }
 
-   Behavior on rpm {
-       NumberAnimation { properties: "rpm"; duration: 1000 }
+    Behavior on rpm {
+        NumberAnimation { properties: "rpm"; duration: 1000 }
 
-   }
+    }
 
 
     onRpmChanged: {
@@ -135,30 +135,6 @@ ApplicationWindow {
 
 
         }
-    }
-
-    Rectangle {
-        id: speedBg
-        x: 161
-        y: 170
-        width: 462
-        height: 363
-        color: root.mainBgColorSub
-        radius: 50
-        border.width: 0
-
-        Text {
-            id: speed
-            x: 117
-            y: 125
-            color: root.mainFontColor
-            text: qsTr("99")
-
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.verticalCenter: parent.verticalCenter
-            font.pixelSize: 400
-        }
-
     }
 
 
@@ -728,12 +704,13 @@ ApplicationWindow {
         height: 800
         Button {
             id: darkmode
-            x: -660
+            x: 1182
+            y: 700
             text: qsTr("DARK")
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: 5
+            anchors.bottomMargin: 0
             anchors.right: parent.right
-            anchors.rightMargin: 5
+            anchors.rightMargin: -82
             padding: 4
             font.pointSize: 20
             checkable: true
@@ -755,20 +732,21 @@ ApplicationWindow {
 
         Item {
             id: raceData
-            x: 180
             y: 530
-            width: 431
+            width: 500
             height: 200
+            anchors.left: parent.left
+            anchors.leftMargin: 30
 
             Text {
                 id: lastLap
-                text: qsTr("00:00:00")
+                text: qsTr("0:00:00")
                 color: root.mainFontColor
                 anchors.top: parent.top
-                anchors.topMargin: 10
+                anchors.topMargin: 0
                 anchors.left: parent.left
-                anchors.leftMargin: 10
-                font.pixelSize: 100
+                anchors.leftMargin: 0
+                font.pixelSize: 125
 
                 Text {
                     id: labelLast
@@ -788,9 +766,11 @@ ApplicationWindow {
 
             Text {
                 id: racePosP
-                x: 10
-                y: 120
                 text: qsTr("P")
+                anchors.left: parent.right
+                anchors.leftMargin: 0
+                anchors.top: parent.top
+                anchors.topMargin: 0
                 color: root.mainFontColor
                 font.pixelSize: 100
 
@@ -808,9 +788,11 @@ ApplicationWindow {
 
             Text {
                 id: lapNum
-                x: 5
-                y: 120
                 text: qsTr("300")
+                anchors.top: parent.top
+                anchors.topMargin: 100
+                anchors.left: parent.right
+                anchors.leftMargin: 0
                 color: root.mainFontColor
                 anchors.right: parent.right
                 anchors.rightMargin: 0
@@ -827,12 +809,60 @@ ApplicationWindow {
                     font.pixelSize: 100
                 }
             }
+
+            Rectangle {
+                id: speedBg
+                x: 171
+                y: -360
+                width: 462
+                height: 363
+                color: root.mainBgColorSub
+                radius: 50
+                anchors.right: parent.right
+                anchors.rightMargin: -150
+                border.width: 0
+
+                Text {
+                    id: speed
+                    x: 117
+                    y: 125
+                    color: root.mainFontColor
+                    text: qsTr("99")
+
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.pixelSize: 400
+                }
+
+            }
         }
 
         Item {
             id: position
             width: 200
             height: 200
+        }
+
+        Item {
+            id: bikeData
+            width: 200
+            height: 200
+        }
+
+        Text {
+            id: element
+            x: 757
+            y: 173
+            text: qsTr("150F")
+            font.pixelSize: 70
+        }
+
+        Text {
+            id: element1
+            x: 700
+            y: 297
+            text: qsTr("500f")
+            font.pixelSize: 70
         }
     }
 
@@ -851,9 +881,9 @@ ApplicationWindow {
             x: -660
             text: qsTr("PIT")
 
-            anchors.horizontalCenterOffset: 2
+            anchors.horizontalCenterOffset: 27
             padding: 10
-            font.pointSize: 20
+            font.pointSize: 50
             checkable: true
             anchors.top: parent.top
             anchors.topMargin: 0
@@ -866,31 +896,6 @@ ApplicationWindow {
                 border.width: 2
                 radius: 20
             }
-        }
-
-        Button {
-            id: pitFuel
-            x: -660
-            text: qsTr("FUEL")
-
-            anchors.horizontalCenterOffset: 3
-            leftPadding: 30
-            rightPadding: 30
-            padding: 5
-            font.pointSize: 20
-            checkable: true
-            anchors.top: parent.top
-            anchors.topMargin: 300
-            anchors.horizontalCenter: parent.horizontalCenter
-            background: Rectangle {
-                implicitWidth: 160
-                implicitHeight: 290
-                color: pitFuel.checked? "#ffea00" : root.mainBgColor
-                border.color: root.mainFontColor
-                border.width: 2
-                radius: 20
-            }
-
         }
 
 
@@ -908,8 +913,8 @@ ApplicationWindow {
 
 /*##^##
 Designer {
-    D{i:47;anchors_x:"-64";anchors_y:"-23"}D{i:46;anchors_x:"-64";anchors_y:0}D{i:49;anchors_x:5}
-D{i:51;anchors_x:150}D{i:50;anchors_x:5}D{i:55;anchors_y:"-58"}D{i:54;anchors_y:"-58"}
-D{i:56;anchors_y:"-58"}D{i:53;anchors_x:688}
+    D{i:45;anchors_x:"-64";anchors_y:"-23"}D{i:44;anchors_x:"-64";anchors_y:0}D{i:47;anchors_x:5}
+D{i:46;anchors_x:10;anchors_y:120}D{i:49;anchors_x:150}D{i:48;anchors_x:5;anchors_y:120}
+D{i:43;anchors_x:180}D{i:58;anchors_y:"-58"}D{i:57;anchors_y:"-58"}D{i:56;anchors_x:688}
 }
 ##^##*/

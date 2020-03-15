@@ -15,14 +15,14 @@ name_space = app.namespace('main', description = 'Main APIs')
 class MainClass(Resource):
     def home():
         return render_template("home.html")
-    # def get(self):
-    #     return {
-    #             "status":"Got new data"
-    #     }
-    # def post(self):
-    #     return {
-    #             "status":"Posted new data"
-    #     }
+    def get(self):
+        return {
+                "status":"Got new data"
+        }
+    def post(self):
+        return {
+                "status":"Posted new data"
+        }
 
 if __name__ == "__main__":
     flask_app.run(

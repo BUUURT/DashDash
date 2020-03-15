@@ -1,3 +1,3 @@
 {
-    "files": ["threeD.qml","dash_V8.qml","main.py","screentest.qml","ani.qml","root.qml","an.qml","test.qml"]
+    "files": ["ani.qml","test.qml","an.qml","threeD.qml","dash_V8.qml","root.qml","pySlottut.py","main.py","screentest.qml","basestation.qml"]
 }
