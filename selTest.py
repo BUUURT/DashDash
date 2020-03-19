@@ -1,4 +1,6 @@
-##technical debt: add racer class to data extraction
+##technical debt: # initialization parameters (event ID, racer ID)
+    # API push
+    # race processing 
 import time
 
 import pandas as pd
