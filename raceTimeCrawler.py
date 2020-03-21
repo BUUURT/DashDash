@@ -25,27 +25,20 @@ class RacerTable:
         self.teamData = self.df[self.df['number']==self.teamId]
         self.position = self.df[self.df['number']==self.teamId]['position'].item()
 
-
-
     def __repr__(self):
         return print(self.df.head())
 
     def __str__(self):
         return self.df.head()
 
-    # def updateSplits(self):
-    # # maintain & post
-    #     #my position/data
-    #     #time gap of pos+-
-    #     # direction of gap rate of change
-    #
-    #     myPosition = self.df[self.df["number"]==self.teamId]['position'].item()
-    #     if myPosition != '1':
-    #         opponentUp = self.df[self.df['postion']==str(int(myPosition)+1)]
 
+    # revise, detect new lap, update gaps, add new output if opponent is mine
     def update(self,row):
+        delta = False
         for key in row.keys():
             if row[key] != self.df[self.df['number']==row['number']][key].item():
+                self.df[self.df['number']==row['number']][key] = row[key]
+                delta = True
                 print(row['number'],key,row[key])
 
 def main(rammerId, raceId):
