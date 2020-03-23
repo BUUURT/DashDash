@@ -1,8 +1,8 @@
 ##technical debt: # initialization parameters (event ID, racer ID)
     # API push
-    # race processing
-    # chrome version/install location issues
-    # parse racer class
+    # figure out opponent, self data to export
+    # first place none type is handled poorly
+
 from datetime import datetime
 import time
 
@@ -59,8 +59,9 @@ class RacerTable:
 
 
                 def calcSplit(other):
-                    self_lapTime = self.df[self.df['number']== self.teamId]['lapTime'].item()
+                    self_lapTime = self.df[self.df['number']== self.teamId]['lapTime'][0]
                     self_lapTime = datetime.strptime(f'2020 {self_lapTime}','%Y %M:%S.%f')
+
 
                     other_lapTime = other['lapTime']
                     other_lapTime = datetime.strptime(f'2020 {other_lapTime}','%Y %M:%S.%f')
@@ -73,7 +74,10 @@ class RacerTable:
                         faster = True
                         delta =str(other_lapTime-self_lapTime).split(':',1)[1][1:9]
 
-                    self_laps = int(self.df[self.df['number']== self.teamId]['laps'].item())
+                    other_lapTime = datetime.strftime(other_lapTime,'%M:%S.%f')[1:]
+                    self_lapTime = datetime.strftime(self_lapTime,'%M:%S.%f')[1:]
+
+                    self_laps = int(self.df[self.df['number']== self.teamId]['laps'][0])
                     other_laps = int(other['laps'])
                     if self_laps == other_laps:
                         gap = delta
@@ -92,8 +96,8 @@ class RacerTable:
 
                     payload = {
                         'self laptime':self_lapTime,
-                        'self laps': self.df[self.df['number']==self.teamId]['laps'].item(),
-                        'self position': self.df[self.df['number']==self.teamId]['position'].item(),
+                        'self laps': self.df[self.df['number']==self.teamId]['laps'][0],
+                        'self position': self.df[self.df['number']==self.teamId]['position'][0],
                         'opponent up laptime':opUp_lapTime,
                         'opponent up lap delta':opUp_delta,
                         'opponent up faster':opUp_faster,
@@ -104,7 +108,7 @@ class RacerTable:
                         'opponent down gap':opDown_gap}
                     for x,y in payload.items():  #replace with POST to webserver
                         print(f'{x}: {y}')
-                        print('\n')
+                    print('\n')
                 else:
                     pass
 
@@ -165,5 +169,4 @@ def main(rammerId, raceId, debug = False):
             time.sleep(0.01)
 
 if __name__ == "__main__":
-#    main(rammerId = '#3',raceId = '37872')
-    i = main(rammerId = '#3',raceId = '37872')
+    i = main(rammerId = '#645',raceId = '37820', debug=False)
