@@ -3,7 +3,7 @@
     # race processing
     # chrome version/install location issues
     # parse racer class
-
+from datetime import datetime
 import time
 
 import requests
@@ -19,29 +19,96 @@ from selenium.common.exceptions import TimeoutException
 
 class RacerTable:
     def __init__(self,df,teamId):
-
-        self.df = df#.astype({'position':int, 'number':str, 'name':str, 'laps':int, 'lapTime':str, 'bestLap':int, 'bestTime':str})
+        self.df = df.set_index('position')
         self.teamId = teamId
-        self.teamData = self.df[self.df['number']==self.teamId]
-        self.position = self.df[self.df['number']==self.teamId]['position'].item()
 
-    def __repr__(self):
-        return print(self.df.head())
+    def position(self):
+        return self.df[self.df['number']==self.teamId].index[0]
 
-    def __str__(self):
-        return self.df.head()
+    def opponentUp(self,method):
+        if self.position() == '1':
+            return None
+        if method == 'all':
+            return self.df.loc[str(int(self.position())-1)]
+        else:
+            return self.df.loc[str(int(self.position())-1)][method]
+
+    def opponentDown(self,method):
+        if method == 'all':
+            return self.df.loc[str(int(self.position())+1)]
+        else:
+            return self.df.loc[str(int(self.position())+1)][method]
+
+    def update(self,row,debug = False):
+        """receives parsed HTML row as a pandas series.
+        Determines if row reflects a new lap.  If so:
+        - incorporate changes into master dataframe
+        - determines if update impacts export time (self, opponent up/down, or leader)
+        - if so, calculates new gap data, formats and POSTs to webserver
+        - otherwise, passes
+        debug == True prints every row update.  False by default"""
+
+        if len(self.df[self.df['number']==row['number']]['laps']) != 0:  #catches condition where the dataframe was returning empty series
+            if self.df[self.df['number']==row['number']]['laps'][0] != row['laps'] :  #only evaluate new laps
+                for key in row.keys(): #update dataframe
+                    self.df.at[row['position'], key] = row[key]
+
+                if debug == True:
+                    for x,y in row.items():
+                        print(f'{x}: {y}')
 
 
-    # revise, detect new lap, update gaps, add new output if opponent is mine
-    def update(self,row):
-        delta = False
-        for key in row.keys():
-            if row[key] != self.df[self.df['number']==row['number']][key].item():
-                self.df[self.df['number']==row['number']][key] = row[key]
-                delta = True
-                print(row['number'],key,row[key])
+                def calcSplit(other):
+                    self_lapTime = self.df[self.df['number']== self.teamId]['lapTime'].item()
+                    self_lapTime = datetime.strptime(f'2020 {self_lapTime}','%Y %M:%S.%f')
 
-def main(rammerId, raceId):
+                    other_lapTime = other['lapTime']
+                    other_lapTime = datetime.strptime(f'2020 {other_lapTime}','%Y %M:%S.%f')
+
+                    if self_lapTime > other_lapTime:
+                        faster = False
+                        delta =str(self_lapTime-other_lapTime).split(':',1)[1][1:9]
+
+                    if self_lapTime < other_lapTime:
+                        faster = True
+                        delta =str(other_lapTime-self_lapTime).split(':',1)[1][1:9]
+
+                    self_laps = int(self.df[self.df['number']== self.teamId]['laps'].item())
+                    other_laps = int(other['laps'])
+                    if self_laps == other_laps:
+                        gap = delta
+                    if self_laps > other_laps:
+                        gap = str(self_laps-other_laps)
+                    if self_laps < other_laps:
+                        gap = str(other_laps-self_laps)
+                    return self_lapTime, other_lapTime, delta, faster, gap
+
+
+                self_position = int(self.df[self.df['number']==self.teamId].index[0])
+
+                if row['number'] == self.teamId or row['position']==str(self_position+1) or row['position']==str(self_position-1): #only export update if impacts self or up/down opponent
+                    self_lapTime, opUp_lapTime, opUp_delta, opUp_faster, opUp_gap = calcSplit(self.opponentUp('all'))
+                    self_lapTime, opDown_lapTime, opDown_delta, opDown_faster, opDown_gap = calcSplit(self.opponentDown('all'))
+
+                    payload = {
+                        'self laptime':self_lapTime,
+                        'self laps': self.df[self.df['number']==self.teamId]['laps'].item(),
+                        'self position': self.df[self.df['number']==self.teamId]['position'].item(),
+                        'opponent up laptime':opUp_lapTime,
+                        'opponent up lap delta':opUp_delta,
+                        'opponent up faster':opUp_faster,
+                        'opponent up gap':opUp_gap,
+                        'opponent down laptime':opDown_lapTime,
+                        'opponent down lap delta':opDown_delta,
+                        'opponent down faster':opDown_faster,
+                        'opponent down gap':opDown_gap}
+                    for x,y in payload.items():  #replace with POST to webserver
+                        print(f'{x}: {y}')
+                        print('\n')
+                else:
+                    pass
+
+def main(rammerId, raceId, debug = False):
     """primary function initialize and crawl RaceMonitor's live updates, process results, and post relevant updates
         Inputs are your team's race number (with #) and the event id, both as strings.  Run loop until killed.  """
 
@@ -66,39 +133,37 @@ def main(rammerId, raceId):
 
         laps = data[data.index('Laps:')+1]
         if laps[0].isnumeric() == False:
-            laps = None
+            laps = '0'
 
-        if laps == None:
+        if laps == '0':
             lapTime = None
-        else:
-            lapTime = time.strptime(data[data.index('Last Time:')+1],'%M:%S.%f')
-
-        bestLap = data[data.index('Best Lap:')+1]
-
-        if lapTime == None:
             bestLap = None
-
-        bestTime = data[data.index('Best Time:')+1]
-        if lapTime == None:
             bestTime = None
+        else:
+            # lapTime = time.strptime(data[data.index('Last Time:')+1],'%M:%S.%f') # moved to processing phase of class
+            lapTime = data[data.index('Last Time:')+1]
+            bestLap = data[data.index('Best Lap:')+1]
+            bestTime = data[data.index('Best Time:')+1]
 
-        output = {'number':number, 'name':name, 'position':position, 'laps':laps, 'lapTime':lapTime, 'bestLap':bestLap, 'bestTime':bestTime, 'gap':None}
+        output = {'number':number, 'name':name, 'position':position, 'laps':laps, 'lapTime':lapTime, 'bestLap':bestLap, 'bestTime':bestTime}#, 'gap':None, 'lead':None}
         return output
 
     timeRaw = driver.find_elements_by_class_name('racerRowWide')
 
-    initDict = {'position':list(), 'number':list(), 'name':list(), 'laps':list(), 'lapTime':list(), 'bestLap':list(), 'bestTime':list(), 'gap':list()}
+    initDict = {'number':list(), 'name':list(), 'position':list(), 'laps':list(), 'lapTime':list(), 'bestLap':list(), 'bestTime':list()}#, 'gap':list(), 'lead':list()}
     for i in timeRaw:
         elm = racerParse(i)
         for k,v in elm.items():
             initDict[k].append(v)
     raceMaster= RacerTable(pd.DataFrame(initDict), rammerId)
 
-    return raceMaster, timeRaw
+    if debug == True:
+        return raceMaster
     while True:
         for row in timeRaw:
             raceMaster.update(racerParse(row))
-            time.sleep(0.1)
+            time.sleep(0.01)
 
 if __name__ == "__main__":
-    i,f = main(rammerId = '#4',raceId = '37872')
+#    main(rammerId = '#3',raceId = '37872')
+    i = main(rammerId = '#3',raceId = '37872')
