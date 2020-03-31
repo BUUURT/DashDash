@@ -58,9 +58,16 @@ class RacerTable:
                         print(f'{x}: {y}')
 
 
-                def calcSplit(other):
+                def calcSplit(other,up=False):
                     self_lapTime = self.df[self.df['number']== self.teamId]['lapTime'][0]
                     self_lapTime = datetime.strptime(f'2020 {self_lapTime}','%Y %M:%S.%f')
+
+                    if self.df[self.df['number']== self.teamId]['position'][0] == "1" and up == True:
+                        other_lapTime = '-'
+                        delta = '-'
+                        faster = '-'
+                        gap = '-'
+                        return self_lapTime, other_lapTime, delta, faster, gap
 
 
                     other_lapTime = other['lapTime']
@@ -91,7 +98,7 @@ class RacerTable:
                 self_position = int(self.df[self.df['number']==self.teamId].index[0])
 
                 if row['number'] == self.teamId or row['position']==str(self_position+1) or row['position']==str(self_position-1): #only export update if impacts self or up/down opponent
-                    self_lapTime, opUp_lapTime, opUp_delta, opUp_faster, opUp_gap = calcSplit(self.opponentUp('all'))
+                    self_lapTime, opUp_lapTime, opUp_delta, opUp_faster, opUp_gap = calcSplit(self.opponentUp('all'),up=True)
                     self_lapTime, opDown_lapTime, opDown_delta, opDown_faster, opDown_gap = calcSplit(self.opponentDown('all'))
 
                     payload = {
@@ -169,4 +176,4 @@ def main(rammerId, raceId, debug = False):
             time.sleep(0.01)
 
 if __name__ == "__main__":
-    i = main(rammerId = '#645',raceId = '37820', debug=False)
+    i = main(rammerId = '#625',raceId = '37820', debug=True)
