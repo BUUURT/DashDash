@@ -6,6 +6,7 @@
 from datetime import datetime
 import time
 
+
 import requests
 
 import pandas as pd
@@ -18,9 +19,10 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 
 class RacerTable:
-    def __init__(self,df,teamId):
+    def __init__(self,df,teamId,endpoint):
         self.df = df.set_index('position')
         self.teamId = teamId
+        self.endpoint = endpoint
 
     def position(self):
         return self.df[self.df['number']==self.teamId].index[0]
@@ -49,7 +51,8 @@ class RacerTable:
         debug == True prints every row update.  False by default"""
 
         if len(self.df[self.df['number']==row['number']]['laps']) != 0:  #catches condition where the dataframe was returning empty series
-            if self.df[self.df['number']==row['number']]['laps'][0] != row['laps'] :  #only evaluate new laps
+            if self.df[self.df['number']==row['number']]['laps'][0] != row['laps']:  #only evaluate new laps
+                # send charting update
                 for key in row.keys(): #update dataframe
                     self.df.at[row['position'], key] = row[key]
 
@@ -94,7 +97,6 @@ class RacerTable:
                         gap = str(other_laps-self_laps)
                     return self_lapTime, other_lapTime, delta, faster, gap
 
-
                 self_position = int(self.df[self.df['number']==self.teamId].index[0])
 
                 if row['number'] == self.teamId or row['position']==str(self_position+1) or row['position']==str(self_position-1): #only export update if impacts self or up/down opponent
@@ -102,24 +104,30 @@ class RacerTable:
                     self_lapTime, opDown_lapTime, opDown_delta, opDown_faster, opDown_gap = calcSplit(self.opponentDown('all'))
 
                     payload = {
-                        'self laptime':self_lapTime,
-                        'self laps': self.df[self.df['number']==self.teamId]['laps'][0],
-                        'self position': self.df[self.df['number']==self.teamId]['position'][0],
-                        'opponent up laptime':opUp_lapTime,
-                        'opponent up lap delta':opUp_delta,
-                        'opponent up faster':opUp_faster,
-                        'opponent up gap':opUp_gap,
-                        'opponent down laptime':opDown_lapTime,
-                        'opponent down lap delta':opDown_delta,
-                        'opponent down faster':opDown_faster,
-                        'opponent down gap':opDown_gap}
-                    for x,y in payload.items():  #replace with POST to webserver
-                        print(f'{x}: {y}')
+                        'selfLaptime':self_lapTime,
+                        'selfLaps': self.df[self.df['number']==self.teamId]['laps'][0],
+                        'selfPosition': self.df[self.df['number']==self.teamId]['position'][0],
+                        'opponentUpLaptime':opUp_lapTime,
+                        'opponentUpLapDelta':opUp_delta,
+                        'opponentUpFaster':opUp_faster,
+                        'opponentUpGap':opUp_gap,
+                        'opponentDownLaptime':opDown_lapTime,
+                        'opponentDownLapdelta':opDown_delta,
+                        'opponentDownFaster':opDown_faster,
+                        'opponentDownGap':opDown_gap
+                        }
+
+
+                    parameters = "&".join([f'{key}={value}' for key,value in payload.items()])
+                    requests.get(f'http://{self.endpoint}/dashDataUpdate?{parameters}')
+                    print(parameters)
+                    # for x,y in payload.items():  #replace with POST to webserver
+                    #     print(f'{x}: {y}')
                     print('\n')
                 else:
                     pass
 
-def main(rammerId, raceId, debug = False):
+def main(rammerId, raceId, endpoint, debug = False):
     """primary function initialize and crawl RaceMonitor's live updates, process results, and post relevant updates
         Inputs are your team's race number (with #) and the event id, both as strings.  Run loop until killed.  """
 
@@ -166,7 +174,7 @@ def main(rammerId, raceId, debug = False):
         elm = racerParse(i)
         for k,v in elm.items():
             initDict[k].append(v)
-    raceMaster= RacerTable(pd.DataFrame(initDict), rammerId)
+    raceMaster= RacerTable(pd.DataFrame(initDict), rammerId,endpoint)
 
     if debug == True:
         return raceMaster
@@ -176,4 +184,4 @@ def main(rammerId, raceId, debug = False):
             time.sleep(0.01)
 
 if __name__ == "__main__":
-    i = main(rammerId = '#625',raceId = '37820', debug=True)
+    i = main(rammerId = '#22',raceId = '37872',endpoint = '192.168.254.12:9000')
