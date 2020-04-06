@@ -37,6 +37,10 @@ ApplicationWindow {
         onTriggered: {
             root.rpm = con.rpm()
             root.speed = con.speed()
+            
+            racePosNum.text = con.raceTimeData('selfPosition')
+            lastLap.text = con.raceTimeData('selfLapTime')
+            
         }
     }
 
@@ -740,7 +744,7 @@ ApplicationWindow {
 
             Text {
                 id: lastLap
-                text: qsTr("0:00:00")
+                text: qsTr("0:00.000")
                 color: root.mainFontColor
                 anchors.top: parent.top
                 anchors.topMargin: 0
@@ -766,9 +770,11 @@ ApplicationWindow {
 
             Text {
                 id: racePosP
+                x: 600
+                y: -10
                 text: qsTr("P")
                 anchors.left: parent.right
-                anchors.leftMargin: 0
+                anchors.leftMargin: 50
                 anchors.top: parent.top
                 anchors.topMargin: 0
                 color: root.mainFontColor

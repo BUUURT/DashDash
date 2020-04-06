@@ -21,31 +21,35 @@ def timeUpdate():
 @app.route('/dashDataUpdate')
 def raceInit():
 
-    payload = str({
-    "selfLaptime" : str(request.args.get("selfLaptime")),
-    "selfLaps" : str(request.args.get("selfLaps")),
-    "selfPosition" : str(request.args.get("selfPosition")),
-    "opponentUpLaptime" : str(request.args.get("opponentUpLaptime")),
-    "opponentUpLapDelta" : str(request.args.get("opponentUpLapDelta")),
-    "opponentUpFaster" : str(request.args.get("opponentUpFaster")),
-    "opponentUpGap" : str(request.args.get("opponentUpGap")),
-    "opponentUpFaster" : str(request.args.get("opponentUpFaster")),
-    "opponentUpGap" : str(request.args.get("opponentUpGap")),
-    "opponentDownLaptime" : str(request.args.get("opponentDownLaptime")),
-    "opponentDownLapdelta" : str(request.args.get("opponentDownLapdelta")),
-    "opponentDownFaster" : str(request.args.get("opponentDownFaster")),
-    "opponentDownGap" : str(request.args.get("opponentDownGap"))
-    })
+    payload = {
+    "selfLaptime" : f"{request.args.get('selfLaptime')}",
+    "selfLaps" : f"{request.args.get('selfLaps')}",
+    "selfPosition" : f"{request.args.get('selfPosition')}",
+    "opponentUpLaptime" : f"{request.args.get('opponentUpLaptime')}",
+    "opponentUpLapDelta" : f"{request.args.get('opponentUpLapDelta')}",
+    "opponentUpFaster" : f"{request.args.get('opponentUpFaster')}",
+    "opponentUpGap" : f"{request.args.get('opponentUpGap')}",
+    "opponentUpFaster" : f"{request.args.get('opponentUpFaster')}",
+    "opponentUpGap" : f"{request.args.get('opponentUpGap')}",
+    "opponentDownLaptime" : f"{request.args.get('opponentDownLaptime')}",
+    "opponentDownLapdelta" : f"{request.args.get('opponentDownLapdelta')}",
+    "opponentDownFaster" : f"{request.args.get('opponentDownFaster')}",
+    "opponentDownGap" : f"{request.args.get('opponentDownGap')}"
+    }
 
-
-### todo - get off json
+    # payload = str(payload).replace("'",'"')
     with open('dashData.json','w+') as file:
+        json.dump(payload,file)
 
-        file.write(json.loads(payload))
+    # with open('dashData','w+') as file:
+    #     file.write(payload)
+    return ('success',200)
 
-@app.route('/test')
-def test():
-    return 'test'
+@app.route('/dashGet')
+def dashGet():
+    with open('dashData.json','r') as file:
+        return file.read()
+
 
 
 if __name__ == '__main__':

@@ -2,8 +2,10 @@ import time
 import sys
 import os
 from os.path import abspath, dirname, join
+import random
+import ast
 
-
+import requests
 
 from PyQt5.QtCore import QObject, QUrl
 from PyQt5.QtCore import pyqtSlot as Slot
@@ -12,19 +14,21 @@ from PyQt5.QtGui import QGuiApplication
 from PyQt5.QtQml import QQmlApplicationEngine
 from PyQt5.QtQuick import QQuickView
 
-import random
-
-# from style_rc import *
 
 
 class Bridge(QObject):
+    #
+    #
+    # @Slot(result=int)
+    # def rander(self):
+    #     r = random.randint(0,360)
+    #     return r
 
-
-    @Slot(result=int)
-    def rander(self):
-        r = random.randint(0,360)
-        return r
-
+    @Slot(str, result=str)
+    def raceTimeData(self,value):
+        data = requests.get(r'http://192.168.254.12:9000/dashGet')
+        data = ast.literal_eval(data.text)
+        return data[value]
 
     @Slot(result=str)
     def speed(self):
