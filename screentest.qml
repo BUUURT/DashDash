@@ -7,6 +7,17 @@ import QtQuick.Controls.Universal 2.0
 import QtGraphicalEffects 1.0
 
 // @disable-check M16
+Timer {
+    interval: 10
+    running: true
+    repeat: true
+    onTriggered: {
+        element1.text = con.raceTimeData()[0]
+        root.speed = con.raceTimeData()[1]
+    }
+}
+
+
 ApplicationWindow {
     id: root
     width: 2000
@@ -74,6 +85,22 @@ ApplicationWindow {
         ]
 
         onStateChanged: {element.text = rectangle.state}
+
+        Text {
+            id: element1
+            x: 39
+            y: 41
+            text: qsTr("Text")
+            font.pixelSize: 12
+        }
+
+        Text {
+            id: element2
+            x: 33
+            y: 82
+            text: qsTr("Text")
+            font.pixelSize: 12
+        }
 
 
     }

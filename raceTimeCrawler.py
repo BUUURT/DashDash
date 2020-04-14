@@ -72,7 +72,6 @@ class RacerTable:
                         gap = '-'
                         return self_lapTime, other_lapTime, delta, faster, gap
 
-
                     other_lapTime = other['lapTime']
                     other_lapTime = datetime.strptime(f'2020 {other_lapTime}','%Y %M:%S.%f')
 
@@ -104,14 +103,14 @@ class RacerTable:
                     self_lapTime, opDown_lapTime, opDown_delta, opDown_faster, opDown_gap = calcSplit(self.opponentDown('all'))
 
                     payload = {
-                        'selfLaptime':self_lapTime,
+                        'selfLaptime':self_lapTime[:-3],
                         'selfLaps': self.df[self.df['number']==self.teamId]['laps'][0],
                         'selfPosition': self.df[self.df['number']==self.teamId]['position'][0],
-                        'opponentUpLaptime':opUp_lapTime,
+                        'opponentUpLaptime':opUp_lapTime[:-3],
                         'opponentUpLapDelta':opUp_delta,
                         'opponentUpFaster':opUp_faster,
                         'opponentUpGap':opUp_gap,
-                        'opponentDownLaptime':opDown_lapTime,
+                        'opponentDownLaptime':opDown_lapTime[:-3],
                         'opponentDownLapdelta':opDown_delta,
                         'opponentDownFaster':opDown_faster,
                         'opponentDownGap':opDown_gap
@@ -121,8 +120,6 @@ class RacerTable:
                     parameters = "&".join([f'{key}={value}' for key,value in payload.items()])
                     requests.get(f'http://{self.endpoint}/dashDataUpdate?{parameters}')
                     print(parameters)
-                    # for x,y in payload.items():  #replace with POST to webserver
-                    #     print(f'{x}: {y}')
                     print('\n')
                 else:
                     pass

@@ -8,7 +8,6 @@ import QtGraphicalEffects 1.0
 
 
 
-
 ApplicationWindow {
     id: root
     //    color: mainBgColor
@@ -37,10 +36,12 @@ ApplicationWindow {
         onTriggered: {
             root.rpm = con.rpm()
             root.speed = con.speed()
-            
-            racePosNum.text = con.raceTimeData('selfPosition')
-            lastLap.text = con.raceTimeData('selfLapTime')
-            
+
+            positionNumber.text = con.raceTimeData('selfPosition')
+            lapNumber.text = con.raceTimeData('selfLaps')
+            lapTimeSelf.text = con.raceTimeData('selfLaptime')
+
+
         }
     }
 
@@ -87,7 +88,6 @@ ApplicationWindow {
         label11.font.pixelSize = (11000 < root.rpm && root.rpm  < 12000) ? 40 :17
         label12.font.pixelSize = (12000 < root.rpm && root.rpm  < 13000) ? 40 :17
         label13.font.pixelSize = (13000 < root.rpm && root.rpm < 14000) ? 40 :17
-
         speed.text = root.speed
 
 
@@ -706,15 +706,16 @@ ApplicationWindow {
         id: base
         width: 1200
         height: 800
+
         Button {
             id: darkmode
-            x: 1182
-            y: 700
+            x: -216
+            y: 625
             text: qsTr("DARK")
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: 0
+            anchors.bottomMargin: 75
             anchors.right: parent.right
-            anchors.rightMargin: -82
+            anchors.rightMargin: 1316
             padding: 4
             font.pointSize: 20
             checkable: true
@@ -742,90 +743,16 @@ ApplicationWindow {
             anchors.left: parent.left
             anchors.leftMargin: 30
 
-            Text {
-                id: lastLap
-                text: qsTr("0:00.000")
-                color: root.mainFontColor
-                anchors.top: parent.top
-                anchors.topMargin: 0
-                anchors.left: parent.left
-                anchors.leftMargin: 0
-                font.pixelSize: 125
-
-                Text {
-                    id: labelLast
-                    x: 0
-                    y: -23
-                    text: qsTr("LAST")
-                    color: root.mainFontColor
-                    anchors.verticalCenter: parent.verticalCenter
-                    rotation: 270
-                    anchors.left: parent.left
-                    anchors.leftMargin: -35
-                    font.underline: false
-                    font.italic: false
-                    font.pixelSize: 20
-                }
-            }
-
-            Text {
-                id: racePosP
-                x: 600
-                y: -10
-                text: qsTr("P")
-                anchors.left: parent.right
-                anchors.leftMargin: 50
-                anchors.top: parent.top
-                anchors.topMargin: 0
-                color: root.mainFontColor
-                font.pixelSize: 100
-
-                Text {
-                    id: racePosNum
-                    y: 9
-                    text: qsTr("18")
-                    color: root.mainFontColor
-                    anchors.left: parent.left
-                    anchors.leftMargin: 50
-                    anchors.verticalCenter: parent.verticalCenter
-                    font.pixelSize: 100
-                }
-            }
-
-            Text {
-                id: lapNum
-                text: qsTr("300")
-                anchors.top: parent.top
-                anchors.topMargin: 100
-                anchors.left: parent.right
-                anchors.leftMargin: 0
-                color: root.mainFontColor
-                anchors.right: parent.right
-                anchors.rightMargin: 0
-                font.pixelSize: 100
-
-                Text {
-                    id: lapL
-                    y: 81
-                    text: qsTr("L")
-                    color: root.mainFontColor
-                    anchors.left: parent.left
-                    anchors.leftMargin: -50
-                    anchors.verticalCenter: parent.verticalCenter
-                    font.pixelSize: 100
-                }
-            }
-
             Rectangle {
                 id: speedBg
-                x: 171
-                y: -360
+                x: 30
+                y: -348
                 width: 462
                 height: 363
                 color: root.mainBgColorSub
                 radius: 50
                 anchors.right: parent.right
-                anchors.rightMargin: -150
+                anchors.rightMargin: 30
                 border.width: 0
 
                 Text {
@@ -841,35 +768,434 @@ ApplicationWindow {
                 }
 
             }
-        }
 
-        Item {
-            id: position
-            width: 200
-            height: 200
-        }
+            Rectangle {
+                id: laptimeBgSelf
+                width: 575
+                height: 150
+                color: root.mainBgColorSub
+                radius: 20
+                anchors.top: lapBg.bottom
+                anchors.topMargin: 5
+                anchors.left: speedBg.right
+                anchors.leftMargin: 15
+                border.width: 0
 
-        Item {
-            id: bikeData
-            width: 200
-            height: 200
+                Text {
+                    id: lapTimeSelf
+                    text: qsTr("0:00.000")
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.pixelSize: 145
+
+                    Text {
+                        id: element2
+                        x: 25
+                        y: 12
+                        text: qsTr("Previous Laptime")
+                        font.pixelSize: 20
+                    }
+                }
+            }
+
+            Rectangle {
+                id: positionDataBg
+                x: 507
+                width: 200
+                height: 100
+                color: root.mainBgColorSub
+                radius: 20
+                anchors.top: speedBg.top
+                anchors.topMargin: 0
+                anchors.bottom: laptimeBg_self.top
+                anchors.bottomMargin: 150
+                anchors.left: speedBg.right
+                anchors.leftMargin: 15
+                border.width: 0
+
+                Text {
+                    id: positionLabel
+                    y: 484
+                    text: qsTr("P")
+                    anchors.left: parent.left
+                    anchors.leftMargin: 15
+                    anchors.verticalCenter: parent.verticalCenter
+                    color: root.mainFontColor
+                    font.pixelSize: 100
+
+                    Text {
+                        id: positionNumber
+                        y: 9
+                        text: qsTr("12")
+                        color: root.mainFontColor
+                        anchors.left: parent.left
+                        anchors.leftMargin: 50
+                        anchors.verticalCenter: parent.verticalCenter
+                        font.pixelSize: 100
+                    }
+                }
+            }
+
+            Rectangle {
+                id: lapBg
+                width: 250
+                height: 100
+                color: root.mainBgColorSub
+                radius: 20
+                anchors.top: positionDataBg.top
+                anchors.topMargin: 0
+                anchors.bottom: laptimeBg_self.top
+                anchors.bottomMargin: 10
+                anchors.left: positionDataBg.right
+                anchors.leftMargin: 10
+                Text {
+                    id: lapLabel
+                    y: 484
+                    color: root.mainFontColor
+                    text: qsTr("L")
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.pixelSize: 100
+                    anchors.left: parent.left
+                    anchors.leftMargin: 15
+                    Text {
+                        id: lapNumber
+                        y: 9
+                        color: root.mainFontColor
+                        text: qsTr("125")
+                        anchors.verticalCenter: parent.verticalCenter
+                        font.pixelSize: 100
+                        anchors.left: parent.left
+                        anchors.leftMargin: 50
+                    }
+                }
+                border.width: 0
+            }
+
+            Rectangle {
+                id: opponentUpBg
+                width: 745
+                height: 115
+                color: root.mainBgColorSub
+                radius: 20
+                anchors.top: laptimeBgSelf.bottom
+                anchors.topMargin: 120
+                anchors.left: lapBg.right
+                anchors.leftMargin: -460
+                anchors.bottom: laptimeBg_self.top
+                anchors.bottomMargin: -365
+
+                Text {
+                    id: upTeam
+                    x: 65
+                    y: 9
+                    color: root.mainFontColor
+                    text: qsTr("#666")
+                    anchors.right: upLabelP.left
+                    anchors.rightMargin: 50
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.pixelSize: 80
+                }
+
+                Text {
+                    id: upLabelP
+                    x: 68
+                    y: 11
+                    color: root.mainFontColor
+                    text: qsTr("+")
+                    anchors.right: upGap.left
+                    anchors.rightMargin: 0
+                    font.pixelSize: 80
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+
+                Text {
+                    id: upGap
+                    x: 335
+                    y: 11
+                    color: root.mainFontColor
+                    text: qsTr("14")
+                    anchors.right: upLabelL.left
+                    anchors.rightMargin: 5
+                    anchors.verticalCenterOffset: 0
+                    font.pixelSize: 80
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+
+                Text {
+                    id: upLabelL
+                    x: 339
+                    y: 2
+                    color: root.mainFontColor
+                    text: qsTr("L")
+                    anchors.right: upDeltaBg.left
+                    anchors.rightMargin: 30
+                    font.pixelSize: 80
+                    anchors.verticalCenterOffset: 0
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+
+                Rectangle {
+                    id: upDeltaBg
+                    x: 0
+                    y: -161
+                    width: 165
+                    height: 115
+                    color: "#00ff00"
+                    radius: 15
+                    anchors.right: parent.right
+                    anchors.rightMargin: 0
+                    Text {
+                        id: upLapTimeDelta
+                        x: 37
+                        y: 53
+                        text: qsTr("11.5")
+                        font.pixelSize: 80
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
+                    anchors.left: laptimeBgSelf.right
+                    anchors.leftMargin: 5
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+
+                Image {
+                    id: upArrow
+                    y: 8
+                    width: 100
+                    height: 100
+                    anchors.left: parent.left
+                    anchors.leftMargin: 10
+                    fillMode: Image.PreserveAspectFit
+                    source: "images/triangle.png"
+                }
+                border.width: 0
+            }
+
+            Rectangle {
+                id: positionDataBg1
+                y: 48
+                width: 280
+                height: 100
+                color: root.mainBgColorSub
+                radius: 20
+                anchors.left: lapBg.right
+                anchors.leftMargin: 5
+                anchors.verticalCenter: lapBg.verticalCenter
+                anchors.bottom: laptimeBg_self.top
+                anchors.bottomMargin: 150
+                Text {
+                    id: positionLabel1
+                    y: 484
+                    color: root.mainFontColor
+                    text: qsTr("5:45.43")
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.pixelSize: 75
+                    anchors.left: parent.left
+                    anchors.leftMargin: 5
+                }
+
+                Text {
+                    id: element
+                    text: qsTr("Race Clock")
+                    anchors.top: parent.top
+                    anchors.topMargin: 5
+                    anchors.left: parent.left
+                    anchors.leftMargin: 5
+                    font.pixelSize: 12
+                }
+                border.width: 0
+            }
+
+            Rectangle {
+                id: lapDeltaBg
+                x: 1093
+                y: -205
+                width: 165
+                height: 150
+                color: "#00ff00"
+                radius: 15
+                anchors.verticalCenter: laptimeBgSelf.verticalCenter
+                anchors.left: laptimeBgSelf.right
+                anchors.leftMargin: 5
+
+                Text {
+                    id: selfLapDelta
+                    x: 37
+                    y: 53
+                    text: qsTr("15.5")
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.pixelSize: 80
+                }
+
+                Text {
+                    id: element3
+                    x: -1090
+                    y: -282
+                    text: qsTr("Prior Lap Delta")
+                    anchors.left: parent.left
+                    anchors.leftMargin: 5
+                    anchors.top: parent.top
+                    anchors.topMargin: 5
+                    font.pixelSize: 12
+                }
+            }
+
+            Rectangle {
+                id: opponentDownBg
+                x: -6
+                y: 2
+                width: 745
+                height: 115
+                color: root.mainBgColorSub
+                radius: 20
+                Text {
+                    id: upTeam1
+                    x: 65
+                    y: 9
+                    color: root.mainFontColor
+                    text: qsTr("#4")
+                    anchors.right: downLabelP.left
+                    anchors.rightMargin: 50
+                    font.pixelSize: 80
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+
+                Text {
+                    id: downLabelP
+                    x: 68
+                    y: 11
+                    color: root.mainFontColor
+                    text: qsTr("-")
+                    font.pixelSize: 80
+                    anchors.rightMargin: 0
+                    anchors.right: downGap.left
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+
+                Text {
+                    id: downGap
+                    x: 335
+                    y: 11
+                    color: root.mainFontColor
+                    text: qsTr("1")
+                    font.pixelSize: 80
+                    anchors.rightMargin: 5
+                    anchors.right: downLabelL.left
+                    anchors.verticalCenterOffset: 0
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+
+                Text {
+                    id: downLabelL
+                    x: 339
+                    y: 2
+                    color: root.mainFontColor
+                    text: qsTr("L")
+                    font.pixelSize: 80
+                    anchors.rightMargin: 30
+                    anchors.right: downDeltaBg.left
+                    anchors.verticalCenterOffset: 0
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+
+                Rectangle {
+                    id: downDeltaBg
+                    x: 0
+                    y: -161
+                    width: 165
+                    height: 115
+                    color: "#ff0000"
+                    radius: 15
+                    Text {
+                        id: downLapTimeDelta
+                        x: 37
+                        y: 53
+                        text: qsTr("6.3")
+                        font.pixelSize: 80
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
+                    anchors.rightMargin: 0
+                    anchors.right: parent.right
+                    anchors.left: laptimeBgSelf.right
+                    anchors.leftMargin: 5
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+
+                Image {
+                    id: downArrow
+                    y: -120
+                    width: 100
+                    height: 100
+                    rotation: 180
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.left: parent.left
+                    anchors.leftMargin: 10
+                    fillMode: Image.PreserveAspectFit
+                    source: "images/triangle.png"
+                }
+                anchors.topMargin: 5
+                anchors.bottomMargin: -365
+                anchors.left: lapBg.right
+                anchors.leftMargin: -460
+                border.width: 0
+                anchors.top: opponentUpBg.bottom
+                anchors.bottom: laptimeBg_self.top
+            }
+
+            Button {
+                id: pitMain
+                width: 160
+                height: 104
+                text: qsTr("PIT")
+                anchors.top: laptimeBgSelf.bottom
+                anchors.topMargin: 7
+                anchors.left: laptimeBgSelf.left
+                anchors.leftMargin: 0
+
+                padding: 10
+                font.pointSize: 50
+                checkable: true
+                background: Rectangle {
+                    implicitWidth: 160
+                    implicitHeight: 300
+                    color: pitMain.checked ? "red" : root.mainBgColor
+                    border.color: root.mainFontColor
+                    border.width: 2
+                    radius: 20
+                }
+
+                Text {
+                    id: teamMsg
+                    y: 168
+                    text: qsTr("TEAM MSG TEXT")
+                    anchors.left: parent.right
+                    anchors.leftMargin: 10
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.pixelSize: 75
+                }
+            }
+
         }
 
         Text {
-            id: element
-            x: 757
-            y: 173
+            id: engineTemp
+            x: 214
+            y: 563
             text: qsTr("150F")
             font.pixelSize: 70
         }
 
         Text {
-            id: element1
-            x: 700
-            y: 297
+            id: brakeTemp
+            x: 39
+            y: 563
             text: qsTr("500f")
             font.pixelSize: 70
         }
+
+
     }
 
     Item {
@@ -881,28 +1207,6 @@ ApplicationWindow {
         anchors.bottomMargin: 0
         anchors.left: parent.left
         anchors.leftMargin: 0
-
-        Button {
-            id: pitMain
-            x: -660
-            text: qsTr("PIT")
-
-            anchors.horizontalCenterOffset: 27
-            padding: 10
-            font.pointSize: 50
-            checkable: true
-            anchors.top: parent.top
-            anchors.topMargin: 0
-            anchors.horizontalCenter: parent.horizontalCenter
-            background: Rectangle {
-                implicitWidth: 160
-                implicitHeight: 300
-                color: pitMain.checked ? "red" : root.mainBgColor
-                border.color: root.mainFontColor
-                border.width: 2
-                radius: 20
-            }
-        }
 
 
     }
@@ -919,8 +1223,7 @@ ApplicationWindow {
 
 /*##^##
 Designer {
-    D{i:45;anchors_x:"-64";anchors_y:"-23"}D{i:44;anchors_x:"-64";anchors_y:0}D{i:47;anchors_x:5}
-D{i:46;anchors_x:10;anchors_y:120}D{i:49;anchors_x:150}D{i:48;anchors_x:5;anchors_y:120}
-D{i:43;anchors_x:180}D{i:58;anchors_y:"-58"}D{i:57;anchors_y:"-58"}D{i:56;anchors_x:688}
+    D{i:79;anchors_x:271}D{i:77;anchors_x:1009;anchors_y:"-292"}D{i:80;anchors_y:"-58"}
+D{i:82;anchors_x:688;invisible:true}
 }
 ##^##*/

@@ -2,7 +2,8 @@
 import os
 import subprocess
 import json
-
+import ast
+from datetime import datetime
 
 from flask import Flask, url_for, request
 from markupsafe import escape
@@ -39,10 +40,24 @@ def raceInit():
 
     # payload = str(payload).replace("'",'"')
     with open('dashData.json','w+') as file:
+        if len(file.read())>0:
+            old = ast.literal_eval(file.read())
+
+            oldLt_self = datetime.strptime(old['selfLaptime'],'%M:%S.%f')
+            oldLt_up = datetime.strptime(old['opponentDownLaptime'],'%M:%S.%f')
+            oldLt_down = datetime.strptime(old['opponentDownLaptime'],'%M:%S.%f')
+
+            selfDelta = datetime.strptime(requests.args.get('selfLaptime'),'%M:%S.%f') - oldLt_self
+            upDelta = datetime.strptime(requests.args.get('opponentUpLaptime'),'%M:%S.%f') - oldLt_up
+            downDelta = datetime.strptime(requests.args.get('opponentDownLaptime'),'%M:%S.%f') - oldLt_down
+
+            payload['selfDelta'] = f'{selfDelta.seconds}.{selfDelta.microseconds}'
+            payload['upDelta'] = f'{upDelta.seconds}.{upDelta.microseconds}'
+            payload['downDelta'] = f'{downDelta.seconds}.{downDelta.microseconds}'
+
         json.dump(payload,file)
 
-    # with open('dashData','w+') as file:
-    #     file.write(payload)
+
     return ('success',200)
 
 @app.route('/dashGet')
