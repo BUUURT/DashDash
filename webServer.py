@@ -69,6 +69,6 @@ def dashGet():
 
 if __name__ == '__main__':
     app.run(debug=True,
-            host=app.config.get("HOST", "192.168.254.12"),
+            host=app.config.get("HOST", "192.168.254.25"),
             port=app.config.get("PORT", 9000)
             )
