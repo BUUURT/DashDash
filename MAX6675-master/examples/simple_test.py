@@ -63,8 +63,8 @@ sensor = MAX6675.MAX6675(CLK, CS, DO)
 # sensor = MAX6675.MAX6675(spi=SPI.SpiDev(SPI_PORT, SPI_DEVICE))
 
 # Loop printing measurements every second.
-print 'Press Ctrl-C to quit.'
+print('Press Ctrl-C to quit.')
 while True:
 	temp = sensor.readTempC()
-	print 'Thermocouple Temperature: {0:0.3F}°C / {1:0.3F}°F'.format(temp, c_to_f(temp))
+	print('Thermocouple Temperature: {0:0.3F}°C / {1:0.3F}°F'.format(temp, c_to_f(temp)))
 	time.sleep(1.0)
