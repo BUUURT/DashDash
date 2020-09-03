@@ -20,8 +20,10 @@
 # THE SOFTWARE.
 import logging
 
-import Adafruit_GPIO as GPIO
-import Adafruit_GPIO.SPI as SPI
+#import Adafruit_GPIO as GPIO
+#import Adafruit_GPIO.SPI as SPI
+import RPI.GPIO as GPIO
+import spidev as SPI 
 
 class MAX6675(object):
 	"""Class to represent a MAX6675 thermocouple temperature measurement board.
