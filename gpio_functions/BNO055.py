@@ -219,7 +219,7 @@ class BNO055(object):
         self._rst = rst
         if self._rst is not None:
             if gpio is None:
-                import Adafruit_GPIO as GPIO
+                import GPIO
                 gpio = GPIO.get_platform_gpio()
             self._gpio = gpio
             # Setup the reset pin as an output at a high level.
