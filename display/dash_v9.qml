@@ -18,26 +18,25 @@ ApplicationWindow {
     property color mainFontColor: "black"
     property color mainBgColor: "white"
     property color mainBgColorSub: "#eaeaea"
-    property color mainAccentColor: "darkblue"
+    property color mainAccentColor: "gray"
+    property color rpmColor: "#4d6278"
+    property int colorMode: 0
     property int rpm: 0
     property int speed: 0
-    property color rpmColor: "#4d6278"
     property int shiftLow: 11000
     property int shiftHigh: 12200
 
-    Rectangle {
-        id: rpmSweepLow
-        y: 312
-        width: 122
-        height: 220
-        color: root.rpmColor
-        anchors.left: parent.left
-        anchors.leftMargin: 37
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 288
-        opacity: 1
-        rotation: 0
-        transformOrigin: Item.Top
+    onColorModeChanged: {
+        if (colorMode=0) {
+            mainFontColor = "black"
+            mainBgColor = "white"
+            mainBgColorSub = "eaeaea"
+            baselayer.source = "images/dashMask_light.png"
+            teamUpLabel.source = "images/triange_light.png"
+            teamDnLabel.source = "images/triange_light.png"
+
+        }
+
     }
 
     Timer {
@@ -123,12 +122,24 @@ ApplicationWindow {
 
         //        speed.text = root.speed
 
-
-
     }
-
     onSpeedChanged: {
         speed.text = root.speed
+    }
+
+    Rectangle {
+        id: rpmSweepLow
+        y: 312
+        width: 122
+        height: 220
+        color: root.rpmColor
+        anchors.left: parent.left
+        anchors.leftMargin: 37
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 288
+        opacity: 1
+        rotation: 0
+        transformOrigin: Item.Top
     }
 
 
@@ -146,12 +157,6 @@ ApplicationWindow {
     }
 
 
-
-
-
-
-
-
     Rectangle {
         id: rpmSweepHigh
         y: 9
@@ -162,6 +167,7 @@ ApplicationWindow {
         anchors.leftMargin: 262
         transformOrigin: Item.Center
     }
+
 
     Rectangle {
         id: rpmSweepOrange
@@ -190,9 +196,10 @@ ApplicationWindow {
 
 
 
+
     Image {
         id: baselayer
-        source: "dashV9.png"
+        source: "images/dashMask_light.png"
         x: 0
         y: 0
         width: 1280
@@ -201,8 +208,8 @@ ApplicationWindow {
 
         Text {
             id: speed
-            x: 317
-            y: 237
+            x: 230
+            y: 225
             text: qsTr("61")
             font.bold: true
             font.family: "Arial"
@@ -219,89 +226,22 @@ ApplicationWindow {
         }
 
         Rectangle {
-            id: tempEngBg
-            x: 115
-            y: 703
-            width: 160
-            height: 80
-            color: "#00ff00"
-            radius: 25
-            border.width: 2
-
-            Text {
-                id: tempEngDisp
-                text: qsTr("175")
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.verticalCenter: parent.verticalCenter
-                font.pixelSize: 55
-            }
-
-            Text {
-                id: tempEngLabel
-                text: qsTr("ENG")
-                font.family: "BN Elements"
-                anchors.right: parent.left
-                anchors.rightMargin: 5
-                anchors.verticalCenter: parent.verticalCenter
-                font.pixelSize: 40
-            }
-
-            Text {
-                id: tempEngLabel2
-                x: 4
-                y: -4
-                text: qsTr("ENG")
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.rightMargin: 5
-                font.family: "BN Elements"
-                anchors.right: parent.left
-                font.pixelSize: 40
-            }
-        }
-
-        Rectangle {
-            id: tempBrakeBg
-            y: 712
-            width: 160
-            height: 80
-            color: "#ff9000"
-            radius: 25
-            anchors.left: tempEngBg.right
-            anchors.leftMargin: 130
-            anchors.verticalCenter: tempEngBg.verticalCenter
-            border.width: 2
-            Text {
-                id: tempBrakeDisp
-                text: qsTr("450")
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.verticalCenter: parent.verticalCenter
-                font.pixelSize: 55
-            }
-
-            Text {
-                id: tempBrakeLabel
-                text: qsTr("BRK")
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.rightMargin: 5
-                font.family: "BN Elements"
-                anchors.right: parent.left
-                font.pixelSize: 40
-            }
-        }
-
-        Rectangle {
             id: posBg
             x: 720
-            y: 296
+            y: 379
             width: 125
             height: 90
             color: "#ffffff"
-            radius: 25
+            radius: 0
             Text {
                 id: posDisp
-                text: qsTr("11")
+                text: qsTr("P11")
+                horizontalAlignment: Text.AlignHCenter
+                font.italic: false
+                font.family: "Mont Heavy DEMO"
+                font.bold: true
                 anchors.horizontalCenter: parent.horizontalCenter
-                font.pixelSize: 75
+                font.pixelSize: 70
                 anchors.verticalCenter: parent.verticalCenter
             }
 
@@ -314,23 +254,26 @@ ApplicationWindow {
                 font.pixelSize: 30
                 font.family: "BN Elements"
             }
-            border.width: 2
+            border.width: 3
         }
 
         Rectangle {
             id: lapBg
             y: 415
-            width: 125
+            width: 185
             height: 90
             color: "#ffffff"
             radius: 25
             anchors.left: posBg.right
-            anchors.leftMargin: 35
+            anchors.leftMargin: 15
             anchors.verticalCenter: posBg.verticalCenter
             Text {
                 id: lapDisp
                 width: 130
-                text: qsTr("114")
+                text: qsTr("L114")
+                horizontalAlignment: Text.AlignHCenter
+                font.bold: true
+                font.family: "Mont Heavy DEMO"
                 anchors.horizontalCenter: parent.horizontalCenter
                 font.pixelSize: 75
                 anchors.verticalCenter: parent.verticalCenter
@@ -348,36 +291,6 @@ ApplicationWindow {
             border.width: 2
         }
 
-        Rectangle {
-            id: sesTBg
-            x: 0
-            y: 419
-            width: 225
-            height: 90
-            color: "#ffffff"
-            radius: 25
-            Text {
-                id: sesTDisp
-                text: qsTr("20:45")
-                anchors.verticalCenter: parent.verticalCenter
-                font.pixelSize: 75
-                anchors.horizontalCenter: parent.horizontalCenter
-            }
-
-            Text {
-                id: sesTlabel
-                text: qsTr("RACE CLOCK")
-                anchors.bottom: parent.top
-                font.pixelSize: 30
-                font.family: "BN Elements"
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.bottomMargin: -8
-            }
-            anchors.verticalCenter: lapBg.verticalCenter
-            anchors.leftMargin: 35
-            anchors.left: lapBg.right
-            border.width: 2
-        }
 
         Rectangle {
             id: lastLapBg
@@ -412,8 +325,8 @@ ApplicationWindow {
 
         Rectangle {
             id: tcSlipBg
-            x: 887
-            y: 628
+            x: 492
+            y: 696
             width: 80
             height: 65
             color: "#2b82dc"
@@ -450,7 +363,7 @@ ApplicationWindow {
             color: "#ffff00"
             radius: 5
             anchors.left: tcSlipBg.right
-            anchors.leftMargin: 195
+            anchors.leftMargin: 150
             anchors.verticalCenter: tcSlipBg.verticalCenter
             Text {
                 id: tcCutDisp
@@ -509,12 +422,12 @@ ApplicationWindow {
             id: teamMsg
             x: 8
             y: 538
-            width: 696
-            height: 151
-            text: qsTr("PIT 5L")
+            width: 545
+            height: 101
+            text: qsTr("TEAM MSG")
             font.bold: false
             horizontalAlignment: Text.AlignHCenter
-            font.pixelSize: 125
+            font.pixelSize: 110
         }
 
         Image {
@@ -522,11 +435,11 @@ ApplicationWindow {
             width: 60
             height: 60
             anchors.top: lastLapBg.bottom
-            anchors.topMargin: 18
+            anchors.topMargin: 183
             anchors.left: posBg.left
             anchors.leftMargin: 0
             fillMode: Image.PreserveAspectFit
-            source: "images/triangle.png"
+            source: "images/triangle_light.png"
 
             Rectangle {
                 id: upTeamNumBg
@@ -599,9 +512,11 @@ ApplicationWindow {
             y: 5
             width: 60
             height: 60
+            anchors.horizontalCenterOffset: -117
             rotation: 180
             anchors.horizontalCenter: teamUpLabel.horizontalCenter
-            anchors.topMargin: 15
+            anchors.topMargin: 85
+
             Rectangle {
                 id: upTeamNumBg1
                 x: 792
@@ -616,29 +531,32 @@ ApplicationWindow {
                 border.width: 2
                 anchors.verticalCenter: parent.verticalCenter
                 Text {
-                    id: upTeamNumDisp1
+                    id: dnTeamNumDisp
                     text: qsTr("#19")
+                    anchors.verticalCenterOffset: 1
+                    anchors.horizontalCenterOffset: 0
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.horizontalCenter: parent.horizontalCenter
                     font.pixelSize: 50
+                    color: root.mainFontColor
                 }
             }
 
             Rectangle {
-                id: upTeamLapBg1
+                id: dnTeamLapBg
                 x: 792
                 y: -175
                 width: 140
                 height: 60
                 color: "#ffffff"
                 radius: 10
-                anchors.right: upTeamNumBg1.left
+                anchors.right: dnTeamNumBg.left
                 anchors.rightMargin: 15
                 rotation: 180
                 border.width: 2
                 anchors.verticalCenter: parent.verticalCenter
                 Text {
-                    id: upTeamLapVal1
+                    id: dnTeamLapVal
                     text: qsTr("-5L")
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.horizontalCenter: parent.horizontalCenter
@@ -647,20 +565,20 @@ ApplicationWindow {
             }
 
             Rectangle {
-                id: upTeamDeltaBg1
+                id: dnTeamDeltaBg
                 x: 64
                 y: -177
                 width: 160
                 height: 60
                 color: "#ff0000"
                 radius: 10
-                anchors.right: upTeamLapBg1.left
+                anchors.right: dnTeamLapBg.left
                 anchors.rightMargin: 10
                 rotation: 180
                 border.width: 2
                 anchors.verticalCenter: parent.verticalCenter
                 Text {
-                    id: upTeamDeltaDisp1
+                    id: dnTeamDeltaDisp
                     text: qsTr("-1.10")
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.horizontalCenter: parent.horizontalCenter
@@ -672,6 +590,175 @@ ApplicationWindow {
             source: "images/triangle.png"
         }
 
+        Item {
+            id: tempGroup
+            x: 0
+            y: 696
+            width: 400
+            height: 104
+
+            Rectangle {
+                id: tempEngBg
+                y: 702
+                width: 130
+                height: 90
+                color: "#00ff00"
+                radius: 0
+                anchors.left: parent.left
+                anchors.leftMargin: 25
+                anchors.verticalCenter: parent.verticalCenter
+                border.width: 3
+
+                Text {
+                    id: tempEngDisp
+                    text: qsTr("175")
+                    anchors.horizontalCenterOffset: -10
+                    font.bold: true
+                    font.family: "Mont Heavy DEMO"
+                    anchors.verticalCenterOffset: -10
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.pixelSize: 60
+
+                    Text {
+                        id: tempDot
+                        y: 35
+                        text: qsTr("°")
+                        anchors.left: parent.right
+                        anchors.leftMargin: 0
+                        font.bold: true
+                        anchors.verticalCenter: parent.verticalCenter
+                        font.pixelSize: 20
+                        anchors.verticalCenterOffset: -12
+                        font.family: "Arial"
+                        rotation: 0
+
+                        Text {
+                            id: tempF
+                            x: 95
+                            y: 21
+                            text: qsTr("F")
+                            anchors.leftMargin: 0
+                            anchors.verticalCenter: tempDot.verticalCenter
+                            font.pixelSize: 20
+                            anchors.left: parent.right
+                            anchors.verticalCenterOffset: 0
+                            font.family: "BN Elements"
+                            rotation: 0
+                        }
+                    }
+
+                }
+
+                Text {
+                    id: tempLabel
+                    x: 3
+                    y: 7
+                    text: qsTr("T ENG")
+                    font.family: "BN Elements"
+                    font.pixelSize: 30
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenterOffset: 30
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+            }
+
+            Rectangle {
+                id: tempAirBg
+                x: -1
+                y: 705
+                width: 130
+                height: 90
+                radius: 0
+                anchors.leftMargin: 15
+                anchors.verticalCenter: parent.verticalCenter
+                Text {
+                    id: tempAirDisp
+                    text: qsTr("175")
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.pixelSize: 60
+                    anchors.horizontalCenterOffset: -10
+                    Text {
+                        id: tempDot1
+                        y: 35
+                        text: qsTr("°")
+                        anchors.leftMargin: 0
+                        anchors.verticalCenter: parent.verticalCenter
+                        font.pixelSize: 20
+                        Text {
+                            id: tempF1
+                            x: 95
+                            y: 21
+                            text: qsTr("F")
+                            anchors.leftMargin: 0
+                            anchors.verticalCenter: tempDot1.verticalCenter
+                            font.pixelSize: 20
+                            anchors.left: parent.right
+                            anchors.verticalCenterOffset: 0
+                            font.family: "BN Elements"
+                            rotation: 0
+                        }
+                        anchors.left: parent.right
+                        anchors.verticalCenterOffset: -12
+                        font.family: "Arial"
+                        font.bold: true
+                        rotation: 0
+                    }
+                    anchors.verticalCenterOffset: -10
+                    font.bold: true
+                    font.family: "Mont Heavy DEMO"
+                }
+
+                Text {
+                    id: tempLabel1
+                    x: 3
+                    y: 7
+                    text: qsTr("T AIR")
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.pixelSize: 30
+                    anchors.verticalCenterOffset: 30
+                    font.family: "BN Elements"
+                }
+                anchors.left: tempEngBg.right
+                border.width: 3
+            }
+        }
+
+        Rectangle {
+            id: sesTBg
+            width: 130
+            height: 50
+            color: "#00000000"
+            radius: 0
+            anchors.top: parent.top
+            anchors.topMargin: 3
+            Text {
+                id: sesTDisp
+                text: qsTr("15:45")
+                anchors.verticalCenter: parent.verticalCenter
+                font.pixelSize: 50
+                anchors.horizontalCenter: parent.horizontalCenter
+
+            }
+
+            Text {
+                id: sesTlabel
+                text: qsTr("RACE CLOCK")
+                anchors.left: parent.left
+                anchors.leftMargin: 0
+                anchors.top: parent.bottom
+                anchors.topMargin: 1
+                font.pixelSize: 15
+                font.family: "BN Elements"
+                color: root.mainAccentColor
+            }
+            anchors.leftMargin: 3
+            anchors.left: parent.left
+            border.width: 3
+            border.color: root.mainAccentColor
+        }
     }
 
 
@@ -679,17 +766,102 @@ ApplicationWindow {
 
 
 
+
+
+    Item {
+        id: pageHead
+        x: 570
+        y: 252
+        width: 710
+        height: 40
+
+
+        Text {
+            id: mainHead
+            color: "#0000ff"
+            text: qsTr("MAIN")
+            styleColor: "#0000ff"
+            anchors.verticalCenterOffset: 3
+            anchors.left: parent.left
+            anchors.leftMargin: 40
+            anchors.verticalCenter: parent.verticalCenter
+            font.family: "BN Elements"
+            font.pixelSize: 28
+        }
+        Rectangle {
+            id: selection
+            x: mainHead.x
+            y: mainHead.y
+            width: mainHead.width+20
+            height: 30
+            color: "#00000000"
+            anchors.verticalCenter: parent.verticalCenter
+            visible: true
+            border.color: "#0000ff"
+            anchors.horizontalCenter: mainHead.horizontalCenter
+            border.width: 4
+        }
+
+        Rectangle {
+            id: rectangle
+            x: 0
+            y: 46
+            width: 710
+            height: 4
+            color: "#00000000"
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 0
+            border.color: "#f2f2f2"
+            border.width: 2
+        }
+
+        Text {
+            id: timeHead
+            x: 4
+            y: 0
+            color: "#b0acac"
+            text: qsTr("TIMING")
+            styleColor: "#0000ff"
+            anchors.leftMargin: 50
+            anchors.verticalCenter: parent.verticalCenter
+            font.pixelSize: 28
+            anchors.left: mainHead.right
+            anchors.verticalCenterOffset: 3
+            font.family: "BN Elements"
+        }
+
+        Text {
+            id: teleHead
+            x: 0
+            y: 4
+            color: "#b0acac"
+            text: qsTr("TELEMETRY")
+            styleColor: "#0000ff"
+            anchors.leftMargin: 50
+            anchors.verticalCenter: parent.verticalCenter
+            font.pixelSize: 28
+            anchors.left: timeHead.right
+            anchors.verticalCenterOffset: 3
+            font.family: "BN Elements"
+        }
+
+        Text {
+            id: configHead
+            x: 5
+            y: -3
+            color: "#b0acac"
+            text: qsTr("CONFIG")
+            styleColor: "#0000ff"
+            anchors.leftMargin: 50
+            anchors.verticalCenter: parent.verticalCenter
+            font.pixelSize: 28
+            anchors.left: teleHead.right
+            anchors.verticalCenterOffset: 3
+            font.family: "BN Elements"
+        }
+    }
 }
 
 
 
-/*##^##
-Designer {
-    D{i:13;anchors_y:"-4"}D{i:14;anchors_x:115}D{i:20;anchors_width:102;anchors_x:731}
-D{i:23;anchors_width:102;anchors_x:731}D{i:26;anchors_width:102;anchors_x:731;anchors_y:431}
-D{i:29;anchors_width:160;anchors_x:124}D{i:32;anchors_width:160;anchors_x:885}D{i:35;anchors_width:102;anchors_x:731;anchors_y:431}
-D{i:40;anchors_x:792}D{i:42;anchors_x:792}D{i:44;anchors_x:64}D{i:39;anchors_x:720;anchors_y:525}
-D{i:47;anchors_width:130;anchors_x:792}D{i:49;anchors_width:140;anchors_x:792}D{i:51;anchors_x:64}
-D{i:46;anchors_x:720;anchors_y:525}
-}
-##^##*/
+
