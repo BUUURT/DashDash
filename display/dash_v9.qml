@@ -211,8 +211,9 @@ ApplicationWindow {
             x: 230
             y: 225
             text: qsTr("61")
+            font.italic: true
             font.bold: true
-            font.family: "Arial"
+            font.family: "Mont Heavy DEMO"
             font.pixelSize: 300
 
             Text {
@@ -225,117 +226,22 @@ ApplicationWindow {
             }
         }
 
-        Rectangle {
-            id: posBg
-            x: 720
-            y: 379
-            width: 125
-            height: 90
-            color: "#ffffff"
-            radius: 0
-            Text {
-                id: posDisp
-                text: qsTr("P11")
-                horizontalAlignment: Text.AlignHCenter
-                font.italic: false
-                font.family: "Mont Heavy DEMO"
-                font.bold: true
-                anchors.horizontalCenter: parent.horizontalCenter
-                font.pixelSize: 70
-                anchors.verticalCenter: parent.verticalCenter
-            }
-
-            Text {
-                id: posLabel
-                text: qsTr("POS")
-                anchors.bottom: parent.top
-                anchors.bottomMargin: -8
-                anchors.horizontalCenter: parent.horizontalCenter
-                font.pixelSize: 30
-                font.family: "BN Elements"
-            }
-            border.width: 3
-        }
-
-        Rectangle {
-            id: lapBg
-            y: 415
-            width: 185
-            height: 90
-            color: "#ffffff"
-            radius: 25
-            anchors.left: posBg.right
-            anchors.leftMargin: 15
-            anchors.verticalCenter: posBg.verticalCenter
-            Text {
-                id: lapDisp
-                width: 130
-                text: qsTr("L114")
-                horizontalAlignment: Text.AlignHCenter
-                font.bold: true
-                font.family: "Mont Heavy DEMO"
-                anchors.horizontalCenter: parent.horizontalCenter
-                font.pixelSize: 75
-                anchors.verticalCenter: parent.verticalCenter
-            }
-
-            Text {
-                id: lapLabel
-                text: qsTr("LAP")
-                anchors.bottom: parent.top
-                anchors.bottomMargin: -8
-                anchors.horizontalCenter: parent.horizontalCenter
-                font.pixelSize: 30
-                font.family: "BN Elements"
-            }
-            border.width: 2
-        }
-
-
-        Rectangle {
-            id: lastLapBg
-            x: 722
-            width: 350
-            height: 100
-            color: "#ffffff"
-            radius: 25
-            anchors.top: posBg.bottom
-            anchors.topMargin: 40
-            Text {
-                id: lastLapDisp
-                text: qsTr("0:45.14")
-                anchors.verticalCenter: parent.verticalCenter
-                font.pixelSize: 95
-                anchors.horizontalCenter: parent.horizontalCenter
-            }
-
-            Text {
-                id: lastLapLabel
-                text: qsTr("LAST LAP")
-                anchors.bottom: parent.top
-                font.pixelSize: 30
-                font.family: "BN Elements"
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.bottomMargin: -8
-            }
-            anchors.leftMargin: 0
-            anchors.left: posBg.left
-            border.width: 2
-        }
 
         Rectangle {
             id: tcSlipBg
-            x: 492
-            y: 696
+            x: 396
+            y: 825
             width: 80
             height: 65
             color: "#2b82dc"
             radius: 5
+            visible: true
             anchors.verticalCenterOffset: 0
             anchors.verticalCenter: tempEngBg.verticalCenter
             Text {
                 id: tcSlipDisp
                 text: qsTr("5")
+                visible: true
                 anchors.verticalCenter: parent.verticalCenter
                 font.pixelSize: 60
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -344,6 +250,7 @@ ApplicationWindow {
             Text {
                 id: tcSlipLabel
                 text: qsTr("SLIP")
+                visible: true
                 font.letterSpacing: 5
                 font.italic: false
                 anchors.rightMargin: 0
@@ -362,12 +269,15 @@ ApplicationWindow {
             height: 80
             color: "#ffff00"
             radius: 5
+            anchors.verticalCenterOffset: 146
+            visible: true
             anchors.left: tcSlipBg.right
-            anchors.leftMargin: 150
+            anchors.leftMargin: -80
             anchors.verticalCenter: tcSlipBg.verticalCenter
             Text {
                 id: tcCutDisp
                 text: qsTr("3")
+                visible: true
                 anchors.verticalCenter: parent.verticalCenter
                 font.pixelSize: 60
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -376,6 +286,7 @@ ApplicationWindow {
             Text {
                 id: tcCutLabel
                 text: qsTr("CUT")
+                visible: true
                 font.letterSpacing: 1
                 anchors.rightMargin: 0
                 anchors.verticalCenter: parent.verticalCenter
@@ -386,38 +297,6 @@ ApplicationWindow {
             border.width: 2
         }
 
-        Rectangle {
-            id: lastDeltaBg
-            x: 718
-            y: 6
-            width: 185
-            height: 100
-            color: "#00ff00"
-            radius: 25
-            anchors.topMargin: 40
-            Text {
-                id: lastDeltaDisp
-                text: qsTr("+5.45")
-                anchors.verticalCenter: parent.verticalCenter
-                font.pixelSize: 65
-                anchors.horizontalCenter: parent.horizontalCenter
-            }
-
-            Text {
-                id: lastDeltaLabel
-                text: qsTr("DELTA")
-                anchors.bottom: parent.top
-                font.pixelSize: 30
-                font.family: "BN Elements"
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.bottomMargin: -8
-            }
-            anchors.leftMargin: 11
-            anchors.left: lastLapBg.right
-            border.width: 2
-            anchors.top: posBg.bottom
-        }
-
         Text {
             id: teamMsg
             x: 8
@@ -425,175 +304,16 @@ ApplicationWindow {
             width: 545
             height: 101
             text: qsTr("TEAM MSG")
+            font.family: "Mont Heavy DEMO"
             font.bold: false
             horizontalAlignment: Text.AlignHCenter
-            font.pixelSize: 110
-        }
-
-        Image {
-            id: teamUpLabel
-            width: 60
-            height: 60
-            anchors.top: lastLapBg.bottom
-            anchors.topMargin: 183
-            anchors.left: posBg.left
-            anchors.leftMargin: 0
-            fillMode: Image.PreserveAspectFit
-            source: "images/triangle_light.png"
-
-            Rectangle {
-                id: upTeamNumBg
-                x: 72
-                y: -166
-                width: 130
-                height: 60
-                color: "#ffffff"
-                radius: 10
-                anchors.left: parent.right
-                anchors.leftMargin: 30
-                anchors.verticalCenter: parent.verticalCenter
-                border.width: 2
-
-                Text {
-                    id: upTeamNumDisp
-                    text: qsTr("#666")
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    font.pixelSize: 50
-                }
-            }
-
-            Rectangle {
-                id: upTeamLapBg
-                x: 72
-                y: -175
-                width: 140
-                height: 60
-                color: "#ffffff"
-                radius: 10
-                border.width: 2
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.left: upTeamNumBg.right
-                Text {
-                    id: upTeamLapVal
-                    width: 125
-                    text: qsTr("+23L")
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    font.pixelSize: 50
-                }
-                anchors.leftMargin: 15
-            }
-
-            Rectangle {
-                id: upTeamDeltaBg
-                y: -177
-                width: 160
-                height: 60
-                color: "#00ff00"
-                radius: 10
-                border.width: 2
-                anchors.left: upTeamLapBg.right
-                anchors.verticalCenter: parent.verticalCenter
-                Text {
-                    id: upTeamDeltaDisp
-                    text: qsTr("+5.34")
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    font.pixelSize: 50
-                }
-                anchors.leftMargin: 10
-            }
-        }
-
-        Image {
-            id: teamDnLabel
-            x: 720
-            y: 5
-            width: 60
-            height: 60
-            anchors.horizontalCenterOffset: -117
-            rotation: 180
-            anchors.horizontalCenter: teamUpLabel.horizontalCenter
-            anchors.topMargin: 85
-
-            Rectangle {
-                id: upTeamNumBg1
-                x: 792
-                y: -166
-                width: 130
-                height: 60
-                color: "#ffffff"
-                radius: 10
-                anchors.right: parent.left
-                anchors.rightMargin: 30
-                rotation: 180
-                border.width: 2
-                anchors.verticalCenter: parent.verticalCenter
-                Text {
-                    id: dnTeamNumDisp
-                    text: qsTr("#19")
-                    anchors.verticalCenterOffset: 1
-                    anchors.horizontalCenterOffset: 0
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    font.pixelSize: 50
-                    color: root.mainFontColor
-                }
-            }
-
-            Rectangle {
-                id: dnTeamLapBg
-                x: 792
-                y: -175
-                width: 140
-                height: 60
-                color: "#ffffff"
-                radius: 10
-                anchors.right: dnTeamNumBg.left
-                anchors.rightMargin: 15
-                rotation: 180
-                border.width: 2
-                anchors.verticalCenter: parent.verticalCenter
-                Text {
-                    id: dnTeamLapVal
-                    text: qsTr("-5L")
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    font.pixelSize: 50
-                }
-            }
-
-            Rectangle {
-                id: dnTeamDeltaBg
-                x: 64
-                y: -177
-                width: 160
-                height: 60
-                color: "#ff0000"
-                radius: 10
-                anchors.right: dnTeamLapBg.left
-                anchors.rightMargin: 10
-                rotation: 180
-                border.width: 2
-                anchors.verticalCenter: parent.verticalCenter
-                Text {
-                    id: dnTeamDeltaDisp
-                    text: qsTr("-1.10")
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    font.pixelSize: 50
-                }
-            }
-            anchors.top: teamUpLabel.bottom
-            fillMode: Image.PreserveAspectFit
-            source: "images/triangle.png"
+            font.pixelSize: 95
         }
 
         Item {
             id: tempGroup
             x: 0
-            y: 696
+            y: 685
             width: 400
             height: 104
 
@@ -674,7 +394,7 @@ ApplicationWindow {
                 anchors.verticalCenter: parent.verticalCenter
                 Text {
                     id: tempAirDisp
-                    text: qsTr("175")
+                    text: qsTr("101")
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
                     font.pixelSize: 60
@@ -859,9 +579,398 @@ ApplicationWindow {
             anchors.verticalCenterOffset: 3
             font.family: "BN Elements"
         }
+
+        Item {
+            id: mainPage
+            x: 0
+            y: 36
+            width: 710
+            height: 512
+
+            Rectangle {
+                id: posBg
+                width: 215
+                height: 110
+                color: "#00000000"
+                radius: 0
+                anchors.top: parent.top
+                anchors.topMargin: 10
+                anchors.left: parent.left
+                anchors.leftMargin: 10
+                Text {
+                    id: posDisp
+                    text: qsTr("P11")
+                    anchors.verticalCenterOffset: -5
+                    horizontalAlignment: Text.AlignHCenter
+                    font.italic: false
+                    font.family: "Mont Heavy DEMO"
+                    font.bold: false
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    font.pixelSize: 90
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+
+                Text {
+                    id: posLabel
+                    text: qsTr("POSITION")
+                    anchors.left: parent.left
+                    anchors.leftMargin: 5
+                    anchors.bottom: parent.bottom
+                    anchors.bottomMargin: 0
+                    font.pixelSize: 15
+                    font.family: "BN Elements"
+                }
+                border.width: 4
+            }
+
+            Rectangle {
+                id: lapBg
+                x: 315
+                y: 101
+                width: 215
+                height: 110
+                color: "#00000000"
+                radius: 0
+                anchors.left: posBg.right
+                anchors.leftMargin: 20
+                anchors.verticalCenter: posBg.verticalCenter
+
+                Text {
+                    id: lapLabel
+                    text: qsTr("LAP")
+                    anchors.left: parent.left
+                    anchors.leftMargin: 5
+                    anchors.bottom: parent.bottom
+                    anchors.bottomMargin: 0
+                    font.pixelSize: 15
+                    font.family: "BN Elements"
+                }
+                border.width: 4
+                Text {
+                    id: lapDisp
+                    width: 130
+                    text: qsTr("L114")
+                    horizontalAlignment: Text.AlignHCenter
+                    font.bold: false
+                    font.family: "Mont Heavy DEMO"
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    font.pixelSize: 90
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+            }
+
+            Rectangle {
+                id: lastLapBg
+                x: 150
+                y: 241
+                width: 450
+                height: 150
+                color: "#00000000"
+                radius: 0
+                anchors.top: posBg.bottom
+                anchors.topMargin: 10
+                Text {
+                    id: lastLapDisp
+                    width: 440
+                    text: qsTr("0:45.14")
+                    font.bold: true
+                    font.family: "Mont Heavy DEMO"
+                    anchors.verticalCenterOffset: -10
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.pixelSize: 130
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }
+
+                Text {
+                    id: lastLapLabel
+                    text: qsTr("LAST LAP")
+                    anchors.left: parent.left
+                    anchors.leftMargin: 7
+                    anchors.bottom: parent.bottom
+                    font.pixelSize: 20
+                    font.family: "BN Elements"
+                    anchors.bottomMargin: 0
+                }
+                anchors.leftMargin: 0
+                anchors.left: posBg.left
+                border.width: 5
+            }
+
+            Rectangle {
+                id: lastDeltaBg
+                width: 230
+                height: 150
+                color: "#00ff00"
+                radius: 0
+                anchors.left: lastLapBg.right
+                anchors.leftMargin: 10
+                anchors.verticalCenter: lastLapBg.verticalCenter
+                Text {
+                    id: lastDeltaDisp
+                    text: qsTr("+4.32")
+                    font.bold: true
+                    font.family: "Mont Heavy DEMO"
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.pixelSize: 80
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }
+
+                Text {
+                    id: lastDeltaLabel
+                    height: 23
+                    text: qsTr("DELTA")
+                    anchors.bottom: parent.bottom
+                    anchors.bottomMargin: 0
+                    anchors.left: parent.left
+                    anchors.leftMargin: 5
+                    font.pixelSize: 20
+                    font.family: "BN Elements"
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }
+                border.width: 4
+            }
+
+            Rectangle {
+                id: lapTimerBg
+                x: 318
+                y: 100
+                width: 230
+                height: 110
+                color: "#00000000"
+                radius: 0
+                anchors.leftMargin: 10
+                anchors.verticalCenter: posBg.verticalCenter
+                Text {
+                    id: lapDisp1
+                    width: 130
+                    text: qsTr("0:32.54")
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.pixelSize: 65
+                    horizontalAlignment: Text.AlignHCenter
+                    font.bold: false
+                    font.family: "Mont Heavy DEMO"
+                }
+
+                Text {
+                    id: lapTimerLabel
+                    text: qsTr("CURRENT LAP")
+                    anchors.bottomMargin: 0
+                    anchors.leftMargin: 5
+                    font.pixelSize: 15
+                    anchors.bottom: parent.bottom
+                    anchors.left: parent.left
+                    font.family: "BN Elements"
+                }
+                anchors.left: lapBg.right
+                border.width: 4
+            }
+
+            Rectangle {
+                id: lapTimerBg1
+                x: 317
+                width: 250
+                height: 125
+                color: "#00000000"
+                radius: 0
+                anchors.top: lastDeltaBg.bottom
+                anchors.topMargin: 10
+                anchors.horizontalCenter: lastDeltaBg.horizontalCenter
+                anchors.leftMargin: 10
+                Text {
+                    id: lapDisp2
+                    width: 130
+                    text: qsTr("0:32.54")
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.pixelSize: 65
+                    horizontalAlignment: Text.AlignHCenter
+                    font.family: "Mont Heavy DEMO"
+                    font.bold: false
+                }
+
+                Text {
+                    id: lapTimerLabel1
+                    text: qsTr("CURRENT LAP")
+                    anchors.bottomMargin: 0
+                    anchors.leftMargin: 5
+                    font.pixelSize: 15
+                    anchors.bottom: parent.bottom
+                    anchors.left: parent.left
+                    font.family: "BN Elements"
+                }
+                anchors.left: lapBg.right
+                border.width: 4
+            }
+
+            Image {
+                id: teamUpLabel
+                width: 50
+                height: 50
+                anchors.top: lastLapBg.bottom
+                anchors.topMargin: 15
+                anchors.left: lastLapBg.right
+                anchors.leftMargin: -450
+                fillMode: Image.PreserveAspectFit
+                source: "images/triangle_black.png"
+
+                Rectangle {
+                    id: upTeamNumBg
+                    x: 72
+                    y: -166
+                    width: 100
+                    height: 60
+                    color: "#00000000"
+                    radius: 0
+                    anchors.left: parent.right
+                    anchors.leftMargin: 10
+                    anchors.verticalCenter: parent.verticalCenter
+                    border.width: 3
+
+                    Text {
+                        id: upTeamNumDisp
+                        text: qsTr("666")
+                        font.family: "Mont Heavy DEMO"
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        font.pixelSize: 50
+                    }
+                }
+
+                Rectangle {
+                    id: upTeamLapBg
+                    x: 72
+                    y: -175
+                    width: 120
+                    height: 60
+                    color: "#00000000"
+                    radius: 0
+                    border.width: 3
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.left: upTeamNumBg.right
+                    Text {
+                        id: upTeamLapVal
+                        width: 125
+                        text: qsTr("+23L")
+                        font.family: "Mont Heavy DEMO"
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        font.pixelSize: 50
+                    }
+                    anchors.leftMargin: 10
+                }
+
+                Rectangle {
+                    id: upTeamDeltaBg
+                    y: -177
+                    width: 150
+                    height: 60
+                    color: "#00ff00"
+                    radius: 0
+                    border.width: 3
+                    anchors.left: upTeamLapBg.right
+                    anchors.verticalCenter: parent.verticalCenter
+                    Text {
+                        id: upTeamDeltaDisp
+                        text: qsTr("+5.34")
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        font.pixelSize: 50
+                    }
+                    anchors.leftMargin: 10
+                }
+            }
+
+            Image {
+                id: teamUpLabel1
+                x: -5
+                width: 50
+                height: 50
+                rotation: 180
+                anchors.horizontalCenter: teamUpLabel.horizontalCenter
+                anchors.top: teamUpLabel.bottom
+                fillMode: Image.PreserveAspectFit
+                anchors.topMargin: 15
+                anchors.leftMargin: -450
+                source: "images/triangle_black.png"
+                anchors.left: lastLapBg.right
+            }
+
+            Rectangle {
+                id: upTeamNumBg2
+                x: 53
+                width: 100
+                height: 60
+                color: "#00000000"
+                radius: 0
+                anchors.top: teamUpLabel.bottom
+                anchors.topMargin: 10
+                anchors.leftMargin: 10
+                Text {
+                    id: upTeamNumDisp2
+                    text: qsTr("13")
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.pixelSize: 50
+                    font.family: "Mont Heavy DEMO"
+                }
+
+                Rectangle {
+                    id: upTeamLapBg2
+                    x: 110
+                    y: 0
+                    width: 120
+                    height: 60
+                    color: "#00000000"
+                    radius: 0
+                    anchors.leftMargin: 10
+                    anchors.verticalCenter: parent.verticalCenter
+                    Text {
+                        id: upTeamLapVal2
+                        text: qsTr("-0L")
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.verticalCenter: parent.verticalCenter
+                        font.pixelSize: 50
+                        font.family: "Mont Heavy DEMO"
+                    }
+                    anchors.left: upTeamNumBg2.right
+                    border.width: 3
+                }
+
+                Rectangle {
+                    id: upTeamDeltaBg2
+                    y: 72
+                    width: 150
+                    height: 60
+                    color: "#ff0000"
+                    radius: 0
+                    anchors.leftMargin: 10
+                    anchors.verticalCenter: parent.verticalCenter
+                    Text {
+                        id: upTeamDeltaDisp2
+                        text: qsTr("+5.34")
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.verticalCenter: parent.verticalCenter
+                        font.pixelSize: 50
+                    }
+                    anchors.left: upTeamLapBg2.right
+                    border.width: 3
+                }
+                anchors.left: teamUpLabel.right
+                border.width: 3
+            }
+        }
     }
+
 }
 
 
 
 
+
+/*##^##
+Designer {
+    D{i:62;anchors_width:150}D{i:57;anchors_x:10;anchors_y:286}D{i:64;anchors_x:10;anchors_y:4}
+D{i:69;anchors_x:105}D{i:65;anchors_y:-14}
+}
+##^##*/
