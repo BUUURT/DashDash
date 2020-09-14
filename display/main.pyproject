@@ -1,3 +1,3 @@
 {
-    "files": ["main.py","dash_v9.qml","images/dashMask.png","basestation.qml","stck.qml"]
+    "files": ["main.py","visTest.qml","stck.qml","basestation.qml","dash_v9.qml","images/dashMask.png","test.qml"]
 }

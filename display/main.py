@@ -5,7 +5,7 @@ from os.path import abspath, dirname, join
 import random
 import ast
 
-import requests
+#import requests
 
 from PyQt5.QtCore import QObject, QUrl
 from PyQt5.QtCore import pyqtSlot as Slot
@@ -14,16 +14,12 @@ from PyQt5.QtGui import QGuiApplication
 from PyQt5.QtQml import QQmlApplicationEngine
 from PyQt5.QtQuick import QQuickView
 
-
+test2 = "six"
 
 class Bridge(QObject):
-
-    #
-    #
-    # @Slot(result=int)
-    # def rander(self):
-    #     r = random.randint(0,360)
-    #     return r
+    @Slot(result=str)
+    def biketest(self):
+        return test2
 
     @Slot(str, result=str)
     def raceTimeData(self,value):
@@ -33,12 +29,14 @@ class Bridge(QObject):
 
     @Slot(result=str)
     def speed(self):
-        x = str(time.time())
-        y = x.split('.')[1][:2]
-        y = float(y)*0.01
-        speed = 30.0*y
-        speed = str(int(speed))
-        return speed
+        i = pickle.loads('file')
+        return str(i['speed'])
+        # x = str(time.time())
+        # y = x.split('.')[1][:2]
+        # y = float(y)*0.01
+        # speed = 30.0*y
+        # speed = str(int(speed))
+        # return speed
 
 
     @Slot(result=int)
@@ -62,6 +60,27 @@ class Bridge(QObject):
         i = random.randrange(360)
         return int(i)
 
+def uiBoot():
+    app = QGuiApplication(sys.argv)
+    engine = QQmlApplicationEngine()
+
+
+    # Instance of the Python object
+    bridge = Bridge()
+
+    # Expose the Python object to QML
+    context = engine.rootContext()
+    context.setContextProperty("con", bridge)
+
+    # Get the path of the current directory, and then add the name
+    # of the QML file, to load it.
+    qmlFile = join(dirname(__file__), 'dash_v9.qml')
+#    qmlFile = join(dirname(__file__), 'test.qml')
+    engine.load(abspath(qmlFile))
+
+    sys.exit(app.exec_())
+
+
 if __name__ == '__main__':
     app = QGuiApplication(sys.argv)
     engine = QQmlApplicationEngine()
@@ -77,10 +96,7 @@ if __name__ == '__main__':
     # Get the path of the current directory, and then add the name
     # of the QML file, to load it.
     qmlFile = join(dirname(__file__), 'dash_v9.qml')
-#    qmlFile = join(dirname(__file__), 'stck.qml')
+#    qmlFile = join(dirname(__file__), 'test.qml')
     engine.load(abspath(qmlFile))
-
-    # if not engine.rootObjects():
-    #     sys.exit(-1)
 
     sys.exit(app.exec_())
