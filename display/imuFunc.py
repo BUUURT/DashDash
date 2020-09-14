@@ -3,11 +3,17 @@ import board
 import busio
 import adafruit_bno055
 
-class IMU:
-    def __init__(self):
-        self.sensor = adafruit_bno055.BNO055_I2C(busio.I2C(board.SCL, board.SDA))
-    def euler(self):
-        return self.sensor.euler
+
+sensor = adafruit_bno055.BNO055_I2C(busio.I2C(board.SCL, board.SDA))
+def euler():
+    return sensor.euler
+
+#
+# class IMU:
+#     def __init__(self):
+#         self.sensor = adafruit_bno055.BNO055_I2C(busio.I2C(board.SCL, board.SDA))
+#     def euler(self):
+#         return self.sensor.euler
 # while True:
 #     print("Temperature: {} degrees C".format(sensor.temperature))
 #     print("Accelerometer (m/s^2): {}".format(sensor.acceleration))

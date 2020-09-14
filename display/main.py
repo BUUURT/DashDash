@@ -14,14 +14,14 @@ from PyQt5.QtGui import QGuiApplication
 from PyQt5.QtQml import QQmlApplicationEngine
 from PyQt5.QtQuick import QQuickView
 
-from imuFunc import IMU
+from imuFunc import euler
 
 
 class Bridge(QObject):
 
     @Slot(result=str)
     def biketest(self):
-        return self.imu.euler
+        return euler()
 
     @Slot(str, result=str)
     def raceTimeData(self,value):
@@ -84,8 +84,8 @@ if __name__ == '__main__':
 
     # Instance of the Python object
     bridge = Bridge()
-    bridge.imu = IMU
-    bridge.test = self.imu.euler
+
+
 
     # Expose the Python object to QML
     context = engine.rootContext()
