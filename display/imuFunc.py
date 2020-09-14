@@ -1,18 +1,20 @@
+import time
+import board
+import busio
 import adafruit_bno055
 
-from busio import I2C
-from board import SDA, SCL
+i2c = busio.I2C(board.SCL, board.SDA)
+sensor = adafruit_bno055.BNO055_I2C(i2c)
 
-class Imu:
-    def __init__(self):
-        i2c=I2C(SCL, SDA)
-        self.imuboard = adafruit_bno055.BNO055(i2c)
-    def __str__(self):
-        print(self.imuboard.temperature)
+while True:
+    print("Temperature: {} degrees C".format(sensor.temperature))
+    print("Accelerometer (m/s^2): {}".format(sensor.acceleration))
+    print("Magnetometer (microteslas): {}".format(sensor.magnetic))
+    print("Gyroscope (rad/sec): {}".format(sensor.gyro))
+    print("Euler angle: {}".format(sensor.euler))
+    print("Quaternion: {}".format(sensor.quaternion))
+    print("Linear acceleration (m/s^2): {}".format(sensor.linear_acceleration))
+    print("Gravity (m/s^2): {}".format(sensor.gravity))
+    print()
 
-
-
-def imu_read():
-    i2c = I2C(SCL, SDA)
-    imuBoard = adafruit_bno055.BNO055(i2c)
-    print(imuBoard).temperature
+    time.sleep(1)
