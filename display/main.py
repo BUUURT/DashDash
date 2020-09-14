@@ -14,14 +14,14 @@ from PyQt5.QtGui import QGuiApplication
 from PyQt5.QtQml import QQmlApplicationEngine
 from PyQt5.QtQuick import QQuickView
 
-from imuFunc import euler
+from imuFunc import imuEuler
 
 
 class Bridge(QObject):
 
     @Slot(result=str)
     def biketest(self):
-        return euler()
+        return imuEuler()
 
     @Slot(str, result=str)
     def raceTimeData(self,value):
@@ -39,7 +39,7 @@ class Bridge(QObject):
         x = str(time.time())
         y = x.split('.')[0][-1:]
         y = float(y)*0.1
-        speed = 14000*y
+        speed = 13000*y
         return int(speed)
 
     @Slot(result=int)
