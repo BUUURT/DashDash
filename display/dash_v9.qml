@@ -59,8 +59,8 @@ ApplicationWindow {
         onTriggered: {
             root.rpm = con.rpm()
             root.speed = con.speed()
-            root.test = con.biketest()
 
+            teamMsg.text = con.biketest()
             //positionNumber.text = con.raceTimeData('selfPosition')
             //lapNumber.text = con.raceTimeData('selfLaps')
             //lapTimeSelf.text = con.raceTimeData('selfLaptime')
@@ -255,7 +255,7 @@ ApplicationWindow {
             font.family: "Mont Heavy DEMO"
             font.bold: false
             horizontalAlignment: Text.AlignHCenter
-            font.pixelSize: 95
+            font.pixelSize: 40
             color: root.mainFontColor
         }
 

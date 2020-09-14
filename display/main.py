@@ -14,12 +14,14 @@ from PyQt5.QtGui import QGuiApplication
 from PyQt5.QtQml import QQmlApplicationEngine
 from PyQt5.QtQuick import QQuickView
 
-test2 = "six"
+from imuFunc import IMU
+
 
 class Bridge(QObject):
+
     @Slot(result=str)
     def biketest(self):
-        return test2
+        return self.imu.euler
 
     @Slot(str, result=str)
     def raceTimeData(self,value):
@@ -29,14 +31,7 @@ class Bridge(QObject):
 
     @Slot(result=str)
     def speed(self):
-        i = pickle.loads('file')
-        return str(i['speed'])
-        # x = str(time.time())
-        # y = x.split('.')[1][:2]
-        # y = float(y)*0.01
-        # speed = 30.0*y
-        # speed = str(int(speed))
-        # return speed
+        return str(time.time())[:2]
 
 
     @Slot(result=int)
@@ -82,12 +77,15 @@ def uiBoot():
 
 
 if __name__ == '__main__':
+
     app = QGuiApplication(sys.argv)
     engine = QQmlApplicationEngine()
 
 
     # Instance of the Python object
     bridge = Bridge()
+    bridge.imu = IMU
+    bridge.test = self.imu.euler
 
     # Expose the Python object to QML
     context = engine.rootContext()
