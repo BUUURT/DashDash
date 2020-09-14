@@ -5,8 +5,12 @@ import adafruit_bno055
 
 
 sensor = adafruit_bno055.BNO055_I2C(busio.I2C(board.SCL, board.SDA))
-def euler():
-    return sensor.euler
+def imuEuler():
+    raw = sensor.euler
+    x=raw[0]
+    y=raw[1]
+    z=raw[2]
+    return str(y)
 
 #
 # class IMU:
