@@ -67,9 +67,9 @@ ApplicationWindow {
             //positionNumber.text = '2'
             //lapNumber.text = '123'
             //lapTimeSelf.text = '0:49.431'
-
-
+            tempAirDisp.text = con.airTemp()
         }
+
     }
 
     Behavior on rpm {

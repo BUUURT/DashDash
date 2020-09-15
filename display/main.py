@@ -14,20 +14,24 @@ from PyQt5.QtGui import QGuiApplication
 from PyQt5.QtQml import QQmlApplicationEngine
 from PyQt5.QtQuick import QQuickView
 
-from imuFunc import imuEuler
-
+#from imuFunc import imuEuler
+#from imuFunc import imuTemp
 
 class Bridge(QObject):
-
     @Slot(result=str)
     def biketest(self):
-        return imuEuler()
+        return '6'#imuEuler()
 
-    @Slot(str, result=str)
-    def raceTimeData(self,value):
-        data = requests.get(r'http://192.168.254.12:9000/dashGet')
-        data = ast.literal_eval(data.text)
-        return data[value]
+    def airTemp(self):
+        c = int(imuTemp())
+        f = (c*9/5)+32
+        return str(f)
+
+#    @Slot(str, result=str)
+#    def raceTimeData(self,value):
+#        data = requests.get(r'http://192.168.254.12:9000/dashGet')
+#        data = ast.literal_eval(data.text)
+#        return data[value]
 
     @Slot(result=str)
     def speed(self):
