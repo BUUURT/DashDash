@@ -18,6 +18,8 @@ class Bike:
             time.sleep(0.1)
 
 
+
+
 #
 #     def __str__(self):
 #         return self.value

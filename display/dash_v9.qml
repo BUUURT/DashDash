@@ -37,16 +37,16 @@ ApplicationWindow {
             root.mainBgColor = "white"
             root.mainBgColorSub = "eaeaea"
             baselayer.source = "images/dashMask_light.png"
-            upTeamLabel.source = "images/triange_white.png"
-            dnTeamLabel.source = "images/triange_white.png"
+            upTeamLabel.source = "images/triangle_white.png"
+            dnTeamLabel.source = "images/triangle_white.png"
         }
         if (colorMode==1) {
             root.mainFontColor = "white"
             root.mainBgColor = "black"
             root.mainBgColorSub = "eaeaea"
             baselayer.source = "images/dashMask_dark.png"
-            upTeamLabel.source = "images/triange_dark.png"
-            dnTeamLabel.source = "images/triange_dark.png"
+            upTeamLabel.source = "images/triangle_black.png"
+            dnTeamLabel.source = "images/triangle_black.png"
         }
 
     }
