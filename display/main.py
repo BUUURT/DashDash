@@ -15,7 +15,7 @@ from PyQt5.QtQml import QQmlApplicationEngine
 from PyQt5.QtQuick import QQuickView
 
 #from imuFunc import imuEuler
-#from imuFunc import imuTemp
+from imuFunc import imuTemp
 
 class Bridge(QObject):
     @Slot(result=str)
