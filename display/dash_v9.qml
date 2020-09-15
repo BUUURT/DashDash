@@ -30,6 +30,14 @@ ApplicationWindow {
     property var pageSelect: "main"
     property var test: 0
 
+    MouseArea {
+       anchors.fill: parent
+       enabled: false
+       cursorShape: Qt.BlankCursor
+     }
+
+
+
     onColorModeChanged: {
         if (colorMode==0) {
 
@@ -469,21 +477,10 @@ ApplicationWindow {
                 font.family: "BN Elements"
                 color: root.mainFontColor
             }
+            MultiPointTouchArea {
+                   anchors.fill: parent
+                   onPressed: {root.colorMode = (root.colorMode == 0) ? 1 : 0}}
 
-            Button {
-                id: button
-                x: 0
-                y: 0
-                width: 140
-                height: 70
-                opacity: 0
-                text: qsTr("Button")
-                onClicked: {
-                    root.colorMode = (root.colorMode == 0) ? 1 : 0
-
-
-                }
-            }
             anchors.leftMargin: 3
             anchors.left: parent.left
             border.width: 3

@@ -14,6 +14,7 @@ def imuEuler():
 
 def imuTemp():
     raw = sensor.temperature
+    output = raw.split('.')[0]
     return raw
 
 

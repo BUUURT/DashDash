@@ -23,50 +23,18 @@ ApplicationWindow {
         width: 200
         height: 200
         color: "#ffffff"
+        MultiPointTouchArea {
+               anchors.fill: parent
+               onPressed: {console.log('press')}}
 
 
         }
 
-        MouseArea {
-            id: mouseArea
-            anchors.fill: parent
-            onClicked: {
-                rectangle.color = "red"
 
-            }
-            //on: {rectangle.color = "white"}
-        }
-    }
-
-    Button {
-        id: button
-        x: 144
-        y: 446
-        text: qsTr("Button")
-        onPressedChanged: {root.color = "gray"}
-    }
-    MouseArea {
-        anchors.fill: parent
-        acceptedButtons: Qt.LeftButton | Qt.RightButton
-        onClicked: {
-            if (mouse.button === Qt.RightButton)
-                contextMenu.popup()
-        }
-        onPressAndHold: {
-            if (mouse.source === Qt.MouseEventNotSynthesized)
-                contextMenu.popup()
-        }
-
-        Menu {
-            id: contextMenu
-            MenuItem { text: "Cut" }
-            MenuItem { text: "Copy" }
-            MenuItem { text: "Paste" }
-        }
-    }
 }
+
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.5}D{i:2}
+    D{i:0;formeditorZoom:0.5}
 }
 ##^##*/
