@@ -14,17 +14,17 @@ from PyQt5.QtGui import QGuiApplication
 from PyQt5.QtQml import QQmlApplicationEngine
 from PyQt5.QtQuick import QQuickView
 
-#from imuFunc import imuEuler
-#from imuFunc import imuTemp
+from imuFunc import imuEuler
+from imuFunc import imuTemp
 
 class Bridge(QObject):
     @Slot(result=str)
     def biketest(self):
-        return '6'#imuEuler()
+        return imuEuler()
 
     @Slot(result=str)
     def airTemp(self):
-        c = 6#int(imuTemp())
+        c = int(imuTemp())
         f = int((c*9/5)+32)
         return str(f)
 
