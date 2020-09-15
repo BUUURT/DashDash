@@ -12,6 +12,11 @@ def imuEuler():
     z=raw[2]
     return str(y)
 
+def imuTemp():
+    raw = sensor.temperature
+    return raw
+
+
 #
 # class IMU:
 #     def __init__(self):
