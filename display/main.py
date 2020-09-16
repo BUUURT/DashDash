@@ -14,8 +14,8 @@ from PyQt5.QtGui import QGuiApplication
 from PyQt5.QtQml import QQmlApplicationEngine
 from PyQt5.QtQuick import QQuickView
 
-from imuFunc import imuEuler
-from imuFunc import imuTemp
+#from imuFunc import imuEuler
+#from imuFunc import imuTemp
 
 class Bridge(QObject):
     @Slot(result=str)
@@ -24,9 +24,10 @@ class Bridge(QObject):
 
     @Slot(result=str)
     def airTemp(self):
-        c = int(imuTemp())
-        f = int((c*9/5)+32)
-        return str(f)
+#        c = int(imuTemp())
+#        f = int((c*9/5)+32)
+#        return str(f)
+         return '50'
 
 #    @Slot(str, result=str)
 #    def raceTimeData(self,value):
@@ -98,8 +99,8 @@ if __name__ == '__main__':
 
     # Get the path of the current directory, and then add the name
     # of the QML file, to load it.
-#    qmlFile = join(dirname(__file__), 'dash_v9.qml')
-    qmlFile = join(dirname(__file__), 'test.qml')
+    qmlFile = join(dirname(__file__), 'dash_v9.qml')
+#    qmlFile = join(dirname(__file__), 'test.qml')
     engine.load(abspath(qmlFile))
 
     sys.exit(app.exec_())

@@ -17,7 +17,7 @@ ApplicationWindow {
 
     property color mainFontColor: "black"
     property color mainBorderColor: "black"
-    property color mainBgColor: "#f0f0f0"
+    property color mainBgColor: "white"
     property color mainBgColorSub: "#eaeaea"
     property color mainAccentColor: "gray"
     property color mainHighlightColor: "#0000FF"
@@ -29,14 +29,74 @@ ApplicationWindow {
     property int shiftHigh: 12200
     property var pageSelect: "main"
     property var test: 0
+    property var page: 'main'
+
+
+
 
     MouseArea {
        anchors.fill: parent
        enabled: false
-       cursorShape: Qt.BlankCursor
+       //cursorShape: Qt.BlankCursor
      }
 
-
+    onPageChanged: {
+        if (root.page=='main'){
+            mainPage.visible = true
+            timePage.visible = false
+            telePage.visible = false
+            configPage.visible = false
+//            selection.anchors.horizontalCenter = mainHead.horizontalCenter
+            selection.x = mainHead.x-10
+            selection.width = mainhead.width+20
+            const sleep = (milliseconds) => {
+              return new Promise(resolve => setTimeout(resolve, milliseconds))
+            }
+            mainHead.color = "#0000ff"
+            timeHead.color = "#f0f0f0"
+            teleHead.color = "#f0f0f0"
+            configHead.color = "#f0f0f0"
+        }
+        if (root.page=='time'){
+            mainPage.visible = false
+            timePage.visible = true
+            telePage.visible = false
+            configPage.visible = false
+            selection.x = timeHead.x-10
+//            selection.anchors.horizontalCenter = timeHead.horizontalCenter
+            selection.width = timeHead.width+20
+            mainHead.color = "#f0f0f0"
+            timeHead.color = "#0000ff"
+            teleHead.color = "#f0f0f0"
+            configHead.color = "#f0f0f0"
+        }
+        if (root.page=='tele'){
+            mainPage.visible = false
+            timePage.visible = false
+            telePage.visible = true
+            configPage.visible = false
+            selection.x = teleHead.x-10
+//            selection.anchors.horizontalCenter = teleHead.horizontalCenter
+            selection.width = teleHead.width+20
+            mainHead.color = "#f0f0f0"
+            timeHead.color = "#f0f0f0"
+            teleHead.color = "#0000ff"
+            configHead.color = "#f0f0f0"
+        }
+        if (root.page=='config'){
+            mainPage.visible = false
+            timePage.visible = false
+            telePage.visible = false
+            configPage.visible = true
+            selection.x = configHead.x-10
+//            selection.anchors.horizontalCenter = configHead.horizontalCenter
+            selection.width = configHead.width+20
+            mainHead.color = "#f0f0f0"
+            timeHead.color = "#f0f0f0"
+            teleHead.color = "#f0f0f0"
+            configHead.color = "#0000ff"
+        }
+    }
 
     onColorModeChanged: {
         if (colorMode==0) {
@@ -68,22 +128,23 @@ ApplicationWindow {
             root.rpm = con.rpm()
             root.speed = con.speed()
 
-            teamMsg.text = con.biketest()
+            //teamMsg.text = con.biketest()
             //positionNumber.text = con.raceTimeData('selfPosition')
             //lapNumber.text = con.raceTimeData('selfLaps')
             //lapTimeSelf.text = con.raceTimeData('selfLaptime')
             //positionNumber.text = '2'
             //lapNumber.text = '123'
             //lapTimeSelf.text = '0:49.431'
-            tempAirDisp.text = con.airTemp()
+            //tempAirDisp.text = con.airTemp()
+
         }
 
     }
 
-    Behavior on rpm {
-        NumberAnimation { properties: "rpm"; duration: 1000 }
+//    Behavior on rpm {
+//        NumberAnimation { properties: "rpm"; duration: 1000 }
 
-    }
+//    }
 
 
 
@@ -229,6 +290,7 @@ ApplicationWindow {
         width: 1280
         height: 800
         opacity: 1
+        visible: true
 
         Text {
             id: speed
@@ -447,9 +509,42 @@ ApplicationWindow {
         }
 
         Rectangle {
+            id: leftEdgeBugfix
+            width: 20
+            height: parent.height
+            color: root.mainBgColor
+            anchors.left: parent.left
+            anchors.leftMargin: 0
+
+            Button {
+                id: button
+                x: 8
+                y: 80
+                text: qsTr("config")
+                onClicked: {root.page = 'config'}
+            }
+
+            Button {
+                id: button1
+                x: 0
+                y: 141
+                text: qsTr("tele")
+                onClicked: {root.page = 'tele'}
+            }
+
+            Button {
+                id: button2
+                x: 0
+                y: 187
+                text: qsTr("time")
+                onClicked: {root.page = 'time'}
+            }
+        }
+
+        Rectangle {
             id: raceClockBg
-            width: 140
-            height: 70
+            width: 120
+            height: 60
             color: "#00000000"
             radius: 0
             border.color: root.mainBorderColor
@@ -459,7 +554,7 @@ ApplicationWindow {
                 id: sesTDisp
                 text: qsTr("15:45")
                 anchors.verticalCenter: parent.verticalCenter
-                font.pixelSize: 50
+                font.pixelSize: 45
                 anchors.verticalCenterOffset: -7
                 anchors.horizontalCenter: parent.horizontalCenter
                 color: root.mainFontColor
@@ -488,13 +583,6 @@ ApplicationWindow {
 
         }
 
-        Text {
-            id: element
-            x: 36
-            y: 98
-            text: root.test
-            font.pixelSize: 12
-        }
     }
 
 
@@ -515,6 +603,7 @@ ApplicationWindow {
         y: 252
         width: 710
         height: 40
+        visible: true
 
 
         Text {
@@ -531,16 +620,18 @@ ApplicationWindow {
         }
         Rectangle {
             id: selection
-            x: mainHead.x
+            x: mainHead.x-10
             y: mainHead.y
             width: mainHead.width+20
             height: 30
             color: "#00000000"
             anchors.verticalCenter: parent.verticalCenter
             visible: true
-            anchors.horizontalCenter: mainHead.horizontalCenter
+//            anchors.horizontalCenter: mainHead.horizontalCenter
             border.width: 4
             border.color: root.mainHighlightColor
+            Behavior on x { NumberAnimation{duration:250}}
+            Behavior on width { NumberAnimation{duration:250}}
         }
 
         Rectangle {
@@ -607,7 +698,7 @@ ApplicationWindow {
             y: 36
             width: 710
             height: 512
-            visible: true
+            visible: false
 
             Rectangle {
                 id: posBg
@@ -1214,7 +1305,31 @@ ApplicationWindow {
                 }
             }
         }
+
+        Item {
+            id: timePage
+            y: 36
+            width: 710
+            height: 512
+            visible: true
+        }
+
+        Item {
+            id: telePage
+            width: 200
+            height: 200
+            visible: true
+        }
+
+        Item {
+            id: configPage
+            width: 200
+            height: 200
+            visible: true
+        }
     }
+
+
 }
 
 
@@ -1227,6 +1342,6 @@ ApplicationWindow {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:1.100000023841858}
+    D{i:0;formeditorZoom:0.6600000262260437}
 }
 ##^##*/
