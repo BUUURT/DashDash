@@ -674,8 +674,8 @@ ApplicationWindow {
             y: 36
             width: 710
             height: 512
-            visible: false
-
+            visible: true
+            
             Rectangle {
                 id: posBg
                 width: 215
@@ -1294,7 +1294,7 @@ ApplicationWindow {
             id: telePage
             width: 710
             height: 512
-            visible: true
+            visible: false
             anchors.top: parent.top
             anchors.topMargin: 36
 

@@ -5,50 +5,57 @@ import QtQuick.Controls 2.4
 //import QtQuick.Controls.Material 2.4
 import QtQuick.Controls.Universal 2.0
 import QtGraphicalEffects 1.0
+import QtCharts 2.15
 
 ApplicationWindow {
-    title: qsTr("Hello World")
-    width: 640
-    height: 480
+    id: root
+    color: root.mainBgColor
     visible: true
+    width:1280
+    height:800
 
-    StackView {
-        id: stack
-        initialItem: mainView
-        anchors.fill: parent
-    }
+    Rectangle {
+        id: rectangle
+        x: 41
+        y: 49
+        width: 200
+        height: 200
+        color: "#ffffff"
 
-    Component {
-        id: mainView
-
-        Row {
-            spacing: 10
-
-            Button {
-                text: "Push"
-                onClicked: stack.push(mainView)
+        ChartView {
+            id: line
+            x: 35
+            y: 54
+            width: 300
+            height: 300
+            LineSeries {
+                id: lineSeries
+                name: "LineSeries"
+                useOpenGL: true
+                axisX: ValueAxis {
+                    id: axisX
+                    min: 0
+                    max: 10
+                }
+                axisY: ValueAxis {
+                    id: axisY
+                    min: 0
+                    max: 100
+                }
             }
-            Button {
-                text: "Pop"
-                enabled: stack.depth > 1
-                onClicked: stack.pop()
-
-            }
-            Text {
-                text: stack.depth
-            }
+            //        Timer {
+            //            interval: 1000/25
+            //            running:true
+            //            repeat:true
+            //            onTriggered: con.chart(lineSeries)
+                    }
         }
     }
-    Canvas{
 
-        onPaint:{
-            var ctx = getContext("2d");
-            ctx.setLineDash([5, 15]);
 
-            ctx.beginPath();
-            ctx.moveTo(0,100);
-            ctx.lineTo(400, 100);
-            ctx.stroke();
-         }
-    }
+
+/*##^##
+Designer {
+    D{i:0;formeditorZoom:0.75}
 }
+##^##*/
