@@ -8,11 +8,11 @@ import adafruit_gps
 # a slightly higher timeout (GPS modules typically update once a second).
 # These are the defaults you should use for the GPS FeatherWing.
 # For other boards set RX = GPS module TX, and TX = GPS module RX pins.
-uart = busio.UART(board.TX, board.RX, baudrate=9600, timeout=10)
+#uart = busio.UART(board.TX, board.RX, baudrate=9600, timeout=10)
 
 # for a computer, use the pyserial library for uart access
-# import serial
-# uart = serial.Serial("/dev/ttyUSB0", baudrate=9600, timeout=10)
+import serial
+uart = serial.Serial("/dev/ttyS0", baudrate=9600, timeout=10)
 
 # If using I2C, we'll create an I2C interface to talk to using default pins
 # i2c = board.I2C()
