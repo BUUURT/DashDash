@@ -15,6 +15,16 @@ ApplicationWindow {
     visible: true
     width:1280
     height:800
+    Rectangle {
+         width: 150
+         height: 150
+         anchors.horizontalCenter: parent.horizontalCenter
+         anchors.top: parent.top
+         color: "#095e7b"
+         border.color: "#0a2f4a"
+         border.width: 2
+         radius: width*0.5
+    }
 
     ChartView {-
         id: line

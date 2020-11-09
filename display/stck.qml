@@ -13,44 +13,35 @@ ApplicationWindow {
     visible: true
     width:1280
     height:800
-
     Rectangle {
-        id: rectangle
-        x: 41
-        y: 49
-        width: 200
-        height: 200
-        color: "#ffffff"
+         width: 150
+         height: 150
+         Canvas {
+                anchors.fill: parent
+                onPaint: {
+                    var ctx = getContext("2d");
+                    ctx.reset();
 
-        ChartView {
-            id: line
-            x: 35
-            y: 54
-            width: 300
-            height: 300
-            LineSeries {
-                id: lineSeries
-                name: "LineSeries"
-                useOpenGL: true
-                axisX: ValueAxis {
-                    id: axisX
-                    min: 0
-                    max: 10
-                }
-                axisY: ValueAxis {
-                    id: axisY
-                    min: 0
-                    max: 100
+                    var centreX = width / 2;
+                    var centreY = height / 2;
+
+                    ctx.beginPath();
+                    ctx.fillStyle = "black";
+                    ctx.moveTo(centreX, centreY);
+                    ctx.arc(centreX, centreY, width / 4, 0, Math.PI * 0.5, false);
+                    ctx.lineTo(centreX, centreY);
+                    ctx.fill();
+
+                    ctx.beginPath();
+                    ctx.fillStyle = "red";
+                    ctx.moveTo(centreX, centreY);
+                    ctx.arc(centreX, centreY, width / 4, Math.PI * 0.5, Math.PI * 2, false);
+                    ctx.lineTo(centreX, centreY);
+                    ctx.fill();
                 }
             }
-            //        Timer {
-            //            interval: 1000/25
-            //            running:true
-            //            repeat:true
-            //            onTriggered: con.chart(lineSeries)
-                    }
-        }
     }
+}
 
 
 

@@ -31,69 +31,73 @@ ApplicationWindow {
     property int shiftHigh: 12200
     property var pageSelect: "main"
     property var test: 0
-    property var page: 'main'
+    property int page: 0
 
 
     MouseArea {
-       anchors.fill: parent
-       enabled: false
-       //cursorShape: Qt.BlankCursor
-     }
+        anchors.fill: parent
+        enabled: false
+        //cursorShape: Qt.BlankCursor
+    }
 
     onPageChanged: {
-        if (root.page=='main'){
+        //main
+        if (root.page==0){
             mainPage.visible = true
             timePage.visible = false
-            telePage.visible = false
+            bikePage.visible = false
             configPage.visible = false
-//            selection.anchors.horizontalCenter = mainHead.horizontalCenter
+            //            selection.anchors.horizontalCenter = mainHead.horizontalCenter
             selection.x = mainHead.x-10
-            selection.width = mainhead.width+20
+            selection.width = mainHead.width+20
             const sleep = (milliseconds) => {
-              return new Promise(resolve => setTimeout(resolve, milliseconds))
+                return new Promise(resolve => setTimeout(resolve, milliseconds))
             }
             mainHead.color = "#0000ff"
             timeHead.color = "#f0f0f0"
-            teleHead.color = "#f0f0f0"
+            bikeHead.color = "#f0f0f0"
             configHead.color = "#f0f0f0"
         }
-        if (root.page=='time'){
+        //time
+        if (root.page==1){
             mainPage.visible = false
             timePage.visible = true
-            telePage.visible = false
+            bikePage.visible = false
             configPage.visible = false
             selection.x = timeHead.x-10
-//            selection.anchors.horizontalCenter = timeHead.horizontalCenter
+            //            selection.anchors.horizontalCenter = timeHead.horizontalCenter
             selection.width = timeHead.width+20
             mainHead.color = "#f0f0f0"
             timeHead.color = "#0000ff"
-            teleHead.color = "#f0f0f0"
+            bikeHead.color = "#f0f0f0"
             configHead.color = "#f0f0f0"
         }
-        if (root.page=='tele'){
+        //tele
+        if (root.page==2){
             mainPage.visible = false
             timePage.visible = false
-            telePage.visible = true
+            bikePage.visible = true
             configPage.visible = false
-            selection.x = teleHead.x-10
-//            selection.anchors.horizontalCenter = teleHead.horizontalCenter
-            selection.width = teleHead.width+20
+            selection.x = bikeHead.x-10
+            //            selection.anchors.horizontalCenter = teleHead.horizontalCenter
+            selection.width = bikeHead.width+20
             mainHead.color = "#f0f0f0"
             timeHead.color = "#f0f0f0"
-            teleHead.color = "#0000ff"
+            bikeHead.color = "#0000ff"
             configHead.color = "#f0f0f0"
         }
-        if (root.page=='config'){
+        //config
+        if (root.page==3){
             mainPage.visible = false
             timePage.visible = false
-            telePage.visible = false
+            bikePage.visible = false
             configPage.visible = true
             selection.x = configHead.x-10
-//            selection.anchors.horizontalCenter = configHead.horizontalCenter
+            //            selection.anchors.horizontalCenter = configHead.horizontalCenter
             selection.width = configHead.width+20
             mainHead.color = "#f0f0f0"
             timeHead.color = "#f0f0f0"
-            teleHead.color = "#f0f0f0"
+            bikeHead.color = "#f0f0f0"
             configHead.color = "#0000ff"
         }
     }
@@ -141,10 +145,10 @@ ApplicationWindow {
 
     }
 
-//    Behavior on rpm {
-//        NumberAnimation { properties: "rpm"; duration: 1000 }
+    //    Behavior on rpm {
+    //        NumberAnimation { properties: "rpm"; duration: 1000 }
 
-//    }
+    //    }
 
 
 
@@ -325,7 +329,7 @@ ApplicationWindow {
             font.family: "Mont Heavy DEMO"
             font.bold: false
             horizontalAlignment: Text.AlignHCenter
-            font.pixelSize: 40
+            font.pixelSize: 80
             color: root.mainFontColor
         }
 
@@ -519,8 +523,8 @@ ApplicationWindow {
 
         Rectangle {
             id: raceClockBg
-            width: 120
-            height: 60
+            width: 140
+            height: 75
             color: "#00000000"
             radius: 0
             border.color: root.mainBorderColor
@@ -528,9 +532,9 @@ ApplicationWindow {
             anchors.topMargin: 3
             Text {
                 id: sesTDisp
-                text: qsTr("15:45")
+                text: qsTr("5:45")
                 anchors.verticalCenter: parent.verticalCenter
-                font.pixelSize: 45
+                font.pixelSize: 65
                 anchors.verticalCenterOffset: -7
                 anchors.horizontalCenter: parent.horizontalCenter
                 color: root.mainFontColor
@@ -549,8 +553,8 @@ ApplicationWindow {
                 color: root.mainFontColor
             }
             MultiPointTouchArea {
-                   anchors.fill: parent
-                   onPressed: {root.colorMode = (root.colorMode == 0) ? 1 : 0}}
+                anchors.fill: parent
+                onPressed: {root.colorMode = (root.colorMode == 0) ? 1 : 0}}
 
             anchors.leftMargin: 3
             anchors.left: parent.left
@@ -582,6 +586,7 @@ ApplicationWindow {
         visible: true
 
 
+
         Text {
             id: mainHead
             color: "#0000ff"
@@ -603,7 +608,7 @@ ApplicationWindow {
             color: "#00000000"
             anchors.verticalCenter: parent.verticalCenter
             visible: true
-//            anchors.horizontalCenter: mainHead.horizontalCenter
+            //            anchors.horizontalCenter: mainHead.horizontalCenter
             border.width: 4
             border.color: root.mainHighlightColor
             Behavior on x { NumberAnimation{duration:250}}
@@ -639,11 +644,11 @@ ApplicationWindow {
         }
 
         Text {
-            id: teleHead
+            id: bikeHead
             x: 0
             y: 4
             color: "#b0acac"
-            text: qsTr("TELEMETRY")
+            text: qsTr("BIKE")
             styleColor: "#0000ff"
             anchors.leftMargin: 50
             anchors.verticalCenter: parent.verticalCenter
@@ -663,7 +668,7 @@ ApplicationWindow {
             anchors.leftMargin: 50
             anchors.verticalCenter: parent.verticalCenter
             font.pixelSize: 28
-            anchors.left: teleHead.right
+            anchors.left: bikeHead.right
             anchors.verticalCenterOffset: 3
             font.family: "BN Elements"
         }
@@ -674,7 +679,7 @@ ApplicationWindow {
             y: 36
             width: 710
             height: 512
-            visible: false
+            visible: true
 
             Rectangle {
                 id: posBg
@@ -832,45 +837,6 @@ ApplicationWindow {
             }
 
             Rectangle {
-                id: bestLapBg
-                x: 318
-                y: 100
-                width: 230
-                height: 110
-                color: "#00000000"
-                radius: 0
-                anchors.leftMargin: 10
-                anchors.verticalCenter: posBg.verticalCenter
-                Text {
-                    id: bestLapVal
-                    width: 130
-                    text: qsTr("0:42.61")
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.verticalCenter: parent.verticalCenter
-                    font.pixelSize: 65
-                    horizontalAlignment: Text.AlignHCenter
-                    font.bold: false
-                    font.family: "Mont Heavy DEMO"
-                    color: root.mainFontColor
-                }
-
-                Text {
-                    id: bestLapLabel
-                    text: qsTr("BEST LAP")
-                    anchors.bottomMargin: 0
-                    anchors.leftMargin: 7
-                    font.pixelSize: 15
-                    anchors.bottom: parent.bottom
-                    anchors.left: parent.left
-                    font.family: "BN Elements"
-                    color: root.mainFontColor
-                }
-                anchors.left: lapBg.right
-                border.width: 4
-                border.color: root.mainBorderColor
-            }
-
-            Rectangle {
                 id: currentLapBg
                 x: 317
                 width: 250
@@ -912,140 +878,18 @@ ApplicationWindow {
             }
 
 
-            Image {
-                id: dnTeamLabel
-                x: -5
-                width: 50
-                height: 50
-                rotation: 180
-                anchors.horizontalCenter: upTeamLabel.horizontalCenter
-                anchors.top: upTeamLabel.bottom
-                fillMode: Image.PreserveAspectFit
-                anchors.topMargin: 15
-                anchors.leftMargin: -450
-                source: "images/triangle_black.png"
-                anchors.left: lastLapBg.right
-            }
-
-            Rectangle {
-                id: dnTeamNumBg
-                x: 53
-                width: 100
-                height: 50
-                color: "#00000000"
-                radius: 0
-                anchors.top: upTeamLabel.bottom
-                anchors.topMargin: 20
-                anchors.leftMargin: 10
-                Text {
-                    id: dnTeamNumDisp
-                    text: qsTr("13")
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.verticalCenter: parent.verticalCenter
-                    font.pixelSize: 50
-                    font.family: "Mont Heavy DEMO"
-                    color: root.mainFontColor
-                }
-
-                Rectangle {
-                    id: dnTeamLapBg
-                    x: 110
-                    y: 0
-                    width: 120
-                    height: 50
-                    color: "#00000000"
-                    radius: 0
-                    anchors.leftMargin: 10
-                    anchors.verticalCenter: parent.verticalCenter
-                    Text {
-                        id: dnTeamLapVal
-                        text: qsTr("-0L")
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        anchors.verticalCenter: parent.verticalCenter
-                        font.pixelSize: 50
-                        font.family: "Mont Heavy DEMO"
-                        color: root.mainFontColor
-                    }
-                    anchors.left: dnTeamNumBg.right
-                    border.width: 3
-                    border.color: root.mainBorderColor
-                }
-
-                Rectangle {
-                    id: dnTeamDeltaBg
-                    y: 72
-                    width: 150
-                    height: 50
-                    color: "#ff0000"
-                    radius: 0
-                    anchors.leftMargin: 10
-                    anchors.verticalCenter: parent.verticalCenter
-                    Text {
-                        id: dnTeamDeltaDisp
-                        text: qsTr("+5.34")
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        anchors.verticalCenter: parent.verticalCenter
-                        font.pixelSize: 50
-                        color: root.mainFontColor
-                    }
-                    anchors.left: dnTeamLapBg.right
-                    border.width: 3
-                    border.color: root.mainBorderColor
-                }
-
-                Text {
-                    id: teamLabelA
-                    x: 0
-                    text: qsTr("LAP GAP")
-                    anchors.top: parent.top
-                    font.pixelSize: 20
-                    horizontalAlignment: Text.AlignHCenter
-                    anchors.horizontalCenter: dnTeamDeltaBg.horizontalCenter
-                    anchors.topMargin: -20
-                    font.family: "BN Elements"
-                    color: root.mainFontColor
-                }
-
-                Text {
-                    id: teamLabelB
-                    text: qsTr("LAP DELTA")
-                    anchors.verticalCenter: teamLabelA.verticalCenter
-                    anchors.left: dnTeamLapBg.left
-                    font.pixelSize: 20
-                    horizontalAlignment: Text.AlignHCenter
-                    anchors.leftMargin: 0
-                    font.family: "BN Elements"
-                    color: root.mainFontColor
-                }
-
-                Text {
-                    id: teamLabelC
-                    text: qsTr("TEAM")
-                    anchors.top: parent.top
-                    font.pixelSize: 20
-                    horizontalAlignment: Text.AlignHCenter
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    font.family: "BN Elements"
-                    anchors.topMargin: -20
-                    color: root.mainFontColor
-                }
-                anchors.left: upTeamLabel.right
-                border.width: 3
-                border.color: root.mainBorderColor
-            }
-
             Rectangle {
                 id: sessionTimeBg
                 x: 470
                 y: 385
                 width: 230
-                height: 98
+                height: 110
                 color: "#00000000"
                 radius: 0
                 border.width: 4
                 border.color: root.mainBorderColor
                 anchors.left: lapBg.right
-                anchors.top: lastDeltaBg.bottom
+                anchors.top: lapBg.top
                 anchors.horizontalCenterOffset: 0
                 anchors.leftMargin: 10
                 anchors.horizontalCenter: lastDeltaBg.horizontalCenter
@@ -1054,7 +898,7 @@ ApplicationWindow {
                     width: 130
                     text: qsTr("30:04")
                     anchors.verticalCenter: parent.verticalCenter
-                    font.pixelSize: 65
+                    font.pixelSize: 90
                     horizontalAlignment: Text.AlignHCenter
                     anchors.verticalCenterOffset: -5
                     font.bold: false
@@ -1074,13 +918,256 @@ ApplicationWindow {
                     font.family: "BN Elements"
                     color: root.mainFontColor
                 }
-                anchors.topMargin: 105
+                anchors.topMargin: 0
+            }
+        }
+
+        Item {
+            id: timePage
+            y: 36
+            width: 710
+            height: 512
+            visible: true
+
+            Text {
+                id: upTeamDeltaDisp
+                x: 318
+                y: 379
+                text: qsTr("+5.34")
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                font.pixelSize: 50
+                color: root.mainFontColor
             }
 
             Rectangle {
-                id: sector1Bg
-                x: 0
-                y: 0
+                id: upTeamDeltaBg
+                x: 310
+                y: 385
+                width: 150
+                height: 50
+                color: "#00ff00"
+                radius: 0
+                border.width: 3
+                border.color: root.mainBorderColor
+                anchors.left: upTeamLapBg.right
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.leftMargin: 10
+            }
+
+            Text {
+                id: upTeamLapVal
+                x: 177
+                y: 385
+                width: 125
+                height: 50
+                text: qsTr("+23L")
+                font.family: "Mont Heavy DEMO"
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                font.pixelSize: 50
+                color: root.mainFontColor
+            }
+
+            Rectangle {
+                id: upTeamLapBg
+                x: 180
+                y: 385
+                width: 120
+                height: 50
+                color: "#00000000"
+                radius: 0
+                border.width: 3
+                border.color: root.mainBorderColor
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.left: upTeamNumBg.right
+                anchors.leftMargin: 10
+            }
+
+            Text {
+                id: upTeamNumDisp
+                x: 78
+                y: 382
+                text: qsTr("666")
+                font.family: "Mont Heavy DEMO"
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                font.pixelSize: 50
+                color: root.mainFontColor
+            }
+
+            Rectangle {
+                id: upTeamNumBg
+                x: 70
+                y: 385
+                width: 100
+                height: 50
+                color: "#00000000"
+                radius: 0
+                anchors.left: parent.right
+                anchors.leftMargin: 10
+                anchors.verticalCenter: parent.verticalCenter
+                border.width: 3
+                border.color: root.mainBorderColor
+            }
+
+            Image {
+                id: upTeamLabel
+                x: 10
+                y: 385
+                width: 50
+                height: 50
+                anchors.top: lastLapBg.bottom
+                anchors.topMargin: 105
+                anchors.left: lastLapBg.right
+                anchors.leftMargin: -450
+                fillMode: Image.PreserveAspectFit
+                source: "images/triangle_black.png"
+            }
+
+            Text {
+                id: teamLabelC
+                x: 91
+                y: 435
+                text: qsTr("TEAM")
+                anchors.top: parent.top
+                font.pixelSize: 20
+                horizontalAlignment: Text.AlignHCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                font.family: "BN Elements"
+                anchors.topMargin: -20
+                color: root.mainFontColor
+            }
+
+            Text {
+                id: teamLabelB
+                x: 180
+                y: 435
+                text: qsTr("LAP DELTA")
+                anchors.verticalCenter: teamLabelA.verticalCenter
+                anchors.left: dnTeamLapBg.left
+                font.pixelSize: 20
+                horizontalAlignment: Text.AlignHCenter
+                anchors.leftMargin: 0
+                font.family: "BN Elements"
+                color: root.mainFontColor
+            }
+
+            Text {
+                id: teamLabelA
+                x: 338
+                y: 435
+                text: qsTr("LAP GAP")
+                anchors.top: parent.top
+                font.pixelSize: 20
+                horizontalAlignment: Text.AlignHCenter
+                anchors.horizontalCenter: dnTeamDeltaBg.horizontalCenter
+                anchors.topMargin: -20
+                font.family: "BN Elements"
+                color: root.mainFontColor
+            }
+
+            Text {
+                id: dnTeamDeltaDisp
+                x: 318
+                y: 449
+                text: qsTr("+5.34")
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.verticalCenter: parent.verticalCenter
+                font.pixelSize: 50
+                color: root.mainFontColor
+            }
+
+            Rectangle {
+                id: dnTeamDeltaBg
+                x: 310
+                y: 455
+                width: 150
+                height: 50
+                color: "#ff0000"
+                radius: 0
+                anchors.leftMargin: 10
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.left: dnTeamLapBg.right
+                border.width: 3
+                border.color: root.mainBorderColor
+            }
+
+            Text {
+                id: dnTeamLapVal
+                x: 204
+                y: 452
+                text: qsTr("-0L")
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.verticalCenter: parent.verticalCenter
+                font.pixelSize: 50
+                font.family: "Mont Heavy DEMO"
+                color: root.mainFontColor
+            }
+
+            Rectangle {
+                id: dnTeamLapBg
+                x: 180
+                y: 455
+                width: 120
+                height: 50
+                color: "#00000000"
+                radius: 0
+                anchors.leftMargin: 10
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.left: dnTeamNumBg.right
+                border.width: 3
+                border.color: root.mainBorderColor
+            }
+
+            Text {
+                id: dnTeamNumDisp
+                x: 92
+                y: 452
+                text: qsTr("13")
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.verticalCenter: parent.verticalCenter
+                font.pixelSize: 50
+                font.family: "Mont Heavy DEMO"
+                color: root.mainFontColor
+            }
+
+            Rectangle {
+                id: dnTeamNumBg
+                x: 70
+                y: 455
+                width: 100
+                height: 50
+                color: "#00000000"
+                radius: 0
+                anchors.top: upTeamLabel.bottom
+                anchors.topMargin: 20
+                anchors.leftMargin: 10
+                anchors.left: upTeamLabel.right
+                border.width: 3
+                border.color: root.mainBorderColor
+            }
+
+            Image {
+                id: dnTeamLabel
+                x: 10
+                y: 450
+                width: 50
+                height: 50
+                rotation: 180
+                anchors.horizontalCenter: upTeamLabel.horizontalCenter
+                anchors.top: upTeamLabel.bottom
+                fillMode: Image.PreserveAspectFit
+                anchors.topMargin: 15
+                anchors.leftMargin: -450
+                source: "images/triangle_black.png"
+                anchors.left: lastLapBg.right
+            }
+
+            Rectangle {
+                id: sector2Bg
+                x: 162
+                y: 290
                 width: 145
                 height: 85
                 visible: true
@@ -1088,13 +1175,13 @@ ApplicationWindow {
                 radius: 0
                 border.width: 4
                 border.color: root.mainBorderColor
-                anchors.left: lastLapBg.left
-                anchors.top: lastLapBg.bottom
-                anchors.leftMargin: 0
+                anchors.verticalCenter: sector1Bg.verticalCenter
+                anchors.left: sector1Bg.right
+                anchors.leftMargin: 7
                 Text {
-                    id: sector1Val
+                    id: sector2Val
                     width: 130
-                    text: qsTr("20.45")
+                    text: qsTr("12.89")
                     anchors.verticalCenter: parent.verticalCenter
                     font.pixelSize: 50
                     horizontalAlignment: Text.AlignHCenter
@@ -1106,21 +1193,20 @@ ApplicationWindow {
                 }
 
                 Text {
-                    id: sector1Label
-                    text: qsTr("SECTOR 1")
+                    id: sector2Label
+                    text: qsTr("SECTOR 2")
                     anchors.bottom: parent.bottom
                     font.pixelSize: 15
-                    anchors.horizontalCenter: parent.horizontalCenter
                     anchors.bottomMargin: 0
+                    anchors.horizontalCenter: parent.horizontalCenter
                     font.family: "BN Elements"
                     color: root.mainFontColor
                 }
-                anchors.topMargin: 10
             }
 
             Rectangle {
                 id: sector3Bg
-                x: 163
+                x: 314
                 y: 290
                 width: 145
                 height: 85
@@ -1159,8 +1245,9 @@ ApplicationWindow {
             }
 
             Rectangle {
-                id: sector2Bg
-                y: 283
+                id: sector1Bg
+                x: 10
+                y: 290
                 width: 145
                 height: 85
                 visible: true
@@ -1168,13 +1255,13 @@ ApplicationWindow {
                 radius: 0
                 border.width: 4
                 border.color: root.mainBorderColor
-                anchors.verticalCenter: sector1Bg.verticalCenter
-                anchors.left: sector1Bg.right
-                anchors.leftMargin: 7
+                anchors.left: lastLapBg.left
+                anchors.top: lastLapBg.bottom
+                anchors.leftMargin: 0
                 Text {
-                    id: sector2Val
+                    id: sector1Val
                     width: 130
-                    text: qsTr("12.89")
+                    text: qsTr("20.45")
                     anchors.verticalCenter: parent.verticalCenter
                     font.pixelSize: 50
                     horizontalAlignment: Text.AlignHCenter
@@ -1186,148 +1273,138 @@ ApplicationWindow {
                 }
 
                 Text {
-                    id: sector2Label
-                    text: qsTr("SECTOR 2")
+                    id: sector1Label
+                    text: qsTr("SECTOR 1")
                     anchors.bottom: parent.bottom
                     font.pixelSize: 15
-                    anchors.bottomMargin: 0
                     anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.bottomMargin: 0
                     font.family: "BN Elements"
                     color: root.mainFontColor
                 }
+                anchors.topMargin: 10
             }
-            Image {
-                id: upTeamLabel
-                width: 50
-                height: 50
-                anchors.top: lastLapBg.bottom
-                anchors.topMargin: 105
-                anchors.left: lastLapBg.right
-                anchors.leftMargin: -450
-                fillMode: Image.PreserveAspectFit
-                source: "images/triangle_black.png"
 
-                Rectangle {
-                    id: upTeamNumBg
-                    x: 72
-                    y: -166
-                    width: 100
-                    height: 50
-                    color: "#00000000"
-                    radius: 0
-                    anchors.left: parent.right
-                    anchors.leftMargin: 10
+            Rectangle {
+                id: bestLapBg
+                x: 470
+                y: 10
+                width: 230
+                height: 110
+                color: "#00000000"
+                radius: 0
+                anchors.leftMargin: 10
+                anchors.verticalCenter: posBg.verticalCenter
+                Text {
+                    id: bestLapVal
+                    width: 130
+                    text: qsTr("0:42.61")
+                    anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
-                    border.width: 3
-                    border.color: root.mainBorderColor
-
-                    Text {
-                        id: upTeamNumDisp
-                        text: qsTr("666")
-                        font.family: "Mont Heavy DEMO"
-                        anchors.verticalCenter: parent.verticalCenter
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        font.pixelSize: 50
-                        color: root.mainFontColor
-                    }
+                    font.pixelSize: 65
+                    horizontalAlignment: Text.AlignHCenter
+                    font.bold: false
+                    font.family: "Mont Heavy DEMO"
+                    color: root.mainFontColor
                 }
 
-                Rectangle {
-                    id: upTeamLapBg
-                    x: 72
-                    y: -175
-                    width: 120
-                    height: 50
-                    color: "#00000000"
-                    radius: 0
-                    border.width: 3
-                    border.color: root.mainBorderColor
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.left: upTeamNumBg.right
-                    Text {
-                        id: upTeamLapVal
-                        width: 125
-                        height: 50
-                        text: qsTr("+23L")
-                        font.family: "Mont Heavy DEMO"
-                        anchors.verticalCenter: parent.verticalCenter
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        font.pixelSize: 50
-                        color: root.mainFontColor
-                    }
-                    anchors.leftMargin: 10
+                Text {
+                    id: bestLapLabel
+                    text: qsTr("BEST LAP")
+                    anchors.bottomMargin: 0
+                    anchors.leftMargin: 7
+                    font.pixelSize: 15
+                    anchors.bottom: parent.bottom
+                    anchors.left: parent.left
+                    font.family: "BN Elements"
+                    color: root.mainFontColor
                 }
-
-                Rectangle {
-                    id: upTeamDeltaBg
-                    y: -177
-                    width: 150
-                    height: 50
-                    color: "#00ff00"
-                    radius: 0
-                    border.width: 3
-                    border.color: root.mainBorderColor
-                    anchors.left: upTeamLapBg.right
-                    anchors.verticalCenter: parent.verticalCenter
-                    Text {
-                        id: upTeamDeltaDisp
-                        text: qsTr("+5.34")
-                        anchors.verticalCenter: parent.verticalCenter
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        font.pixelSize: 50
-                        color: root.mainFontColor
-                    }
-                    anchors.leftMargin: 10
-                }
+                anchors.left: lapBg.right
+                border.width: 4
+                border.color: root.mainBorderColor
             }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         }
 
         Item {
-            id: timePage
-            y: 36
-            width: 710
-            height: 512
-            visible: true
-        }
-
-        Item {
-            id: telePage
+            id: bikePage
             width: 710
             height: 512
             visible: true
             anchors.top: parent.top
             anchors.topMargin: 36
 
-            Item {
-                id: leanDisp
-                width: 350
-                height: 200
-                anchors.left: parent.left
-                anchors.top: parent.top
-                anchors.leftMargin: 10
-                anchors.topMargin: 50
-            }
 
             Rectangle {
-                id: gBg
-                width: 200
-                height: 200
-                color: "#ffffff"
-                radius: 100
-                border.width: 3
-                anchors.right: parent.right
-                anchors.top: parent.top
-                anchors.rightMargin: 50
-                anchors.topMargin: 50
+                id: leanDisp
+                x: 500
+                y: 33
+                width: 15
+                height: 275
+                visible: true
+                color: "#00ff00"
+                border.width: 2
+                rotation: 0
+                transformOrigin: Item.Bottom
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
+            Image {
+                id: teleBg
+                x: -250
+                y: -161
+                width: 700
+                height: 450
+                visible: true
+                anchors.verticalCenter: parent.verticalCenter
+                source: "images/tele_light.png"
+                anchors.horizontalCenter: parent.horizontalCenter
+                fillMode: Image.PreserveAspectFit
 
                 Rectangle {
-                    id: gDot
-                    width: 20
-                    height: 20
-                    color: "#ffffff"
-                    border.width: 5
+                    id: gboundary
+                    x: 175
+                    y: 98
+                    width: 350
+                    height: 350
+                    visible: true
+                    color: "#00000000"
+                    radius: 175
+                    border.color: "#00000000"
+
+                    Rectangle {
+                        id: gDot
+                        x: 167
+                        y: 167
+                        width: 25
+                        height: 25
+                        visible: true
+                        color: "#00ff00"
+                        radius: 12
+                        border.width: 5
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.horizontalCenterOffset: 0
+                        anchors.horizontalCenter: parent.horizontalCenter
+                    }
                 }
             }
+
         }
 
         Item {
@@ -1336,7 +1413,22 @@ ApplicationWindow {
             height: 200
             visible: true
         }
+
+
+        MultiPointTouchArea {
+            id: pageR
+            x: 75
+            y: 0
+            width: 640
+            height: 550
+            mouseEnabled: true
+            maximumTouchPoints: 1
+            onPressed: {root.page = (root.page != 3) ? root.page+1 : 0}
+
+
+        }
     }
+
 
 
 }
@@ -1351,6 +1443,6 @@ ApplicationWindow {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.75}D{i:38;invisible:true}
+    D{i:0;formeditorZoom:0.75}D{i:57;invisible:true}D{i:87;invisible:true}D{i:92;invisible:true}
 }
 ##^##*/

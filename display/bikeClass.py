@@ -6,10 +6,9 @@ class Bike:
     def __init__(self,number):
         self.value=number
         self.laps = 0
+        self.test=0
     def start(self):
-        while True:
-            self. laps +=1
-            time.sleep(1)
+        return str(time.time())
 
     def runner(self):
         while True:
@@ -17,6 +16,8 @@ class Bike:
             print(str(self.value))
             time.sleep(0.1)
 
+
+i = Bike(4)
 
 
 

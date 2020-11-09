@@ -5,6 +5,7 @@ from os.path import abspath, dirname, join
 import random
 import ast
 
+
 #import requests
 
 from PyQt5.QtCore import QObject, QUrl
@@ -83,8 +84,8 @@ def uiBoot():
 
     # Get the path of the current directory, and then add the name
     # of the QML file, to load it.
-    #qmlFile = join(dirname(__file__), 'dash_v9.qml')
-    qmlFile = join(dirname(__file__), 'stck.qml')
+    qmlFile = join(dirname(__file__), 'dash_v9.qml')
+    #qmlFile = join(dirname(__file__), 'stck.qml')
     engine.load(abspath(qmlFile))
 
     sys.exit(app.exec_())
@@ -107,8 +108,8 @@ if __name__ == '__main__':
 
     # Get the path of the current directory, and then add the name
     # of the QML file, to load it.
-#    qmlFile = join(dirname(__file__), 'dash_v9.qml')
-    qmlFile = join(dirname(__file__), 'stck.qml')
+    qmlFile = join(dirname(__file__), 'dash_v9.qml')
+#    qmlFile = join(dirname(__file__), 'stck.qml')
     engine.load(abspath(qmlFile))
 
     sys.exit(app.exec_())
