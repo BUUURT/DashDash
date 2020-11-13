@@ -15,15 +15,16 @@ from PyQt5.QtGui import QGuiApplication
 from PyQt5.QtQml import QQmlApplicationEngine
 from PyQt5.QtQuick import QQuickView
 
-#from imuFunc import imuEuler
-#from imuFunc import imuTemp
+from bikeClass import Bike
+
+bike = Bike()
 
 class Bridge(QObject):
 
 
     @Slot(result=str)
-    def biketest(self):
-        return imuEuler()
+    def bikeLean(self):
+        return bike.imu_y
 
     @Slot(result=str)
     def airTemp(self):
@@ -96,20 +97,12 @@ if __name__ == '__main__':
     app = QGuiApplication(sys.argv)
     engine = QQmlApplicationEngine()
 
-
     # Instance of the Python object
     bridge = Bridge()
-
-
 
     # Expose the Python object to QML
     context = engine.rootContext()
     context.setContextProperty("con", bridge)
-
-    # Get the path of the current directory, and then add the name
-    # of the QML file, to load it.
-    qmlFile = join(dirname(__file__), 'dash_v9.qml')
-#    qmlFile = join(dirname(__file__), 'stck.qml')
+    qmlFile = join(dirname(__file__), 'display/dash_v9.qml')
     engine.load(abspath(qmlFile))
-
     sys.exit(app.exec_())

@@ -6,10 +6,8 @@ import adafruit_bno055
 
 #from multiprocessing import Process
 
-import pandas
-#
 class Bike:
-    def __init__(self,gpioPin_ws=17):
+    def __init__(self,gpioPin_ws=17,debug=False):
         self.laps = 0
         self.distance = 0
         self.speed = 0 #mph
@@ -18,17 +16,25 @@ class Bike:
         self.rpm = 0
         self.Etemp= 0 #degF
         self.airTemp = 0
+        self.test = str(time.time())
 
-        GPIO.setmode(GPIO.BCM)
-        GPIO.setwarnings(False)
-        GPIO.setup(sensor,GPIO.IN,GPIO.PUD_UP)
-        GPIO.add_event_detector(self.gpioPin_ws,GPIO.FALLING,callback=surething,bouncetime=20)
+        if debug!=False:
+            GPIO.setmode(GPIO.BCM)
+            GPIO.setwarnings(False)
+            GPIO.setup(sensor,GPIO.IN,GPIO.PUD_UP)
+            GPIO.add_event_detector(self.gpioPin_ws,GPIO.FALLING,callback=surething,bouncetime=20)
+            self.sensor = adafruit_bno055.BNO055_I2C(busio.I2C(board.SCL, board.SDA))
+            self.airTemp = str(self.sensor.temperature).split('.')[0]
+            self.imu_x = self.sensor.euler[0]
+            self.imu_y = self.sensor.euler[1]
+            self.imu_z = self.sensor.euler[2]
+        else:
+            s=str(time.time())
 
-        self.sensor = adafruit_bno055.BNO055_I2C(busio.I2C(board.SCL, board.SDA))
-        self.airTemp = str(self.sensor.temperature).split('.')[0]
-        self.imu_x = self.sensor.euler[0]
-        self.imu_y = self.sensor.euler[1]
-        self.imu_z = self.sensor.euler[2]
+            self.airTemp = s[:1]
+            self.imu_x = s[2:4]
+            self.imu_y = s[5:7]
+            self.imu_z = s[8:10]
 
 
     def speedCalc(self):
@@ -37,7 +43,7 @@ class Bike:
         self.wheel_elapse = time.time()
         self.speed = (3140/timeDelta)/447.04 # mph/mmps conversion
 
-    def imu(self)
+
 
 
 

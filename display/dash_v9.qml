@@ -131,6 +131,7 @@ ApplicationWindow {
         onTriggered: {
             root.rpm = con.rpm()
             root.speed = con.speed()
+            teamMsg.text = con.bikeLean()
 
             //teamMsg.text = con.biketest()
             //positionNumber.text = con.raceTimeData('selfPosition')
