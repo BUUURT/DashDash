@@ -50,9 +50,9 @@ ApplicationWindow {
             //            selection.anchors.horizontalCenter = mainHead.horizontalCenter
             selection.x = mainHead.x-10
             selection.width = mainHead.width+20
-            const sleep = (milliseconds) => {
-                return new Promise(resolve => setTimeout(resolve, milliseconds))
-            }
+//            const sleep = (milliseconds) => {
+//                return new Promise(resolve => setTimeout(resolve, milliseconds))
+//            }
             mainHead.color = "#0000ff"
             timeHead.color = "#f0f0f0"
             bikeHead.color = "#f0f0f0"
