@@ -6,7 +6,7 @@ import adafruit_bno055
 
 #from multiprocessing import Process
 
-import pandas
+#import pandas
 #
 class Bike:
     def __init__(self,gpioPin_ws=17):
@@ -19,6 +19,7 @@ class Bike:
         self.Etemp= 0 #degF
         self.airTemp = 0
 
+        self.GPIO = GPIO
         self.GPIO.setmode(GPIO.BCM)
         self.GPIO.setwarnings(False)
         self.GPIO.setup(self.gpioPin_ws,GPIO.IN,GPIO.PUD_UP)
@@ -40,35 +41,12 @@ class Bike:
 
 
 
-
-
-
-
-
-if __name__=='__main__':
-    i = Bike(4)
-
-#
-#     def __str__(self):
-#         return self.value
-#     def __repr__(self):
-#         return self.value
-# def a():
-#     i = 0
-#     while True:
-#         i +=1
-#         print(i)
-#
-#
-#
-# def joy():
-#     while True:
-#         print('JOY')
-#         time.sleep(1)
-#
-#
-# if __name__ == '__main__':
-#     i = Bike(6)
+if __name__ == '__main__':
+    i = Bike()
+    while True:
+        i.speedCalc()
+        print(i.speed)
+        time.sleep(0.1)
 #     #p = Process(target=i.runner())
 #     p =Process(target=a)
 #     j = Process(target=joy)
