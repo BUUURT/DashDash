@@ -19,16 +19,16 @@ class Bike:
         self.Etemp= 0 #degF
         self.airTemp = 0
 
-        GPIO.setmode(GPIO.BCM)
-        GPIO.setwarnings(False)
-        GPIO.setup(sensor,GPIO.IN,GPIO.PUD_UP)
-        GPIO.add_event_detector(self.gpioPin_ws,GPIO.FALLING,callback=surething,bouncetime=20)
+        self.GPIO.setmode(GPIO.BCM)
+        self.GPIO.setwarnings(False)
+        self.GPIO.setup(self.gpioPin_ws,GPIO.IN,GPIO.PUD_UP)
+        self.GPIO.add_event_detector(self.gpioPin_ws,GPIO.FALLING,callback=surething,bouncetime=20)
 
-        self.sensor = adafruit_bno055.BNO055_I2C(busio.I2C(board.SCL, board.SDA))
-        self.airTemp = str(self.sensor.temperature).split('.')[0]
-        self.imu_x = self.sensor.euler[0]
-        self.imu_y = self.sensor.euler[1]
-        self.imu_z = self.sensor.euler[2]
+        # self.sensor = adafruit_bno055.BNO055_I2C(busio.I2C(board.SCL, board.SDA))
+        # self.airTemp = str(self.sensor.temperature).split('.')[0]
+        # self.imu_x = self.sensor.euler[0]
+        # self.imu_y = self.sensor.euler[1]
+        # self.imu_z = self.sensor.euler[2]
 
 
     def speedCalc(self):
@@ -37,8 +37,7 @@ class Bike:
         self.wheel_elapse = time.time()
         self.speed = (3140/timeDelta)/447.04 # mph/mmps conversion
 
-    def imu(self)
-        pass
+
 
 
 
