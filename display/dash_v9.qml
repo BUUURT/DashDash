@@ -6,9 +6,6 @@ import QtQuick.Controls 2.4
 import QtQuick.Controls.Universal 2.0
 import QtGraphicalEffects 1.0
 
-import QtCharts 2.15
-
-
 
 ApplicationWindow {
     id: root
