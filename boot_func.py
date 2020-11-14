@@ -15,8 +15,9 @@ from PyQt5.QtGui import QGuiApplication
 from PyQt5.QtQml import QQmlApplicationEngine
 from PyQt5.QtQuick import QQuickView
 
-#from imuFunc import imuEuler
-#from imuFunc import imuTemp
+from bikeClass import Bike
+
+bike = Bike()
 
 class Bridge(QObject):
 
@@ -40,7 +41,8 @@ class Bridge(QObject):
 
     @Slot(result=str)
     def speed(self):
-        return str(time.time())[:2]
+        #return str(time.time())[:2]
+        return str(bike.speed)
 
 
     @Slot(result=int)
@@ -64,31 +66,6 @@ class Bridge(QObject):
         i = random.randrange(360)
         return int(i)
 
-#    @Slot(result=series)
-#    def chart(self, series):
-#        series.clear()
-#        for i in range(10):
-#            return series.append(i,random.random()*100)
-
-def uiBoot():
-    app = QGuiApplication(sys.argv)
-    engine = QQmlApplicationEngine()
-
-
-    # Instance of the Python object
-    bridge = Bridge()
-
-    # Expose the Python object to QML
-    context = engine.rootContext()
-    context.setContextProperty("con", bridge)
-
-    # Get the path of the current directory, and then add the name
-    # of the QML file, to load it.
-    qmlFile = join(dirname(__file__), 'dash_v9.qml')
-    #qmlFile = join(dirname(__file__), 'stck.qml')
-    engine.load(abspath(qmlFile))
-
-    sys.exit(app.exec_())
 
 
 if __name__ == '__main__':
@@ -108,7 +85,7 @@ if __name__ == '__main__':
 
     # Get the path of the current directory, and then add the name
     # of the QML file, to load it.
-    qmlFile = join(dirname(__file__), 'dash_v9.qml')
+    qmlFile = join(dirname(__file__), 'display/dash_v9.qml')
 #    qmlFile = join(dirname(__file__), 'stck.qml')
     engine.load(abspath(qmlFile))
 
