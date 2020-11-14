@@ -38,7 +38,7 @@ class Bike:
         self.speed = (3140/timeDelta)/447.04 # mph/mmps conversion
 
     def imu(self)
-
+        pass
 
 
 

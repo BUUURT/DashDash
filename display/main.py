@@ -16,11 +16,11 @@ from PyQt5.QtGui import QGuiApplication
 from PyQt5.QtQml import QQmlApplicationEngine
 from PyQt5.QtQuick import QQuickView
 
-#from imuFunc import imuEuler
-#from imuFunc import imuTemp
+from bikeClass import Bike
+
+bike = Bike()
 
 class Bridge(QObject):
-
 
     @Slot(result=str)
     def biketest(self):
@@ -41,7 +41,8 @@ class Bridge(QObject):
 
     @Slot(result=str)
     def speed(self):
-        return str(time.time())[:2]
+#        return str(time.time())[:2]
+        return bike.speed
 
 
     @Slot(result=int)
