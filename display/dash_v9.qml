@@ -128,6 +128,9 @@ ApplicationWindow {
         onTriggered: {
             root.rpm = con.rpm()
             root.speed = con.speed()
+            gDot.anchors.verticalCenterOffset = con.accelX()*13.78
+            gDot.anchors.horizontalCenterOffset = con.accelY()*13.78
+            leanDisp.rotation = con.lean()
 
             //teamMsg.text = con.biketest()
             //positionNumber.text = con.raceTimeData('selfPosition')
@@ -924,15 +927,13 @@ ApplicationWindow {
             y: 36
             width: 710
             height: 512
-            visible: true
+            visible: false
 
             Text {
                 id: upTeamDeltaDisp
                 x: 318
                 y: 379
                 text: qsTr("+5.34")
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.horizontalCenter: parent.horizontalCenter
                 font.pixelSize: 50
                 color: root.mainFontColor
             }
@@ -960,8 +961,6 @@ ApplicationWindow {
                 height: 50
                 text: qsTr("+23L")
                 font.family: "Mont Heavy DEMO"
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.horizontalCenter: parent.horizontalCenter
                 font.pixelSize: 50
                 color: root.mainFontColor
             }
@@ -1027,12 +1026,9 @@ ApplicationWindow {
                 x: 91
                 y: 435
                 text: qsTr("TEAM")
-                anchors.top: parent.top
                 font.pixelSize: 20
                 horizontalAlignment: Text.AlignHCenter
-                anchors.horizontalCenter: parent.horizontalCenter
                 font.family: "BN Elements"
-                anchors.topMargin: -20
                 color: root.mainFontColor
             }
 
@@ -1041,11 +1037,8 @@ ApplicationWindow {
                 x: 180
                 y: 435
                 text: qsTr("LAP DELTA")
-                anchors.verticalCenter: teamLabelA.verticalCenter
-                anchors.left: dnTeamLapBg.left
                 font.pixelSize: 20
                 horizontalAlignment: Text.AlignHCenter
-                anchors.leftMargin: 0
                 font.family: "BN Elements"
                 color: root.mainFontColor
             }
@@ -1055,11 +1048,9 @@ ApplicationWindow {
                 x: 338
                 y: 435
                 text: qsTr("LAP GAP")
-                anchors.top: parent.top
                 font.pixelSize: 20
                 horizontalAlignment: Text.AlignHCenter
                 anchors.horizontalCenter: dnTeamDeltaBg.horizontalCenter
-                anchors.topMargin: -20
                 font.family: "BN Elements"
                 color: root.mainFontColor
             }
@@ -1069,8 +1060,6 @@ ApplicationWindow {
                 x: 318
                 y: 449
                 text: qsTr("+5.34")
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.verticalCenter: parent.verticalCenter
                 font.pixelSize: 50
                 color: root.mainFontColor
             }
@@ -1122,8 +1111,6 @@ ApplicationWindow {
                 x: 92
                 y: 452
                 text: qsTr("13")
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.verticalCenter: parent.verticalCenter
                 font.pixelSize: 50
                 font.family: "Mont Heavy DEMO"
                 color: root.mainFontColor
@@ -1344,7 +1331,7 @@ ApplicationWindow {
             id: bikePage
             width: 710
             height: 512
-            visible: true
+            visible: false
             anchors.top: parent.top
             anchors.topMargin: 36
 
@@ -1387,16 +1374,15 @@ ApplicationWindow {
 
                     Rectangle {
                         id: gDot
-                        x: 167
-                        y: 167
-                        width: 25
-                        height: 25
+                        width: 20
+                        height: 20
                         visible: true
                         color: "#00ff00"
                         radius: 12
-                        border.width: 5
-                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.verticalCenterOffset: 0
                         anchors.horizontalCenterOffset: 0
+                        border.width: 4
+                        anchors.verticalCenter: parent.verticalCenter
                         anchors.horizontalCenter: parent.horizontalCenter
                     }
                 }
@@ -1440,6 +1426,6 @@ ApplicationWindow {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.75}D{i:57;invisible:true}D{i:87;invisible:true}D{i:92;invisible:true}
+    D{i:0;formeditorZoom:0.75}D{i:92;invisible:true}
 }
 ##^##*/

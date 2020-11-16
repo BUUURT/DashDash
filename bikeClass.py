@@ -10,23 +10,24 @@ import adafruit_bno055
 #
 class Bike:
     def __init__(self,gpioPin_ws=17):
-        self.laps = 0
-        self.distance = 0
+        self.laps = 0 #int #todo
+        self.distance = 0 #int, meters #todo
         self.speed = 0 #mph
-        self.wheel_elapse = time.time()
-        self.gpioPin_ws = gpioPin_ws
-        self.rpm = 0
+        self.wheel_elapse = time.time() #meta
+        self.gpioPin_ws = gpioPin_ws #meta
+        self.rpm = 0 #int
         self.Etemp= 0 #degF
-        self.airTemp = 0
+        self.airTemp = 0 #int
+
 
         self.GPIO = GPIO
         self.GPIO.setmode(GPIO.BCM)
         self.GPIO.setwarnings(False)
         self.GPIO.setup(self.gpioPin_ws,GPIO.IN,GPIO.PUD_UP)
-        self.GPIO.add_event_detect(self.gpioPin_ws,GPIO.FALLING,callback=self.SpeedCalc,bouncetime=20)
+        self.GPIO.add_event_detect(self.gpioPin_ws,GPIO.FALLING,callback=self.speedCalc,bouncetime=20)
 
-        # self.sensor = adafruit_bno055.BNO055_I2C(busio.I2C(board.SCL, board.SDA))
-        # self.airTemp = str(self.sensor.temperature).split('.')[0]
+        self.imu = adafruit_bno055.BNO055_I2C(busio.I2C(board.SCL, board.SDA))
+        self.airTemp = int((1.8*self.sensor.temperature)+32) #degF
         # self.imu_x = self.sensor.euler[0]
         # self.imu_y = self.sensor.euler[1]
         # self.imu_z = self.sensor.euler[2]

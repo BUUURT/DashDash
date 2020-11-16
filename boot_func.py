@@ -21,29 +21,13 @@ bike = Bike()
 
 class Bridge(QObject):
 
-
-    @Slot(result=str)
-    def biketest(self):
-        return imuEuler()
-
     @Slot(result=str)
     def airTemp(self):
-#        c = int(imuTemp())
-#        f = int((c*9/5)+32)
-#        return str(f)
-         return '50'
-
-#    @Slot(str, result=str)
-#    def raceTimeData(self,value):
-#        data = requests.get(r'http://192.168.254.12:9000/dashGet')
-#        data = ast.literal_eval(data.text)
-#        return data[value]
+        return bike.airTemp
 
     @Slot(result=str)
     def speed(self):
-        #return str(time.time())[:2]
         return str(bike.speed)
-
 
     @Slot(result=int)
     def rpm(self):
@@ -53,19 +37,25 @@ class Bridge(QObject):
         speed = 13000*y
         return int(speed)
 
-    @Slot(result=int)
-    def spin(self):
-        i = str(time.time())
-        n = i.split('.')[1][0]
-        n = int(n)*36
-        return int(n)
+    @slot(result=int)
+    def lean(self):
+        return bike.imu.euler[1]
+
+    @slot(result=int)
+    def accelX(self):
+        return bike.imu.acceleration[0]
+
+    @slot(result=int)
+    def accelX(self):
+        return bike.imu.acceleration[1]
 
 
-    @Slot(result=int)
-    def rand(self):
-        i = random.randrange(360)
-        return int(i)
 
+#    @Slot(str, result=str)
+#    def raceTimeData(self,value):
+#        data = requests.get(r'http://192.168.254.12:9000/dashGet')
+#        data = ast.literal_eval(data.text)
+#        return data[value]
 
 
 if __name__ == '__main__':
