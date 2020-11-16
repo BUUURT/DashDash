@@ -43,8 +43,6 @@ class Bike:
         self.airTemp = int((1.8*self.imu.temperature)+32)
         return self.airTemp
 
-    self _imu(self)
-
 
 if __name__ == '__main__':
     i = Bike()
