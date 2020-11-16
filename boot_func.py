@@ -37,15 +37,15 @@ class Bridge(QObject):
         speed = 13000*y
         return int(speed)
 
-    @slot(result=int)
+    @Slot(result=int)
     def lean(self):
         return bike.imu.euler[1]
 
-    @slot(result=int)
+    @Slot(result=int)
     def accelX(self):
         return bike.imu.acceleration[0]
 
-    @slot(result=int)
+    @Slot(result=int)
     def accelY(self):
         return bike.imu.acceleration[1]
 
