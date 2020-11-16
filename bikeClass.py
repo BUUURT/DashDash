@@ -39,9 +39,9 @@ class Bike:
         self.wheel_elapse = time.time()
         self.speed = (3140/timeDelta)/447.04 # mph/mmps conversion
 
-    def _airTemp(self):
-        self.airTemp = int((1.8*self.imu.temperature)+32)
-        return self.airTemp
+    # def _airTemp(self):
+    #     self.airTemp = int((1.8*self.imu.temperature)+32)
+    #     return self.airTemp
 
 
 if __name__ == '__main__':

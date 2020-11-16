@@ -131,7 +131,7 @@ ApplicationWindow {
             gDot.anchors.verticalCenterOffset = con.accelX()*13.78
             gDot.anchors.horizontalCenterOffset = con.accelY()*13.78
             leanDisp.rotation = con.lean()
-            tempAirDisp.text = qsTr(con.airTemp())
+            // tempAirDisp.text = qsTr(con.airTemp())
 
             //teamMsg.text = con.biketest()
             //positionNumber.text = con.raceTimeData('selfPosition')
