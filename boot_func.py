@@ -46,7 +46,7 @@ class Bridge(QObject):
         return bike.imu.acceleration[0]
 
     @slot(result=int)
-    def accelX(self):
+    def accelY(self):
         return bike.imu.acceleration[1]
 
 
