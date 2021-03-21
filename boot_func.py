@@ -21,6 +21,7 @@ bike = Bike()
 
 class Bridge(QObject):
 
+bike = Bike(env='pc')
 
     @Slot(result=str)
     def bikeLean(self):
@@ -28,21 +29,11 @@ class Bridge(QObject):
 
     @Slot(result=str)
     def airTemp(self):
-#        c = int(imuTemp())
-#        f = int((c*9/5)+32)
-#        return str(f)
-         return '50'
-
-#    @Slot(str, result=str)
-#    def raceTimeData(self,value):
-#        data = requests.get(r'http://192.168.254.12:9000/dashGet')
-#        data = ast.literal_eval(data.text)
-#        return data[value]
+        return bike.airTemp
 
     @Slot(result=str)
     def speed(self):
-        return str(time.time())[:2]
-
+        return str(bike.speed)
 
     @Slot(result=int)
     def rpm(self):
@@ -53,43 +44,24 @@ class Bridge(QObject):
         return int(speed)
 
     @Slot(result=int)
-    def spin(self):
-        i = str(time.time())
-        n = i.split('.')[1][0]
-        n = int(n)*36
-        return int(n)
-
+    def lean(self):
+        return bike.imu.euler[1]
 
     @Slot(result=int)
-    def rand(self):
-        i = random.randrange(360)
-        return int(i)
+    def accelX(self):
+        return bike.imu.acceleration[0]
 
-#    @Slot(result=series)
-#    def chart(self, series):
-#        series.clear()
-#        for i in range(10):
-#            return series.append(i,random.random()*100)
-
-def uiBoot():
-    app = QGuiApplication(sys.argv)
-    engine = QQmlApplicationEngine()
+    @Slot(result=int)
+    def accelY(self):
+        return bike.imu.acceleration[1]
 
 
-    # Instance of the Python object
-    bridge = Bridge()
 
-    # Expose the Python object to QML
-    context = engine.rootContext()
-    context.setContextProperty("con", bridge)
-
-    # Get the path of the current directory, and then add the name
-    # of the QML file, to load it.
-    qmlFile = join(dirname(__file__), 'dash_v9.qml')
-    #qmlFile = join(dirname(__file__), 'stck.qml')
-    engine.load(abspath(qmlFile))
-
-    sys.exit(app.exec_())
+#    @Slot(str, result=str)
+#    def raceTimeData(self,value):
+#        data = requests.get(r'http://192.168.254.12:9000/dashGet')
+#        data = ast.literal_eval(data.text)
+#        return data[value]
 
 
 if __name__ == '__main__':
