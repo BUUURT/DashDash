@@ -1,0 +1,14 @@
+Fix timestamp: 3/20/2021 18:56:08
+Latitude: 47.815603 degrees
+Longitude: -122.227615 degrees
+Fix quality: 1
+# satellites: 6
+Altitude: 82.0 meters
+Speed: 0.02 knots
+Track angle: 58.1 degrees
+Horizontal dilution: 1.49
+Height geo ID: -17.1 meters
+('GPGGA', '185609.000,4748.9362,N,12213.6569,W,2,06,1.49,82.0,M,-17.1,M,0000,0000')
+('GPGSA', 'A,3,17,07,13,14,28,30,,,,,,,1.75,1.49,0.91')
+('GPRMC', '185609.000,A,4748.9362,N,12213.6569,W,0.02,336.03,200321,,,D')
+('GPVTG', '336.03,T,,M,0.02,N,0.04,K,D')

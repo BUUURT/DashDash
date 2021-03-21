@@ -17,7 +17,6 @@ from PyQt5.QtQml import QQmlApplicationEngine
 from PyQt5.QtQuick import QQuickView
 
 from bikeClass import Bike
-
 bike = Bike()
 
 class Bridge(QObject):
