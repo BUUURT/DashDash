@@ -6,6 +6,8 @@ import busio
 import RPi.GPIO as GPIO
 import adafruit_bno055
 import adafruit_gps
+import adafruit_max31855
+import digitalio
 
 
 #from multiprocessing import Process
@@ -42,6 +44,12 @@ class Bike:
         self.gps.send_command(b"PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0")
         self.gps.send_command(b"PMTK220,10000")
 
+        #thermocouple
+        spi = busio.SPI(board.SCK, MOSI=board.MOSI, MISO=board.MISO)
+        cs = digitalio.DigitalInOut(board.D5)
+        max31855 = adafruit_max31855.MAX31855(spi, cs)
+        self.EngineTemp = f'{str(max31855.temperature*9/5+32)}F'
+
 
     def speedCalc(self,pin):
         #circ = 3140 #mm @ 500mm dia / ~20"
@@ -49,17 +57,19 @@ class Bike:
         self.wheel_elapse = time.time()
         self.speed = (3140/timeDelta)/447.04 # mph/mmps conversion
 
-    # def _airTemp(self):
-    #     self.airTemp = int((1.8*self.imu.temperature)+32)
-    #     return self.airTemp
+    def _airTemp(self):
+        self.airTemp = int((1.8*self.imu.temperature)+32)
+        return self.airTemp
 
 
 if __name__ == '__main__':
     i = Bike()
     while True:
-        i.speedCalc()
-        print(i.speed)
-        time.sleep(0.1)
+        print(i.EngineTemp)
+        time.sleep(0.5)
+        # i.speedCalc()
+        # print(i.speed)
+        # time.sleep(0.1)
 #     #p = Process(target=i.runner())
 #     p =Process(target=a)
 #     j = Process(target=joy)
