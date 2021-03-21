@@ -25,21 +25,21 @@ class Bike:
         self.airTemp = 0
         self.test = str(time.time())
 
-        GPIO.setmode(GPIO.BCM)
-        GPIO.setwarnings(False)
-        GPIO.setup(sensor,GPIO.IN,GPIO.PUD_UP)
-        GPIO.add_event_detector(self.gpioPin_ws,GPIO.FALLING,callback=surething,bouncetime=20)
-        self.sensor = adafruit_bno055.BNO055_I2C(busio.I2C(board.SCL, board.SDA))
-        self.airTemp = str(self.sensor.temperature).split('.')[0]
-        self.imu_x = self.sensor.euler[0]
-        self.imu_y = self.sensor.euler[1]
-        self.imu_z = self.sensor.euler[2]
-
-        self.GPIO = GPIO
-        self.GPIO.setmode(GPIO.BCM)
-        self.GPIO.setwarnings(False)
-        self.GPIO.setup(self.gpioPin_ws,GPIO.IN,GPIO.PUD_UP)
-        self.GPIO.add_event_detect(self.gpioPin_ws,GPIO.FALLING,callback=self.speedCalc,bouncetime=20)
+        # GPIO.setmode(GPIO.BCM)
+        # GPIO.setwarnings(False)
+        # GPIO.setup(sensor,GPIO.IN,GPIO.PUD_UP)
+        # GPIO.add_event_detector(self.gpioPin_ws,GPIO.FALLING,callback=surething,bouncetime=20)
+        # self.sensor = adafruit_bno055.BNO055_I2C(busio.I2C(board.SCL, board.SDA))
+        # self.airTemp = str(self.sensor.temperature).split('.')[0]
+        # self.imu_x = self.sensor.euler[0]
+        # self.imu_y = self.sensor.euler[1]
+        # self.imu_z = self.sensor.euler[2]
+        #
+        # self.GPIO = GPIO
+        # self.GPIO.setmode(GPIO.BCM)
+        # self.GPIO.setwarnings(False)
+        # self.GPIO.setup(self.gpioPin_ws,GPIO.IN,GPIO.PUD_UP)
+        # self.GPIO.add_event_detect(self.gpioPin_ws,GPIO.FALLING,callback=self.speedCalc,bouncetime=20)
 
         self.imu = adafruit_bno055.BNO055_I2C(busio.I2C(board.SCL, board.SDA))
         self.airTemp = int((1.8*self.imu.temperature)+32) #degF
