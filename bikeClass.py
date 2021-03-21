@@ -56,10 +56,10 @@ class Bike:
         self.gps.send_command(b"PMTK220,10000")
 
         #thermocouple
-        spi = busio.SPI(board.SCK, MOSI=board.MOSI, MISO=board.MISO)
-        cs = digitalio.DigitalInOut(board.D5)
-        max31855 = adafruit_max31855.MAX31855(spi, cs)
-        self.EngineTemp = f'{str(max31855.temperature*9/5+32)}F'
+        self.spi = busio.SPI(board.SCK, MOSI=board.MOSI, MISO=board.MISO)
+        self.cs = digitalio.DigitalInOut(board.D5)
+        self.max31855 = adafruit_max31855.MAX31855(spi, cs)
+        self.EngineTemp = max31855.temperature*9/5+32
 
 
     def speedCalc(self,pin):
