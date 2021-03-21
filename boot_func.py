@@ -17,7 +17,7 @@ from PyQt5.QtQuick import QQuickView
 
 from bikeClass import Bike
 
-bike = Bike()
+bike = Bike(env='pc')
 
 class Bridge(QObject):
 

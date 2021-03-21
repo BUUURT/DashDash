@@ -1,8 +1,12 @@
 import time
-import RPi.GPIO as GPIO
+import serial
+
 import board
 import busio
+import RPi.GPIO as GPIO
 import adafruit_bno055
+import adafruit_gps
+
 
 #from multiprocessing import Process
 
@@ -19,7 +23,6 @@ class Bike:
         self.Etemp= 0 #degF
         self.airTemp = 0 #int
 
-
         self.GPIO = GPIO
         self.GPIO.setmode(GPIO.BCM)
         self.GPIO.setwarnings(False)
@@ -31,6 +34,13 @@ class Bike:
         # self.rotationX = self.sensor.euler[0]
         # self.rotationY = self.sensor.euler[1]
         # self.rotationZ = self.sensor.euler[2]
+
+        #gps
+        uart = serial.Serial("/dev/ttyS0", baudrate=9600, timeout=10)
+
+        self.gps = adafruit_gps.GPS(uart, debug=False)
+        self.gps.send_command(b"PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0")
+        self.gps.send_command(b"PMTK220,10000")
 
 
     def speedCalc(self,pin):
