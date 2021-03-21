@@ -66,7 +66,7 @@ if __name__ == '__main__':
     i = Bike()
     while True:
         print(i.EngineTemp)
-        time.sleep(0.1)
+        time.sleep(0.5)
         # i.speedCalc()
         # print(i.speed)
         # time.sleep(0.1)
