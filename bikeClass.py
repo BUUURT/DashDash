@@ -13,7 +13,7 @@ import digitalio
 #from multiprocessing import Process
 
 class Bike:
-    def __init__(self,gpioPin_ws=17,debug=False):
+    def __init__(self,gpioPin_ws=17):
         self.laps = 0
         self.distance = 0
         self.speed = 0 #mph
@@ -25,25 +25,15 @@ class Bike:
         self.airTemp = 0
         self.test = str(time.time())
 
-        if debug!=False:
-            GPIO.setmode(GPIO.BCM)
-            GPIO.setwarnings(False)
-            GPIO.setup(sensor,GPIO.IN,GPIO.PUD_UP)
-            GPIO.add_event_detector(self.gpioPin_ws,GPIO.FALLING,callback=surething,bouncetime=20)
-            self.sensor = adafruit_bno055.BNO055_I2C(busio.I2C(board.SCL, board.SDA))
-            self.airTemp = str(self.sensor.temperature).split('.')[0]
-            self.imu_x = self.sensor.euler[0]
-            self.imu_y = self.sensor.euler[1]
-            self.imu_z = self.sensor.euler[2]
-        else:
-            s=str(time.time())
-
-            self.airTemp = s[:1]
-            self.imu_x = s[2:4]
-            self.imu_y = s[5:7]
-            self.imu_z = s[8:10]
-
-        self.airTemp = 0 #int
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setwarnings(False)
+        GPIO.setup(sensor,GPIO.IN,GPIO.PUD_UP)
+        GPIO.add_event_detector(self.gpioPin_ws,GPIO.FALLING,callback=surething,bouncetime=20)
+        self.sensor = adafruit_bno055.BNO055_I2C(busio.I2C(board.SCL, board.SDA))
+        self.airTemp = str(self.sensor.temperature).split('.')[0]
+        self.imu_x = self.sensor.euler[0]
+        self.imu_y = self.sensor.euler[1]
+        self.imu_z = self.sensor.euler[2]
 
         self.GPIO = GPIO
         self.GPIO.setmode(GPIO.BCM)
