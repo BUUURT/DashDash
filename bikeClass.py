@@ -26,7 +26,6 @@ class Bike:
         self.distance = 0
         self.speed = 0 #mph
         self.wheel_elapse = time.time() #meta
-        self.gpioPin_ws = gpioPin_ws #meta
         self.rpm = 0 #int
         self.Etemp= 0 #degF
         # self.airTemp = int((1.8*self.imu.temperature)+32)

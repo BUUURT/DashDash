@@ -21,7 +21,7 @@ bike = Bike()
 
 class Bridge(QObject):
 
-bike = Bike()
+    
     @Slot(result=str)
     def bikeLean(self):
         return bike.imu_y
@@ -37,11 +37,6 @@ bike = Bike()
     @Slot(result=int)
     def rpm(self):
         return bike.rpmCalc()
-        # x = str(time.time())
-        # y = x.split('.')[0][-1:]
-        # y = float(y)*0.1
-        # speed = 13000*y
-        # return int(speed)
 
     @Slot(result=int)
     def lean(self):
