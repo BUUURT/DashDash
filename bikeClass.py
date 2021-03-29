@@ -38,7 +38,7 @@ class Bike:
         self.bestLap = None
 
         self.sectorTime = time.monotonic()
-        self.mapData == None
+        self.mapData = None
         #
         # self.s1_last = None
         # self.s1_time = time.monotonic()
@@ -68,30 +68,30 @@ class Bike:
         self.GPIO.setmode(GPIO.BCM)
         self.GPIO.setwarnings(False)
         #wheel speed
-        self.GPIO.setup(17,GPIO.IN,GPIO.PUD_UP)#fix
-        self.GPIO.add_event_detect(17,GPIO.FALLING,callback=self.speedCalc,bouncetime=20)
+        # self.GPIO.setup(17,GPIO.IN,GPIO.PUD_UP)#fix
+        # self.GPIO.add_event_detect(17,GPIO.FALLING,callback=self.speedCalc,bouncetime=20)
         #rpm
-        self.GPIO.setup(27,GPIO.IN,GPIO.PUD_UP)#fix
-        self.GPIO.add_event_detect(27,GPIO.FALLING,callback=self.rpmCalc,bouncetime=20)
+        # self.GPIO.setup(27,GPIO.IN,GPIO.PUD_UP)#fix
+        # self.GPIO.add_event_detect(27,GPIO.FALLING,callback=self.rpmCalc,bouncetime=20)
 
         #IMU
-        self.imu = adafruit_bno055.BNO055_I2C(busio.I2C(board.SCL, board.SDA))
+        # self.imu = adafruit_bno055.BNO055_I2C(busio.I2C(board.SCL, board.SDA))
         self.airTemp = int((1.8*self.imu.temperature)+32) #degF
         self.rotationX = self.sensor.euler[0]
         self.rotationY = self.sensor.euler[1]
         self.rotationZ = self.sensor.euler[2]
 
         #gps
-        uart = serial.Serial("/dev/ttyS0", baudrate=9600, timeout=10)
-        self.gps = adafruit_gps.GPS(uart, debug=False)
-        self.gps.send_command(b"PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0")
-        self.gps.send_command(b"PMTK220,10000")
+        # uart = serial.Serial("/dev/ttyS0", baudrate=9600, timeout=10)
+        # self.gps = adafruit_gps.GPS(uart, debug=False)
+        # self.gps.send_command(b"PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0")
+        # self.gps.send_command(b"PMTK220,10000")
 
         #thermocouple
-        self.spi = busio.SPI(board.SCK, MOSI=board.MOSI, MISO=board.MISO)
-        self.cs = digitalio.DigitalInOut(board.D5)
-        self.max31855 = adafruit_max31855.MAX31855(spi, cs)
-        self.EngineTemp = max31855.temperature*9/5+32
+        # self.spi = busio.SPI(board.SCK, MOSI=board.MOSI, MISO=board.MISO)
+        # self.cs = digitalio.DigitalInOut(board.D5)
+        # self.max31855 = adafruit_max31855.MAX31855(spi, cs)
+        # self.EngineTemp = max31855.temperature*9/5+32
 
     def speedCalc(self):
         #circ = 3140 #mm @ 500mm dia / ~20"
