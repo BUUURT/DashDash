@@ -764,18 +764,17 @@ ApplicationWindow {
 
             Rectangle {
                 id: sessionTimeBg
-                x: 470
                 width: 340
                 height: 160
                 color: "#00000000"
                 radius: 0
                 border.width: 4
                 anchors.verticalCenter: posBg.verticalCenter
-                border.color: root.mainBorderColor
                 anchors.left: parent.left
                 anchors.top: parent.top
-                anchors.topMargin: 0
                 anchors.leftMargin: 10
+                anchors.topMargin: 10
+                border.color: root.mainBorderColor
                 Text {
                     id: sessionTimeVal
                     width: 130

@@ -28,6 +28,7 @@ class Bike:
         self.wheel_elapse = time.time() #meta
         self.rpm = 0 #int
         self.Etemp= 0 #degF
+        self.rpm_elapse = time.monotonic()
         # self.airTemp = int((1.8*self.imu.temperature)+32)
 
         #timing
@@ -89,10 +90,10 @@ class Bike:
             self.gps.send_command(b"PMTK220,10000")
 
         if _engtemp == True: #thermocouple
-        # self.spi = busio.SPI(board.SCK, MOSI=board.MOSI, MISO=board.MISO)
-        # self.cs = digitalio.DigitalInOut(board.D5)
-        # self.max31855 = adafruit_max31855.MAX31855(spi, cs)
-        # self.EngineTemp = max31855.temperature*9/5+32
+            self.spi = busio.SPI(board.SCK, MOSI=board.MOSI, MISO=board.MISO)
+            self.cs = digitalio.DigitalInOut(board.D5)
+            self.max31855 = adafruit_max31855.MAX31855(spi, cs)
+            self.EngineTemp = max31855.temperature*9/5+32
 
     def speedCalc(self):
         #circ = 3140 #mm @ 500mm dia / ~20"
