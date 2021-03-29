@@ -21,7 +21,7 @@ import digitalio
 #from multiprocessing import Process
 
 class Bike:
-    def __init__(self,):
+    def __init__(self, _wheelspeed=True, _rpm=True,_gps=True,_imu=True,_engtemp=True):
         self.laps = 0
         self.distance = 0
         self.speed = 0 #mph
@@ -53,41 +53,42 @@ class Bike:
         # self.map_s2 = None
         # self.map_s3 = None
 
-        #bench testing
-        self.test = str(time.time())
-
-        # GPIO.setmode(GPIO.BCM)
-        # GPIO.setup(17,GPIO.IN,GPIO.PUD_UP)#wheelspeed
+        #old??
+        # if wheelspeed == True:
+        #     self.GPIO.setmode(GPIO.BCM)
+        #     self.GPIO.setup(17,GPIO.IN,GPIO.PUD_UP)#wheelspeed
+        #     self.GPIO.setwarnings(False)
         # GPIO.setup(27,GPIO.IN,GPIO.PUD_UP)#wheelspeed
         # GPIO.setwarnings(False)
         # GPIO.add_event_detector(17,GPIO.FALLING,callback=surething,bouncetime=20)
         # GPIO.add_event_detector(27,GPIO.FALLING,callback=surething,bouncetime=20)
 
+        if _wheelspeed == True or _rpm == True:
+            self.GPIO = GPIO
+            self.GPIO.setmode(GPIO.BCM)
+            self.GPIO.setwarnings(False)
 
-        self.GPIO = GPIO
-        self.GPIO.setmode(GPIO.BCM)
-        self.GPIO.setwarnings(False)
-        #wheel speed
-        # self.GPIO.setup(17,GPIO.IN,GPIO.PUD_UP)#fix
-        # self.GPIO.add_event_detect(17,GPIO.FALLING,callback=self.speedCalc,bouncetime=20)
-        #rpm
-        # self.GPIO.setup(27,GPIO.IN,GPIO.PUD_UP)#fix
-        # self.GPIO.add_event_detect(27,GPIO.FALLING,callback=self.rpmCalc,bouncetime=20)
+        if _wheelspeed == True:
+            self.GPIO.setup(17,GPIO.IN,GPIO.PUD_UP)#fix
+            self.GPIO.add_event_detect(17,GPIO.FALLING,callback=self.speedCalc,bouncetime=20)
+        if _rpm == True:
+            self.GPIO.setup(27,GPIO.IN,GPIO.PUD_UP)#fix
+            self.GPIO.add_event_detect(27,GPIO.FALLING,callback=self.rpmCalc,bouncetime=20)
 
-        #IMU
-        # self.imu = adafruit_bno055.BNO055_I2C(busio.I2C(board.SCL, board.SDA))
-        self.airTemp = int((1.8*self.imu.temperature)+32) #degF
-        self.rotationX = self.sensor.euler[0]
-        self.rotationY = self.sensor.euler[1]
-        self.rotationZ = self.sensor.euler[2]
+        if _imu == True:#IMU
+            self.imu = adafruit_bno055.BNO055_I2C(busio.I2C(board.SCL, board.SDA))
+            self.airTemp = int((1.8*self.imu.temperature)+32) #degF
+            self.rotationX = self.sensor.euler[0]
+            self.rotationY = self.sensor.euler[1]
+            self.rotationZ = self.sensor.euler[2]
 
-        #gps
-        # uart = serial.Serial("/dev/ttyS0", baudrate=9600, timeout=10)
-        # self.gps = adafruit_gps.GPS(uart, debug=False)
-        # self.gps.send_command(b"PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0")
-        # self.gps.send_command(b"PMTK220,10000")
+        if _gps == True:
+            uart = serial.Serial("/dev/ttyS0", baudrate=9600, timeout=10)
+            self.gps = adafruit_gps.GPS(uart, debug=False)
+            self.gps.send_command(b"PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0")
+            self.gps.send_command(b"PMTK220,10000")
 
-        #thermocouple
+        if _engtemp == True: #thermocouple
         # self.spi = busio.SPI(board.SCK, MOSI=board.MOSI, MISO=board.MISO)
         # self.cs = digitalio.DigitalInOut(board.D5)
         # self.max31855 = adafruit_max31855.MAX31855(spi, cs)

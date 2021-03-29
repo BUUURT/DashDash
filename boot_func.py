@@ -17,11 +17,11 @@ from PyQt5.QtQuick import QQuickView
 
 from bikeClass import Bike
 
-bike = Bike()
+bike = Bike(_wheelspeed=False, _rpm=False,_gps=False,_imu=False,_engtemp=False))
 
 class Bridge(QObject):
 
-    
+
     @Slot(result=str)
     def bikeLean(self):
         return bike.imu_y
