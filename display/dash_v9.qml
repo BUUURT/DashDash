@@ -47,9 +47,9 @@ ApplicationWindow {
             //            selection.anchors.horizontalCenter = mainHead.horizontalCenter
             selection.x = mainHead.x-10
             selection.width = mainHead.width+20
-//            const sleep = (milliseconds) => {
-//                return new Promise(resolve => setTimeout(resolve, milliseconds))
-//            }
+            //            const sleep = (milliseconds) => {
+            //                return new Promise(resolve => setTimeout(resolve, milliseconds))
+            //            }
             mainHead.color = "#0000ff"
             timeHead.color = "#f0f0f0"
             bikeHead.color = "#f0f0f0"
@@ -344,12 +344,12 @@ ApplicationWindow {
             Rectangle {
                 id: tempEngBg
                 y: 702
-                width: 130
-                height: 90
+                width: 185
+                height: 120
                 color: "#00ff00"
                 radius: 0
                 anchors.left: parent.left
-                anchors.leftMargin: 25
+                anchors.leftMargin: 50
                 anchors.verticalCenter: parent.verticalCenter
                 border.width: 3
                 border.color: root.mainBorderColor
@@ -363,7 +363,7 @@ ApplicationWindow {
                     anchors.verticalCenterOffset: -10
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
-                    font.pixelSize: 60
+                    font.pixelSize: 90
 
                     Text {
                         id: tempDot
@@ -401,11 +401,11 @@ ApplicationWindow {
                     x: 3
                     y: 7
                     text: qsTr("T ENG")
+                    anchors.bottom: parent.bottom
                     font.family: "BN Elements"
                     font.pixelSize: 30
                     anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.verticalCenterOffset: 30
-                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.bottomMargin: 0
                 }
             }
 
@@ -413,17 +413,18 @@ ApplicationWindow {
                 id: tempAirBg
                 x: -1
                 y: 705
-                width: 130
-                height: 90
+                width: 185
+                height: 120
+                color: "#00000000"
                 radius: 0
-                anchors.leftMargin: 15
+                anchors.leftMargin: 10
                 anchors.verticalCenter: parent.verticalCenter
                 Text {
                     id: tempAirDisp
                     text: qsTr("101")
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
-                    font.pixelSize: 60
+                    font.pixelSize: 90
                     anchors.horizontalCenterOffset: -10
                     Text {
                         id: tempDot1
@@ -461,10 +462,10 @@ ApplicationWindow {
                     x: 3
                     y: 7
                     text: qsTr("T AIR")
+                    anchors.bottom: parent.bottom
                     anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.verticalCenter: parent.verticalCenter
                     font.pixelSize: 30
-                    anchors.verticalCenterOffset: 30
+                    anchors.bottomMargin: 0
                     font.family: "BN Elements"
                 }
                 anchors.left: tempEngBg.right
@@ -478,6 +479,7 @@ ApplicationWindow {
                 y: 703
                 width: 100
                 height: 90
+                visible: false
                 color: "#8ca6ff"
                 radius: 0
                 border.width: 3
@@ -608,7 +610,7 @@ ApplicationWindow {
             height: 30
             color: "#00000000"
             anchors.verticalCenter: parent.verticalCenter
-            visible: true
+            visible: false
             //            anchors.horizontalCenter: mainHead.horizontalCenter
             border.width: 4
             border.color: root.mainHighlightColor
@@ -681,56 +683,303 @@ ApplicationWindow {
             width: 710
             height: 512
             visible: true
+            anchors.verticalCenter: timePage.verticalCenter
+            anchors.horizontalCenter: timePage.horizontalCenter
 
             Rectangle {
-                id: posBg
-                width: 215
-                height: 110
+                id: lastLapBg
+                width: 690
+                height: 180
                 color: "#00000000"
                 radius: 0
-                anchors.top: parent.top
+                anchors.top: sessionTimeBg.bottom
+                anchors.leftMargin: 0
                 anchors.topMargin: 10
-                anchors.left: parent.left
-                anchors.leftMargin: 10
                 Text {
-                    id: posDisp
-                    text: qsTr("P11")
-                    anchors.verticalCenterOffset: -5
-                    horizontalAlignment: Text.AlignHCenter
-                    font.italic: false
-                    font.family: "Mont Heavy DEMO"
-                    font.bold: false
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    font.pixelSize: 90
+                    id: lastLapDisp
+                    width: 675
+                    text: qsTr("0:45.14")
                     anchors.verticalCenter: parent.verticalCenter
+                    font.bold: true
+                    font.family: "Mont Heavy DEMO"
+                    font.pixelSize: 180
+                    horizontalAlignment: Text.AlignHCenter
+                    anchors.horizontalCenter: parent.horizontalCenter
                     color: root.mainFontColor
                 }
 
                 Text {
-                    id: posLabel
-                    text: qsTr("POSITION")
+                    id: lastLapLabel
+                    text: qsTr("LAST LAP")
                     anchors.left: parent.left
                     anchors.leftMargin: 7
                     anchors.bottom: parent.bottom
-                    anchors.bottomMargin: 0
-                    font.pixelSize: 15
+                    font.pixelSize: 20
                     font.family: "BN Elements"
+                    anchors.bottomMargin: 0
+                    color: root.mainFontColor
+                }
+                border.width: 5
+                anchors.left: sessionTimeBg.left
+                border.color: root.mainBorderColor
+            }
+
+            Rectangle {
+                id: lastDeltaBg
+                width: 340
+                height: 160
+                color: "#00ff00"
+                radius: 0
+                anchors.left: sessionTimeBg.right
+                anchors.leftMargin: 10
+                anchors.verticalCenter: sessionTimeBg.verticalCenter
+                Text {
+                    id: lastDeltaDisp
+                    text: qsTr("-14.32")
+                    font.bold: false
+                    font.family: "Mont Heavy DEMO"
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.pixelSize: 110
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    color: root.mainFontColor
+                }
+
+                Text {
+                    id: lastDeltaLabel
+                    height: 23
+                    text: qsTr("DELTA")
+                    anchors.bottom: parent.bottom
+                    anchors.bottomMargin: 0
+                    anchors.left: parent.left
+                    anchors.leftMargin: 7
+                    font.pixelSize: 20
+                    font.family: "BN Elements"
+                    anchors.horizontalCenter: parent.horizontalCenter
                     color: root.mainFontColor
                 }
                 border.width: 4
                 border.color: root.mainBorderColor
             }
 
+
+            Rectangle {
+                id: sessionTimeBg
+                x: 470
+                width: 340
+                height: 160
+                color: "#00000000"
+                radius: 0
+                border.width: 4
+                anchors.verticalCenter: posBg.verticalCenter
+                border.color: root.mainBorderColor
+                anchors.left: parent.left
+                anchors.top: parent.top
+                anchors.topMargin: 0
+                anchors.leftMargin: 10
+                Text {
+                    id: sessionTimeVal
+                    width: 130
+                    text: qsTr("30:04")
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.pixelSize: 120
+                    horizontalAlignment: Text.AlignHCenter
+                    anchors.verticalCenterOffset: -5
+                    font.bold: false
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    font.family: "Mont Heavy DEMO"
+                    color: root.mainFontColor
+                }
+
+                Text {
+                    id: sessionTimeLabel
+                    text: qsTr("SESSION TIME")
+                    anchors.left: parent.left
+                    anchors.bottom: parent.bottom
+                    font.pixelSize: 15
+                    anchors.bottomMargin: 0
+                    anchors.leftMargin: 7
+                    font.family: "BN Elements"
+                    color: root.mainFontColor
+                }
+            }
+
+            Rectangle {
+                id: sector1Bg
+                x: 10
+                width: 225
+                height: 125
+                visible: true
+                color: "#00000000"
+                radius: 0
+                border.width: 4
+                border.color: root.mainBorderColor
+                anchors.left: lastLapBg.left
+                anchors.top: lastLapBg.bottom
+                anchors.leftMargin: 0
+                Text {
+                    id: sector1Val
+                    width: 130
+                    text: qsTr("20.45")
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.pixelSize: 85
+                    horizontalAlignment: Text.AlignHCenter
+                    anchors.verticalCenterOffset: -5
+                    font.bold: true
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    font.family: "Mont Heavy DEMO"
+                    color: root.mainFontColor
+                }
+
+                Text {
+                    id: sector1Label
+                    text: qsTr("SECTOR 1")
+                    anchors.bottom: parent.bottom
+                    font.pixelSize: 25
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.bottomMargin: 0
+                    font.family: "BN Elements"
+                    color: root.mainFontColor
+                }
+                anchors.topMargin: 10
+            }
+
+            Rectangle {
+                id: sector3Bg
+                x: 474
+                y: 290
+                width: sector1Bg.width
+                height: sector1Bg.height
+                visible: true
+                color: "#00000000"
+                radius: 0
+                border.width: 4
+                border.color: root.mainBorderColor
+                anchors.verticalCenter: sector2Bg.verticalCenter
+                anchors.left: sector2Bg.right
+                anchors.leftMargin: 7
+                Text {
+                    id: sector3Val
+                    width: 130
+                    text: qsTr("19.71")
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.pixelSize: 85
+                    horizontalAlignment: Text.AlignHCenter
+                    anchors.verticalCenterOffset: -5
+                    font.bold: true
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    font.family: "Mont Heavy DEMO"
+                    color: root.mainFontColor
+                }
+
+                Text {
+                    id: sector3Label
+                    text: qsTr("SECTOR 3")
+                    anchors.bottom: parent.bottom
+                    font.pixelSize: 25
+                    anchors.bottomMargin: 0
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    font.family: "BN Elements"
+                    color: root.mainFontColor
+                }
+            }
+
+            Rectangle {
+                id: sector2Bg
+                x: 242
+                y: 290
+                width: sector1Bg.width
+                height: sector1Bg.height
+                visible: true
+                color: "#00000000"
+                radius: 0
+                border.width: 4
+                border.color: root.mainBorderColor
+                anchors.verticalCenter: sector1Bg.verticalCenter
+                anchors.left: sector1Bg.right
+                anchors.leftMargin: 7
+                Text {
+                    id: sector2Val
+                    width: 130
+                    text: qsTr("12.89")
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.pixelSize: 85
+                    horizontalAlignment: Text.AlignHCenter
+                    anchors.verticalCenterOffset: -5
+                    font.bold: true
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    font.family: "Mont Heavy DEMO"
+                    color: root.mainFontColor
+                }
+
+                Text {
+                    id: sector2Label
+                    text: qsTr("SECTOR 2")
+                    anchors.bottom: parent.bottom
+                    font.pixelSize: 25
+                    anchors.bottomMargin: 0
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    font.family: "BN Elements"
+                    color: root.mainFontColor
+                }
+            }
+        }
+
+        Item {
+            id: timePage
+            y: 36
+            width: 710
+            height: 512
+            visible: false
+
+            Rectangle {
+                id: bestLapBg
+                width: 420
+                height: 130
+                color: "#00000000"
+                radius: 0
+                anchors.leftMargin: 0
+                Text {
+                    id: bestLapVal
+                    width: 130
+                    text: qsTr("0:42.61")
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.pixelSize: 120
+                    horizontalAlignment: Text.AlignHCenter
+                    font.bold: false
+                    font.family: "Mont Heavy DEMO"
+                    color: root.mainFontColor
+                }
+
+                Text {
+                    id: bestLapLabel
+                    text: qsTr("BEST LAP")
+                    anchors.bottomMargin: 0
+                    anchors.leftMargin: 7
+                    font.pixelSize: 15
+                    anchors.bottom: parent.bottom
+                    anchors.left: parent.left
+                    font.family: "BN Elements"
+                    color: root.mainFontColor
+                }
+                anchors.left: posBg.left
+                anchors.top: dnGroup.bottom
+                anchors.topMargin: 10
+                border.width: 4
+                border.color: root.mainBorderColor
+            }
+
             Rectangle {
                 id: lapBg
-                x: 315
-                y: 101
-                width: 215
-                height: 110
+                x: 0
+                y: 5
+                width: 340
+                height: 140
                 color: "#00000000"
                 radius: 0
                 anchors.left: posBg.right
-                anchors.leftMargin: 20
+                anchors.verticalCenterOffset: 0
+                anchors.leftMargin: 10
                 anchors.verticalCenter: posBg.verticalCenter
 
                 Text {
@@ -754,560 +1003,304 @@ ApplicationWindow {
                     font.bold: false
                     font.family: "Mont Heavy DEMO"
                     anchors.horizontalCenter: parent.horizontalCenter
-                    font.pixelSize: 90
+                    font.pixelSize: 120
                     anchors.verticalCenter: parent.verticalCenter
                     color: root.mainFontColor
                 }
             }
 
-            Rectangle {
-                id: lastLapBg
-                x: 150
-                y: 241
-                width: 450
-                height: 150
-                color: "#00000000"
-                radius: 0
+            Item {
+                id: dnGroup
+                width: 700
+                height: 90
+                anchors.top: upGroup.bottom
+                anchors.topMargin: 30
+
+                Image {
+                    id: dnTeamLabel
+                    width: 80
+                    height: 80
+                    anchors.verticalCenter: parent.verticalCenter
+                    rotation: 180
+                    fillMode: Image.PreserveAspectFit
+                    anchors.leftMargin: 10
+                    source: "images/triangle_black.png"
+                    asynchronous: false
+                    mirror: false
+                    anchors.left: parent.left
+                }
+
+                Rectangle {
+                    id: dnTeamNumBg
+                    x: 100
+                    y: 250
+                    width: 150
+                    height: 90
+                    color: "#00000000"
+                    radius: 0
+                    border.width: 3
+                    anchors.verticalCenter: dnTeamLabel.verticalCenter
+                    anchors.left: dnTeamLabel.right
+                    anchors.leftMargin: 9
+                    border.color: root.mainBorderColor
+
+                    Text {
+                        id: dnTeamNumDisp
+                        x: 8
+                        y: -152
+                        text: qsTr("13")
+                        anchors.verticalCenter: parent.verticalCenter
+                        font.pixelSize: 80
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        font.family: "Mont Heavy DEMO"
+                        color: root.mainFontColor
+                    }
+                }
+
+                Rectangle {
+                    id: dnTeamLapBg
+                    x: 210
+                    y: 250
+                    width: 185
+                    height: 90
+                    color: "#00000000"
+                    radius: 0
+                    anchors.leftMargin: 10
+                    anchors.verticalCenter: dnTeamLabel.verticalCenter
+                    anchors.left: dnTeamNumBg.right
+                    rotation: 0
+                    border.width: 3
+                    border.color: root.mainBorderColor
+
+                    Text {
+                        id: dnTeamLapVal
+                        x: -329
+                        y: 72
+                        text: qsTr("-0L")
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.verticalCenter: parent.verticalCenter
+                        font.pixelSize: 70
+                        font.family: "Mont Heavy DEMO"
+                        color: root.mainFontColor
+                    }
+                }
+
+                Rectangle {
+                    id: dnTeamDeltaBg
+                    x: 340
+                    y: 231
+                    width: 245
+                    height: 90
+                    color: "#ff0000"
+                    radius: 0
+                    anchors.leftMargin: 10
+                    anchors.verticalCenter: dnTeamLabel.verticalCenter
+                    anchors.left: dnTeamLapBg.right
+                    border.width: 3
+                    border.color: root.mainBorderColor
+
+                    Text {
+                        id: dnTeamDeltaDisp
+                        x: -458
+                        y: -149
+                        height: 73
+                        text: qsTr("+15.34")
+                        anchors.verticalCenter: parent.verticalCenter
+                        font.pixelSize: 70
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        color: root.mainFontColor
+                    }
+                }
+
+                Text {
+                    id: teamLabelA
+                    x: 368
+                    y: 435
+                    text: qsTr("LAP GAP")
+                    anchors.bottom: dnTeamLapBg.top
+                    font.pixelSize: 20
+                    horizontalAlignment: Text.AlignHCenter
+                    anchors.bottomMargin: 3
+                    anchors.horizontalCenter: dnTeamDeltaBg.horizontalCenter
+                    font.family: "BN Elements"
+                    color: root.mainFontColor
+                }
+
+                Text {
+                    id: teamLabelB
+                    x: 180
+                    y: 435
+                    text: qsTr("LAP DELTA")
+                    anchors.bottom: dnTeamLapBg.top
+                    font.pixelSize: 20
+                    horizontalAlignment: Text.AlignHCenter
+                    anchors.bottomMargin: 3
+                    anchors.horizontalCenter: dnTeamLapBg.horizontalCenter
+                    font.family: "BN Elements"
+                    color: root.mainFontColor
+                }
+
+                Text {
+                    id: teamLabelC
+                    x: 96
+                    y: 435
+                    text: qsTr("TEAM")
+                    anchors.bottom: dnTeamNumBg.top
+                    font.pixelSize: 20
+                    horizontalAlignment: Text.AlignHCenter
+                    anchors.bottomMargin: 3
+                    anchors.horizontalCenter: dnTeamNumBg.horizontalCenter
+                    font.family: "BN Elements"
+                    color: root.mainFontColor
+                }
+
+
+            }
+
+            Item {
+                id: upGroup
+                width: 700
+                height: 90
                 anchors.top: posBg.bottom
                 anchors.topMargin: 10
-                Text {
-                    id: lastLapDisp
-                    width: 440
-                    text: qsTr("0:45.14")
-                    font.bold: true
-                    font.family: "Mont Heavy DEMO"
-                    anchors.verticalCenterOffset: -10
+
+                Image {
+                    id: upTeamLabel
+                    y: 140
+                    width: 80
+                    height: 80
                     anchors.verticalCenter: parent.verticalCenter
-                    font.pixelSize: 130
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    color: root.mainFontColor
+                    anchors.left: parent.left
+                    fillMode: Image.PreserveAspectFit
+                    source: "images/triangle_black.png"
+                    anchors.leftMargin: 10
                 }
 
-                Text {
-                    id: lastLapLabel
-                    text: qsTr("LAST LAP")
-                    anchors.left: parent.left
-                    anchors.leftMargin: 7
-                    anchors.bottom: parent.bottom
-                    font.pixelSize: 20
-                    font.family: "BN Elements"
-                    anchors.bottomMargin: 0
-                    color: root.mainFontColor
+                Rectangle {
+                    id: upTeamNumBg
+                    x: 100
+                    y: 145
+                    width: 150
+                    height: 90
+                    color: "#00000000"
+                    radius: 0
+                    anchors.left: upTeamLabel.right
+                    anchors.leftMargin: 9
+                    anchors.verticalCenter: upTeamLabel.verticalCenter
+                    border.width: 3
+                    border.color: root.mainBorderColor
+
+                    Text {
+                        id: upTeamNumDisp
+                        x: -92
+                        y: -3
+                        text: qsTr("666")
+                        font.family: "Mont Heavy DEMO"
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        font.pixelSize: 80
+                        color: root.mainFontColor
+                    }
                 }
-                anchors.leftMargin: 0
-                anchors.left: posBg.left
-                border.width: 5
-                border.color: root.mainBorderColor
+
+                Rectangle {
+                    id: upTeamLapBg
+                    x: 210
+                    y: 145
+                    width: 185
+                    height: 90
+                    color: "#00000000"
+                    radius: 0
+                    border.width: 3
+                    border.color: root.mainBorderColor
+                    anchors.verticalCenter: upTeamLabel.verticalCenter
+                    anchors.left: upTeamNumBg.right
+                    anchors.verticalCenterOffset: 0
+                    anchors.leftMargin: 10
+
+                    Text {
+                        id: upTeamLapVal
+                        x: -33
+                        y: 0
+                        width: 186
+                        height: 70
+                        text: qsTr("+23L")
+                        anchors.verticalCenter: parent.verticalCenter
+                        font.family: "Mont Heavy DEMO"
+                        font.pixelSize: 70
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        color: root.mainFontColor
+                    }
+                }
+
+                Rectangle {
+                    id: upTeamDeltaBg
+                    x: 370
+                    y: 145
+                    width: 245
+                    height: 90
+                    color: "#00ff00"
+                    radius: 0
+                    border.width: 3
+                    border.color: root.mainBorderColor
+                    anchors.left: upTeamLapBg.right
+                    anchors.verticalCenter: upTeamLabel.verticalCenter
+                    anchors.leftMargin: 10
+
+                    Text {
+                        id: upTeamDeltaDisp
+                        x: -22
+                        y: -6
+                        text: qsTr("-5.34")
+                        anchors.verticalCenter: parent.verticalCenter
+                        font.pixelSize: 70
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        color: root.mainFontColor
+                    }
+                }
             }
 
             Rectangle {
-                id: lastDeltaBg
-                width: 230
-                height: 150
-                color: "#00ff00"
-                radius: 0
-                anchors.left: lastLapBg.right
-                anchors.leftMargin: 10
-                anchors.verticalCenter: lastLapBg.verticalCenter
-                Text {
-                    id: lastDeltaDisp
-                    text: qsTr("+4.32")
-                    font.bold: true
-                    font.family: "Mont Heavy DEMO"
-                    anchors.verticalCenter: parent.verticalCenter
-                    font.pixelSize: 80
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    color: root.mainFontColor
-                }
-
-                Text {
-                    id: lastDeltaLabel
-                    height: 23
-                    text: qsTr("DELTA")
-                    anchors.bottom: parent.bottom
-                    anchors.bottomMargin: 0
-                    anchors.left: parent.left
-                    anchors.leftMargin: 7
-                    font.pixelSize: 20
-                    font.family: "BN Elements"
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    color: root.mainFontColor
-                }
-                border.width: 4
-                border.color: root.mainBorderColor
-            }
-
-            Rectangle {
-                id: currentLapBg
-                x: 317
+                id: posBg
+                x: 10
+                y: 5
                 width: 250
-                height: 85
+                height: 140
                 color: "#00000000"
                 radius: 0
-                anchors.top: lastDeltaBg.bottom
-                anchors.topMargin: 10
-                anchors.horizontalCenter: lastDeltaBg.horizontalCenter
-                anchors.leftMargin: 10
+                anchors.top: parent.top
+                anchors.topMargin: 8
+                anchors.left: parent.left
+                anchors.leftMargin: 99
                 Text {
-                    id: currentLapVal
-                    width: 130
-                    text: qsTr("0:32.54")
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.verticalCenter: parent.verticalCenter
-                    font.pixelSize: 65
-                    horizontalAlignment: Text.AlignHCenter
+                    id: posDisp
+                    text: qsTr("P11")
                     anchors.verticalCenterOffset: -5
+                    horizontalAlignment: Text.AlignHCenter
+                    font.italic: false
                     font.family: "Mont Heavy DEMO"
                     font.bold: false
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    font.pixelSize: 120
+                    anchors.verticalCenter: parent.verticalCenter
                     color: root.mainFontColor
                 }
 
                 Text {
-                    id: currentLapLabel
-                    text: qsTr("CURRENT LAP")
-                    anchors.bottomMargin: 0
-                    anchors.leftMargin: 7
-                    font.pixelSize: 15
-                    anchors.bottom: parent.bottom
+                    id: posLabel
+                    text: qsTr("POSITION")
                     anchors.left: parent.left
-                    font.family: "BN Elements"
-                    color: root.mainFontColor
-                }
-                anchors.left: lapBg.right
-                border.width: 4
-                border.color: root.mainBorderColor
-            }
-
-
-            Rectangle {
-                id: sessionTimeBg
-                x: 470
-                y: 385
-                width: 230
-                height: 110
-                color: "#00000000"
-                radius: 0
-                border.width: 4
-                border.color: root.mainBorderColor
-                anchors.left: lapBg.right
-                anchors.top: lapBg.top
-                anchors.horizontalCenterOffset: 0
-                anchors.leftMargin: 10
-                anchors.horizontalCenter: lastDeltaBg.horizontalCenter
-                Text {
-                    id: sessionTimeVal
-                    width: 130
-                    text: qsTr("30:04")
-                    anchors.verticalCenter: parent.verticalCenter
-                    font.pixelSize: 90
-                    horizontalAlignment: Text.AlignHCenter
-                    anchors.verticalCenterOffset: -5
-                    font.bold: false
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    font.family: "Mont Heavy DEMO"
-                    color: root.mainFontColor
-                }
-
-                Text {
-                    id: sessionTimeLabel
-                    text: qsTr("SESSION TIME")
-                    anchors.left: parent.left
-                    anchors.bottom: parent.bottom
-                    font.pixelSize: 15
-                    anchors.bottomMargin: 0
                     anchors.leftMargin: 7
-                    font.family: "BN Elements"
-                    color: root.mainFontColor
-                }
-                anchors.topMargin: 0
-            }
-        }
-
-        Item {
-            id: timePage
-            y: 36
-            width: 710
-            height: 512
-            visible: false
-
-            Text {
-                id: upTeamDeltaDisp
-                x: 318
-                y: 379
-                text: qsTr("+5.34")
-                font.pixelSize: 50
-                color: root.mainFontColor
-            }
-
-            Rectangle {
-                id: upTeamDeltaBg
-                x: 310
-                y: 385
-                width: 150
-                height: 50
-                color: "#00ff00"
-                radius: 0
-                border.width: 3
-                border.color: root.mainBorderColor
-                anchors.left: upTeamLapBg.right
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.leftMargin: 10
-            }
-
-            Text {
-                id: upTeamLapVal
-                x: 177
-                y: 385
-                width: 125
-                height: 50
-                text: qsTr("+23L")
-                font.family: "Mont Heavy DEMO"
-                font.pixelSize: 50
-                color: root.mainFontColor
-            }
-
-            Rectangle {
-                id: upTeamLapBg
-                x: 180
-                y: 385
-                width: 120
-                height: 50
-                color: "#00000000"
-                radius: 0
-                border.width: 3
-                border.color: root.mainBorderColor
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.left: upTeamNumBg.right
-                anchors.leftMargin: 10
-            }
-
-            Text {
-                id: upTeamNumDisp
-                x: 78
-                y: 382
-                text: qsTr("666")
-                font.family: "Mont Heavy DEMO"
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.horizontalCenter: parent.horizontalCenter
-                font.pixelSize: 50
-                color: root.mainFontColor
-            }
-
-            Rectangle {
-                id: upTeamNumBg
-                x: 70
-                y: 385
-                width: 100
-                height: 50
-                color: "#00000000"
-                radius: 0
-                anchors.left: parent.right
-                anchors.leftMargin: 10
-                anchors.verticalCenter: parent.verticalCenter
-                border.width: 3
-                border.color: root.mainBorderColor
-            }
-
-            Image {
-                id: upTeamLabel
-                x: 10
-                y: 385
-                width: 50
-                height: 50
-                anchors.top: lastLapBg.bottom
-                anchors.topMargin: 105
-                anchors.left: lastLapBg.right
-                anchors.leftMargin: -450
-                fillMode: Image.PreserveAspectFit
-                source: "images/triangle_black.png"
-            }
-
-            Text {
-                id: teamLabelC
-                x: 91
-                y: 435
-                text: qsTr("TEAM")
-                font.pixelSize: 20
-                horizontalAlignment: Text.AlignHCenter
-                font.family: "BN Elements"
-                color: root.mainFontColor
-            }
-
-            Text {
-                id: teamLabelB
-                x: 180
-                y: 435
-                text: qsTr("LAP DELTA")
-                font.pixelSize: 20
-                horizontalAlignment: Text.AlignHCenter
-                font.family: "BN Elements"
-                color: root.mainFontColor
-            }
-
-            Text {
-                id: teamLabelA
-                x: 338
-                y: 435
-                text: qsTr("LAP GAP")
-                font.pixelSize: 20
-                horizontalAlignment: Text.AlignHCenter
-                anchors.horizontalCenter: dnTeamDeltaBg.horizontalCenter
-                font.family: "BN Elements"
-                color: root.mainFontColor
-            }
-
-            Text {
-                id: dnTeamDeltaDisp
-                x: 318
-                y: 449
-                text: qsTr("+5.34")
-                font.pixelSize: 50
-                color: root.mainFontColor
-            }
-
-            Rectangle {
-                id: dnTeamDeltaBg
-                x: 310
-                y: 455
-                width: 150
-                height: 50
-                color: "#ff0000"
-                radius: 0
-                anchors.leftMargin: 10
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.left: dnTeamLapBg.right
-                border.width: 3
-                border.color: root.mainBorderColor
-            }
-
-            Text {
-                id: dnTeamLapVal
-                x: 204
-                y: 452
-                text: qsTr("-0L")
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.verticalCenter: parent.verticalCenter
-                font.pixelSize: 50
-                font.family: "Mont Heavy DEMO"
-                color: root.mainFontColor
-            }
-
-            Rectangle {
-                id: dnTeamLapBg
-                x: 180
-                y: 455
-                width: 120
-                height: 50
-                color: "#00000000"
-                radius: 0
-                anchors.leftMargin: 10
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.left: dnTeamNumBg.right
-                border.width: 3
-                border.color: root.mainBorderColor
-            }
-
-            Text {
-                id: dnTeamNumDisp
-                x: 92
-                y: 452
-                text: qsTr("13")
-                font.pixelSize: 50
-                font.family: "Mont Heavy DEMO"
-                color: root.mainFontColor
-            }
-
-            Rectangle {
-                id: dnTeamNumBg
-                x: 70
-                y: 455
-                width: 100
-                height: 50
-                color: "#00000000"
-                radius: 0
-                anchors.top: upTeamLabel.bottom
-                anchors.topMargin: 20
-                anchors.leftMargin: 10
-                anchors.left: upTeamLabel.right
-                border.width: 3
-                border.color: root.mainBorderColor
-            }
-
-            Image {
-                id: dnTeamLabel
-                x: 10
-                y: 450
-                width: 50
-                height: 50
-                rotation: 180
-                anchors.horizontalCenter: upTeamLabel.horizontalCenter
-                anchors.top: upTeamLabel.bottom
-                fillMode: Image.PreserveAspectFit
-                anchors.topMargin: 15
-                anchors.leftMargin: -450
-                source: "images/triangle_black.png"
-                anchors.left: lastLapBg.right
-            }
-
-            Rectangle {
-                id: sector2Bg
-                x: 162
-                y: 290
-                width: 145
-                height: 85
-                visible: true
-                color: "#00000000"
-                radius: 0
-                border.width: 4
-                border.color: root.mainBorderColor
-                anchors.verticalCenter: sector1Bg.verticalCenter
-                anchors.left: sector1Bg.right
-                anchors.leftMargin: 7
-                Text {
-                    id: sector2Val
-                    width: 130
-                    text: qsTr("12.89")
-                    anchors.verticalCenter: parent.verticalCenter
-                    font.pixelSize: 50
-                    horizontalAlignment: Text.AlignHCenter
-                    anchors.verticalCenterOffset: -5
-                    font.bold: false
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    font.family: "Mont Heavy DEMO"
-                    color: root.mainFontColor
-                }
-
-                Text {
-                    id: sector2Label
-                    text: qsTr("SECTOR 2")
                     anchors.bottom: parent.bottom
-                    font.pixelSize: 15
                     anchors.bottomMargin: 0
-                    anchors.horizontalCenter: parent.horizontalCenter
+                    font.pixelSize: 15
                     font.family: "BN Elements"
                     color: root.mainFontColor
                 }
-            }
-
-            Rectangle {
-                id: sector3Bg
-                x: 314
-                y: 290
-                width: 145
-                height: 85
-                visible: true
-                color: "#00000000"
-                radius: 0
-                border.width: 4
-                border.color: root.mainBorderColor
-                anchors.verticalCenter: sector2Bg.verticalCenter
-                anchors.left: sector2Bg.right
-                anchors.leftMargin: 7
-                Text {
-                    id: sector3Val
-                    width: 130
-                    text: qsTr("19.71")
-                    anchors.verticalCenter: parent.verticalCenter
-                    font.pixelSize: 50
-                    horizontalAlignment: Text.AlignHCenter
-                    anchors.verticalCenterOffset: -5
-                    font.bold: false
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    font.family: "Mont Heavy DEMO"
-                    color: root.mainFontColor
-                }
-
-                Text {
-                    id: sector3Label
-                    text: qsTr("SECTOR 3")
-                    anchors.bottom: parent.bottom
-                    font.pixelSize: 15
-                    anchors.bottomMargin: 0
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    font.family: "BN Elements"
-                    color: root.mainFontColor
-                }
-            }
-
-            Rectangle {
-                id: sector1Bg
-                x: 10
-                y: 290
-                width: 145
-                height: 85
-                visible: true
-                color: "#00000000"
-                radius: 0
-                border.width: 4
-                border.color: root.mainBorderColor
-                anchors.left: lastLapBg.left
-                anchors.top: lastLapBg.bottom
-                anchors.leftMargin: 0
-                Text {
-                    id: sector1Val
-                    width: 130
-                    text: qsTr("20.45")
-                    anchors.verticalCenter: parent.verticalCenter
-                    font.pixelSize: 50
-                    horizontalAlignment: Text.AlignHCenter
-                    anchors.verticalCenterOffset: -5
-                    font.bold: false
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    font.family: "Mont Heavy DEMO"
-                    color: root.mainFontColor
-                }
-
-                Text {
-                    id: sector1Label
-                    text: qsTr("SECTOR 1")
-                    anchors.bottom: parent.bottom
-                    font.pixelSize: 15
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.bottomMargin: 0
-                    font.family: "BN Elements"
-                    color: root.mainFontColor
-                }
-                anchors.topMargin: 10
-            }
-
-            Rectangle {
-                id: bestLapBg
-                x: 470
-                y: 10
-                width: 230
-                height: 110
-                color: "#00000000"
-                radius: 0
-                anchors.leftMargin: 10
-                anchors.verticalCenter: posBg.verticalCenter
-                Text {
-                    id: bestLapVal
-                    width: 130
-                    text: qsTr("0:42.61")
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.verticalCenter: parent.verticalCenter
-                    font.pixelSize: 65
-                    horizontalAlignment: Text.AlignHCenter
-                    font.bold: false
-                    font.family: "Mont Heavy DEMO"
-                    color: root.mainFontColor
-                }
-
-                Text {
-                    id: bestLapLabel
-                    text: qsTr("BEST LAP")
-                    anchors.bottomMargin: 0
-                    anchors.leftMargin: 7
-                    font.pixelSize: 15
-                    anchors.bottom: parent.bottom
-                    anchors.left: parent.left
-                    font.family: "BN Elements"
-                    color: root.mainFontColor
-                }
-                anchors.left: lapBg.right
                 border.width: 4
                 border.color: root.mainBorderColor
             }
+
 
 
 
@@ -1405,12 +1398,16 @@ ApplicationWindow {
             y: 0
             width: 640
             height: 550
+            visible: true
             mouseEnabled: true
             maximumTouchPoints: 1
             onPressed: {root.page = (root.page != 3) ? root.page+1 : 0}
 
 
         }
+
+
+
     }
 
 
@@ -1427,6 +1424,6 @@ ApplicationWindow {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.75}D{i:92;invisible:true}
+    D{i:0;formeditorZoom:0.6600000262260437}D{i:45}D{i:58;invisible:true}D{i:91;invisible:true}
 }
 ##^##*/

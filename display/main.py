@@ -17,20 +17,14 @@ from PyQt5.QtQml import QQmlApplicationEngine
 from PyQt5.QtQuick import QQuickView
 
 from bikeClass import Bike
+
 bike = Bike()
 
 class Bridge(QObject):
 
     @Slot(result=str)
-    def biketest(self):
-        return imuEuler()
-
-    @Slot(result=str)
     def airTemp(self):
-#        c = int(imuTemp())
-#        f = int((c*9/5)+32)
-#        return str(f)
-         return '50'
+        return bike.airTemp
 
 #    @Slot(str, result=str)
 #    def raceTimeData(self,value):
