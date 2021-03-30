@@ -31,8 +31,6 @@ ApplicationWindow {
     property var test: 0
     property int page: 0
 
-//    FontLoader {id: mont; source:"qrc:./display/fonts/Mont Heavy DEMO.ttf"}
-//    FontLoader {id: elements; source:"qrc:./display/fonts/BN Elements.ttf"}
 
     MouseArea {
         anchors.fill: parent
@@ -135,7 +133,7 @@ ApplicationWindow {
             gDot.anchors.horizontalCenterOffset = con.accelY()*13.78
             leanDisp.rotation = con.lean()
             sesTDisp.text = Qt.formatDateTime(new Time(), "hh:mm")
-            sesTDisp.text = con.rpm()
+            sesTDisp.text = con.clock()
             // tempAirDisp.text = qsTr(con.airTemp())
 
             //teamMsg.text = con.biketest()
@@ -379,6 +377,7 @@ ApplicationWindow {
                 color: "#00ff00"
                 radius: 0
                 anchors.left: parent.left
+                anchors.verticalCenterOffset: -4
                 anchors.leftMargin: 50
                 anchors.verticalCenter: parent.verticalCenter
                 border.width: 3
@@ -448,7 +447,7 @@ ApplicationWindow {
                 color: "#00000000"
                 radius: 0
                 anchors.leftMargin: 10
-                anchors.verticalCenter: parent.verticalCenter
+                anchors.verticalCenter: tempEngBg.verticalCenter
                 Text {
                     id: tempAirDisp
                     text: qsTr("101")
@@ -692,14 +691,14 @@ ApplicationWindow {
             y: 36
             width: 710
             height: 512
-            visible: false
+            visible: true
             anchors.verticalCenter: timePage.verticalCenter
             anchors.horizontalCenter: timePage.horizontalCenter
 
             Rectangle {
                 id: lastLapBg
                 width: 690
-                height: 180
+                height: 200
                 color: "#00000000"
                 radius: 0
                 anchors.top: sessionTimeBg.bottom
@@ -711,7 +710,7 @@ ApplicationWindow {
                     text: qsTr("0:45.14")
                     anchors.verticalCenter: parent.verticalCenter
                     font.bold: true
-                    font.pixelSize: 180
+                    font.pixelSize: 190
                     horizontalAlignment: Text.AlignHCenter
                     font.family: "Arial"
                     anchors.horizontalCenter: parent.horizontalCenter
@@ -737,7 +736,7 @@ ApplicationWindow {
             Rectangle {
                 id: lastDeltaBg
                 width: 340
-                height: 160
+                height: 150
                 color: "#00ff00"
                 radius: 0
                 anchors.left: sessionTimeBg.right
@@ -775,7 +774,7 @@ ApplicationWindow {
             Rectangle {
                 id: sessionTimeBg
                 width: 340
-                height: 160
+                height: 150
                 color: "#00000000"
                 radius: 0
                 border.width: 4
@@ -937,7 +936,7 @@ ApplicationWindow {
             y: 36
             width: 710
             height: 512
-            visible: true
+            visible: false
 
             Rectangle {
                 id: bestLapBg

@@ -5,6 +5,7 @@ from os.path import abspath, dirname, join
 import random
 import ast
 
+import datetime
 
 #import requests
 
@@ -40,10 +41,10 @@ class Bridge(QObject):
     @Slot(result=int)
     def rpm(self):
         #return bike.rpmCalc()
-        i = str(t.time()).split('.')
+        i = str(time.time()).split('.')
         elm = i[0][-1:]+i[1][:2]
         r = int(elm)*13000/999
-        r =str(int(r))
+        r = int(r)
         return r
 
     @Slot(result=int)
