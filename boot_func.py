@@ -61,7 +61,7 @@ class Bridge(QObject):
 
     @Slot(result=str)
     def clock(self):
-        return  datetime.datetime.now().strftime("%H:%M")
+        return  str(datetime.datetime.now().strftime("%H:%M"))
 
 
 

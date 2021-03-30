@@ -54,8 +54,8 @@ ApplicationWindow {
             //            }
             mainHead.color = "#0000ff"
             timeHead.color = "#f0f0f0"
-            bikeHead.color = "#f0f0f0"
-            configHead.color = "#f0f0f0"
+            bikeHead.color = "#7a755f"
+            configHead.color = "#7a755f"
         }
         //time
         if (root.page==1){
@@ -66,10 +66,10 @@ ApplicationWindow {
             selection.x = timeHead.x-10
             //            selection.anchors.horizontalCenter = timeHead.horizontalCenter
             selection.width = timeHead.width+20
-            mainHead.color = "#f0f0f0"
+            mainHead.color = "#7a755f"
             timeHead.color = "#0000ff"
-            bikeHead.color = "#f0f0f0"
-            configHead.color = "#f0f0f0"
+            bikeHead.color = "#7a755f"
+            configHead.color = "#7a755f"
         }
         //tele
         if (root.page==2){
@@ -80,10 +80,10 @@ ApplicationWindow {
             selection.x = bikeHead.x-10
             //            selection.anchors.horizontalCenter = teleHead.horizontalCenter
             selection.width = bikeHead.width+20
-            mainHead.color = "#f0f0f0"
-            timeHead.color = "#f0f0f0"
+            mainHead.color = "#7a755f"
+            timeHead.color = "#7a755f"
             bikeHead.color = "#0000ff"
-            configHead.color = "#f0f0f0"
+            configHead.color = "#7a755f"
         }
         //config
         if (root.page==3){
@@ -94,9 +94,9 @@ ApplicationWindow {
             selection.x = configHead.x-10
             //            selection.anchors.horizontalCenter = configHead.horizontalCenter
             selection.width = configHead.width+20
-            mainHead.color = "#f0f0f0"
-            timeHead.color = "#f0f0f0"
-            bikeHead.color = "#f0f0f0"
+            mainHead.color = "#7a755f"
+            timeHead.color = "#7a755f"
+            bikeHead.color = "#7a755f"
             configHead.color = "#0000ff"
         }
     }
@@ -627,15 +627,15 @@ ApplicationWindow {
         }
 
         Rectangle {
-            id: rectangle
+            id: head_divider
             x: 0
             y: 46
             width: 710
             height: 4
-            color: "#00000000"
+            color: "#5a5f78"
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 0
-            border.color: "#f2f2f2"
+            border.color: "#7a755f"
             border.width: 2
         }
 
@@ -1430,7 +1430,7 @@ ApplicationWindow {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.6600000262260437}D{i:35;invisible:true}D{i:58;invisible:true}
-D{i:68;invisible:true}D{i:91;invisible:true}
+    D{i:0;formeditorZoom:0.75}D{i:35;invisible:true}D{i:58;invisible:true}D{i:68;invisible:true}
+D{i:91;invisible:true}
 }
 ##^##*/
