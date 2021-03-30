@@ -41,7 +41,7 @@ class Bridge(QObject):
     def rpm(self):
         #return bike.rpmCalc()
         rpm = str(time.time()).split('.')[0][-2:]
-        rpm = rpm*13000/60
+        rpm = int(rpm)*13000/60
         return rpm
 
     @Slot(result=int)

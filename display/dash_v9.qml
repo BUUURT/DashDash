@@ -31,7 +31,7 @@ ApplicationWindow {
     property var test: 0
     property int page: 0
 
-
+    //FontLoader {id: customName; source:"qrc:/fonts/Mont Heavy DEMO.ttf"}
 
     MouseArea {
         anchors.fill: parent
