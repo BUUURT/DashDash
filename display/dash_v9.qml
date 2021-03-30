@@ -31,8 +31,8 @@ ApplicationWindow {
     property var test: 0
     property int page: 0
 
-    FontLoader {id: mont; source:"qrc:/display/fonts/Mont Heavy DEMO.ttf"}
-    FontLoader {id: elements; source:"qrc:/display/fonts/BN Elements.ttf"}
+    FontLoader {id: mont; source:"qrc:./display/fonts/Mont Heavy DEMO.ttf"}
+    FontLoader {id: elements; source:"qrc:./display/fonts/BN Elements.ttf"}
 
     MouseArea {
         anchors.fill: parent
@@ -334,7 +334,7 @@ ApplicationWindow {
             text: qsTr("61")
             font.italic: false
             font.bold: true
-            font.family: "Mont Heavy DEMO"
+            font.family: mont.name
             font.pixelSize: 300
             color: root.mainFontColor
 
@@ -343,7 +343,7 @@ ApplicationWindow {
                 x: 135
                 y: 271
                 text: qsTr("MPH")
-                font.family: "BN Elements"
+                font.family: elements.name
                 font.pixelSize: 36
                 color: root.mainFontColor
             }
@@ -357,7 +357,7 @@ ApplicationWindow {
             width: 545
             height: 101
             text: qsTr("TEAM MSG")
-            font.family: "Mont Heavy DEMO"
+            font.family: mont.name
             font.bold: false
             horizontalAlignment: Text.AlignHCenter
             font.pixelSize: 80
@@ -389,7 +389,7 @@ ApplicationWindow {
                     text: qsTr("175")
                     anchors.horizontalCenterOffset: -10
                     font.bold: true
-                    font.family: "Mont Heavy DEMO"
+                    font.family: mont.name
                     anchors.verticalCenterOffset: -10
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
@@ -419,7 +419,7 @@ ApplicationWindow {
                             font.pixelSize: 20
                             anchors.left: parent.right
                             anchors.verticalCenterOffset: 0
-                            font.family: "BN Elements"
+                            font.family: elements.name
                             rotation: 0
                         }
                     }
@@ -432,7 +432,7 @@ ApplicationWindow {
                     y: 7
                     text: qsTr("T ENG")
                     anchors.bottom: parent.bottom
-                    font.family: "BN Elements"
+                    font.family: elements.name
                     font.pixelSize: 30
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.bottomMargin: 0
@@ -473,7 +473,7 @@ ApplicationWindow {
                             font.pixelSize: 20
                             anchors.left: parent.right
                             anchors.verticalCenterOffset: 0
-                            font.family: "BN Elements"
+                            font.family: elements.name
                             rotation: 0
                         }
                         anchors.left: parent.right
@@ -484,7 +484,7 @@ ApplicationWindow {
                     }
                     anchors.verticalCenterOffset: -10
                     font.bold: true
-                    font.family: "Mont Heavy DEMO"
+                    font.family: mont.name
                 }
 
                 Text {
@@ -496,7 +496,7 @@ ApplicationWindow {
                     anchors.horizontalCenter: parent.horizontalCenter
                     font.pixelSize: 30
                     anchors.bottomMargin: 0
-                    font.family: "BN Elements"
+                    font.family: elements.name
                 }
                 anchors.left: tempEngBg.right
                 border.width: 3
@@ -526,7 +526,7 @@ ApplicationWindow {
                     anchors.verticalCenterOffset: -10
                     font.bold: true
                     anchors.horizontalCenter: parent.horizontalCenter
-                    font.family: "Mont Heavy DEMO"
+                    font.family: mont.name
                     color: root.mainFontColor
                 }
 
@@ -539,7 +539,7 @@ ApplicationWindow {
                     font.pixelSize: 30
                     anchors.verticalCenterOffset: 30
                     anchors.horizontalCenter: parent.horizontalCenter
-                    font.family: "BN Elements"
+                    font.family: elements.name
                     color: root.mainFontColor
                 }
             }
@@ -574,7 +574,7 @@ ApplicationWindow {
                 anchors.top: parent.bottom
                 anchors.topMargin: -17
                 font.pixelSize: 15
-                font.family: "BN Elements"
+                font.family: elements.name
                 color: root.mainFontColor
             }
             MultiPointTouchArea {
@@ -609,7 +609,7 @@ ApplicationWindow {
             anchors.left: parent.left
             anchors.leftMargin: 40
             anchors.verticalCenter: parent.verticalCenter
-            font.family: "BN Elements"
+            font.family: elements.name
             font.pixelSize: 28
         }
         Rectangle {
@@ -653,7 +653,7 @@ ApplicationWindow {
             font.pixelSize: 28
             anchors.left: mainHead.right
             anchors.verticalCenterOffset: 3
-            font.family: "BN Elements"
+            font.family: elements.name
         }
 
         Text {
@@ -668,7 +668,7 @@ ApplicationWindow {
             font.pixelSize: 28
             anchors.left: timeHead.right
             anchors.verticalCenterOffset: 3
-            font.family: "BN Elements"
+            font.family: elements.name
         }
 
         Text {
@@ -683,7 +683,7 @@ ApplicationWindow {
             font.pixelSize: 28
             anchors.left: bikeHead.right
             anchors.verticalCenterOffset: 3
-            font.family: "BN Elements"
+            font.family: elements.name
         }
 
         Item {
@@ -711,9 +711,9 @@ ApplicationWindow {
                     text: qsTr("0:45.14")
                     anchors.verticalCenter: parent.verticalCenter
                     font.bold: true
-                    font.family: "Mont Heavy DEMO"
                     font.pixelSize: 180
                     horizontalAlignment: Text.AlignHCenter
+                    font.family: "Mont Heavy DEMO"
                     anchors.horizontalCenter: parent.horizontalCenter
                     color: root.mainFontColor
                 }
@@ -725,7 +725,7 @@ ApplicationWindow {
                     anchors.leftMargin: 7
                     anchors.bottom: parent.bottom
                     font.pixelSize: 20
-                    font.family: "BN Elements"
+                    font.family: elements.name
                     anchors.bottomMargin: 0
                     color: root.mainFontColor
                 }
@@ -747,9 +747,9 @@ ApplicationWindow {
                     id: lastDeltaDisp
                     text: qsTr("-14.32")
                     font.bold: false
-                    font.family: "Mont Heavy DEMO"
                     anchors.verticalCenter: parent.verticalCenter
                     font.pixelSize: 110
+                    font.family: "Mont Heavy DEMO"
                     anchors.horizontalCenter: parent.horizontalCenter
                     color: root.mainFontColor
                 }
@@ -763,7 +763,7 @@ ApplicationWindow {
                     anchors.left: parent.left
                     anchors.leftMargin: 7
                     font.pixelSize: 20
-                    font.family: "BN Elements"
+                    font.family: elements.name
                     anchors.horizontalCenter: parent.horizontalCenter
                     color: root.mainFontColor
                 }
@@ -791,10 +791,10 @@ ApplicationWindow {
                     anchors.verticalCenter: parent.verticalCenter
                     font.pixelSize: 120
                     horizontalAlignment: Text.AlignHCenter
+                    font.family: "Mont Heavy DEMO"
                     anchors.verticalCenterOffset: -5
                     font.bold: false
                     anchors.horizontalCenter: parent.horizontalCenter
-                    font.family: "Mont Heavy DEMO"
                     color: root.mainFontColor
                 }
 
@@ -806,7 +806,7 @@ ApplicationWindow {
                     font.pixelSize: 15
                     anchors.bottomMargin: 0
                     anchors.leftMargin: 7
-                    font.family: "BN Elements"
+                    font.family: elements.name
                     color: root.mainFontColor
                 }
             }
@@ -831,10 +831,10 @@ ApplicationWindow {
                     anchors.verticalCenter: parent.verticalCenter
                     font.pixelSize: 85
                     horizontalAlignment: Text.AlignHCenter
+                    font.family: "Mont Heavy DEMO"
                     anchors.verticalCenterOffset: -5
                     font.bold: true
                     anchors.horizontalCenter: parent.horizontalCenter
-                    font.family: "Mont Heavy DEMO"
                     color: root.mainFontColor
                 }
 
@@ -845,7 +845,7 @@ ApplicationWindow {
                     font.pixelSize: 25
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.bottomMargin: 0
-                    font.family: "BN Elements"
+                    font.family: elements.name
                     color: root.mainFontColor
                 }
                 anchors.topMargin: 10
@@ -872,10 +872,10 @@ ApplicationWindow {
                     anchors.verticalCenter: parent.verticalCenter
                     font.pixelSize: 85
                     horizontalAlignment: Text.AlignHCenter
+                    font.family: "Mont Heavy DEMO"
                     anchors.verticalCenterOffset: -5
                     font.bold: true
                     anchors.horizontalCenter: parent.horizontalCenter
-                    font.family: "Mont Heavy DEMO"
                     color: root.mainFontColor
                 }
 
@@ -886,7 +886,7 @@ ApplicationWindow {
                     font.pixelSize: 25
                     anchors.bottomMargin: 0
                     anchors.horizontalCenter: parent.horizontalCenter
-                    font.family: "BN Elements"
+                    font.family: elements.name
                     color: root.mainFontColor
                 }
             }
@@ -912,10 +912,10 @@ ApplicationWindow {
                     anchors.verticalCenter: parent.verticalCenter
                     font.pixelSize: 85
                     horizontalAlignment: Text.AlignHCenter
+                    font.family: "Mont Heavy DEMO"
                     anchors.verticalCenterOffset: -5
                     font.bold: true
                     anchors.horizontalCenter: parent.horizontalCenter
-                    font.family: "Mont Heavy DEMO"
                     color: root.mainFontColor
                 }
 
@@ -926,7 +926,7 @@ ApplicationWindow {
                     font.pixelSize: 25
                     anchors.bottomMargin: 0
                     anchors.horizontalCenter: parent.horizontalCenter
-                    font.family: "BN Elements"
+                    font.family: elements.name
                     color: root.mainFontColor
                 }
             }
@@ -955,7 +955,7 @@ ApplicationWindow {
                     font.pixelSize: 120
                     horizontalAlignment: Text.AlignHCenter
                     font.bold: false
-                    font.family: "Mont Heavy DEMO"
+                    font.family: mont.name
                     color: root.mainFontColor
                 }
 
@@ -967,7 +967,7 @@ ApplicationWindow {
                     font.pixelSize: 15
                     anchors.bottom: parent.bottom
                     anchors.left: parent.left
-                    font.family: "BN Elements"
+                    font.family: elements.name
                     color: root.mainFontColor
                 }
                 anchors.left: posBg.left
@@ -998,7 +998,7 @@ ApplicationWindow {
                     anchors.bottom: parent.bottom
                     anchors.bottomMargin: 0
                     font.pixelSize: 15
-                    font.family: "BN Elements"
+                    font.family: elements.name
                     color: root.mainFontColor
                 }
                 border.width: 4
@@ -1009,7 +1009,7 @@ ApplicationWindow {
                     text: qsTr("L114")
                     horizontalAlignment: Text.AlignHCenter
                     font.bold: false
-                    font.family: "Mont Heavy DEMO"
+                    font.family: mont.name
                     anchors.horizontalCenter: parent.horizontalCenter
                     font.pixelSize: 120
                     anchors.verticalCenter: parent.verticalCenter
@@ -1060,7 +1060,7 @@ ApplicationWindow {
                         anchors.verticalCenter: parent.verticalCenter
                         font.pixelSize: 80
                         anchors.horizontalCenter: parent.horizontalCenter
-                        font.family: "Mont Heavy DEMO"
+                        font.family: mont.name
                         color: root.mainFontColor
                     }
                 }
@@ -1088,7 +1088,7 @@ ApplicationWindow {
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.verticalCenter: parent.verticalCenter
                         font.pixelSize: 70
-                        font.family: "Mont Heavy DEMO"
+                        font.family: mont.name
                         color: root.mainFontColor
                     }
                 }
@@ -1130,7 +1130,7 @@ ApplicationWindow {
                     horizontalAlignment: Text.AlignHCenter
                     anchors.bottomMargin: 3
                     anchors.horizontalCenter: dnTeamDeltaBg.horizontalCenter
-                    font.family: "BN Elements"
+                    font.family: elements.name
                     color: root.mainFontColor
                 }
 
@@ -1144,7 +1144,7 @@ ApplicationWindow {
                     horizontalAlignment: Text.AlignHCenter
                     anchors.bottomMargin: 3
                     anchors.horizontalCenter: dnTeamLapBg.horizontalCenter
-                    font.family: "BN Elements"
+                    font.family: elements.name
                     color: root.mainFontColor
                 }
 
@@ -1158,7 +1158,7 @@ ApplicationWindow {
                     horizontalAlignment: Text.AlignHCenter
                     anchors.bottomMargin: 3
                     anchors.horizontalCenter: dnTeamNumBg.horizontalCenter
-                    font.family: "BN Elements"
+                    font.family: elements.name
                     color: root.mainFontColor
                 }
 
@@ -1203,7 +1203,7 @@ ApplicationWindow {
                         x: -92
                         y: -3
                         text: qsTr("666")
-                        font.family: "Mont Heavy DEMO"
+                        font.family: mont.name
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.horizontalCenter: parent.horizontalCenter
                         font.pixelSize: 80
@@ -1234,7 +1234,7 @@ ApplicationWindow {
                         height: 70
                         text: qsTr("+23L")
                         anchors.verticalCenter: parent.verticalCenter
-                        font.family: "Mont Heavy DEMO"
+                        font.family: mont.name
                         font.pixelSize: 70
                         anchors.horizontalCenter: parent.horizontalCenter
                         color: root.mainFontColor
@@ -1286,7 +1286,7 @@ ApplicationWindow {
                     anchors.verticalCenterOffset: -5
                     horizontalAlignment: Text.AlignHCenter
                     font.italic: false
-                    font.family: "Mont Heavy DEMO"
+                    font.family: mont.name
                     font.bold: false
                     anchors.horizontalCenter: parent.horizontalCenter
                     font.pixelSize: 120
@@ -1302,7 +1302,7 @@ ApplicationWindow {
                     anchors.bottom: parent.bottom
                     anchors.bottomMargin: 0
                     font.pixelSize: 15
-                    font.family: "BN Elements"
+                    font.family: elements.name
                     color: root.mainFontColor
                 }
                 border.width: 4
