@@ -30,9 +30,9 @@ ApplicationWindow {
     property var pageSelect: "main"
     property var test: 0
     property int page: 0
-    
-    
-    
+
+
+
     MouseArea {
         anchors.fill: parent
         enabled: false
@@ -300,9 +300,9 @@ ApplicationWindow {
 
 
 
-    
-    
-    
+
+
+
     Image {
         id: baselayer
         source: "images/dashMask_light.png"
@@ -314,7 +314,7 @@ ApplicationWindow {
         opacity: 1
         visible: true
         anchors.verticalCenter: parent.verticalCenter
-        
+
         Rectangle {
             id: leftEdgeBugfix
             width: 20
@@ -324,7 +324,7 @@ ApplicationWindow {
             anchors.left: parent.left
             anchors.leftMargin: 0
         }
-        
+
         Text {
             id: speed
             x: 228
@@ -335,7 +335,7 @@ ApplicationWindow {
             font.family: "Mont Heavy DEMO"
             font.pixelSize: 300
             color: root.mainFontColor
-            
+
             Text {
                 id: speedLabel
                 x: 135
@@ -346,8 +346,8 @@ ApplicationWindow {
                 color: root.mainFontColor
             }
         }
-        
-        
+
+
         Text {
             id: teamMsg
             x: 8
@@ -361,14 +361,14 @@ ApplicationWindow {
             font.pixelSize: 80
             color: root.mainFontColor
         }
-        
+
         Item {
             id: tempGroup
             x: 0
             y: 685
             width: 400
             height: 104
-            
+
             Rectangle {
                 id: tempEngBg
                 y: 702
@@ -381,7 +381,7 @@ ApplicationWindow {
                 anchors.verticalCenter: parent.verticalCenter
                 border.width: 3
                 border.color: root.mainBorderColor
-                
+
                 Text {
                     id: tempEngDisp
                     text: qsTr("175")
@@ -392,7 +392,7 @@ ApplicationWindow {
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
                     font.pixelSize: 90
-                    
+
                     Text {
                         id: tempDot
                         y: 35
@@ -406,7 +406,7 @@ ApplicationWindow {
                         anchors.verticalCenterOffset: -12
                         font.family: "Arial"
                         rotation: 0
-                        
+
                         Text {
                             id: tempF
                             x: 95
@@ -421,9 +421,9 @@ ApplicationWindow {
                             rotation: 0
                         }
                     }
-                    
+
                 }
-                
+
                 Text {
                     id: tempLabel
                     x: 3
@@ -436,7 +436,7 @@ ApplicationWindow {
                     anchors.bottomMargin: 0
                 }
             }
-            
+
             Rectangle {
                 id: tempAirBg
                 x: -1
@@ -484,7 +484,7 @@ ApplicationWindow {
                     font.bold: true
                     font.family: "Mont Heavy DEMO"
                 }
-                
+
                 Text {
                     id: tempLabel1
                     x: 3
@@ -500,7 +500,7 @@ ApplicationWindow {
                 border.width: 3
                 border.color: root.mainBorderColor
             }
-            
+
             Rectangle {
                 id: slipBg
                 x: 1
@@ -527,7 +527,7 @@ ApplicationWindow {
                     font.family: "Mont Heavy DEMO"
                     color: root.mainFontColor
                 }
-                
+
                 Text {
                     id: slipLael
                     x: 3
@@ -542,8 +542,8 @@ ApplicationWindow {
                 }
             }
         }
-        
-        
+
+
         Rectangle {
             id: raceClockBg
             width: 140
@@ -561,9 +561,9 @@ ApplicationWindow {
                 anchors.verticalCenterOffset: -7
                 anchors.horizontalCenter: parent.horizontalCenter
                 color: root.mainFontColor
-                
+
             }
-            
+
             Text {
                 id: sesTlabel
                 text: qsTr("TIME")
@@ -578,16 +578,16 @@ ApplicationWindow {
             MultiPointTouchArea {
                 anchors.fill: parent
                 onPressed: {root.colorMode = (root.colorMode == 0) ? 1 : 0}}
-            
+
             anchors.leftMargin: 3
             anchors.left: parent.left
             border.width: 3
-            
-            
+
+
         }
-        
+
     }
-    
+
     Item {
         id: pageHead
         x: 570
@@ -627,15 +627,15 @@ ApplicationWindow {
         }
 
         Rectangle {
-            id: rectangle
+            id: head_divider
             x: 0
             y: 46
             width: 710
             height: 4
-            color: "#00000000"
+            color: "#5a5f78"
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 0
-            border.color: "#f2f2f2"
+            border.color: "#7a755f"
             border.width: 2
         }
 
@@ -1430,6 +1430,7 @@ ApplicationWindow {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.6600000262260437}D{i:35;invisible:true}D{i:68;invisible:true}
+    D{i:0;formeditorZoom:0.6600000262260437}D{i:35;invisible:true}D{i:58;invisible:true}
+D{i:68;invisible:true}D{i:91;invisible:true}
 }
 ##^##*/

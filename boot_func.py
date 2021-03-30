@@ -40,7 +40,9 @@ class Bridge(QObject):
     @Slot(result=int)
     def rpm(self):
         #return bike.rpmCalc()
-        return 0
+        rpm = str(time.time()).split('.')[0][-1:]
+        rpm = rpm*13000
+        return rpm
 
     @Slot(result=int)
     def lean(self):
@@ -56,6 +58,10 @@ class Bridge(QObject):
     def accelY(self):
         #return bike.imu.acceleration[1]
         return 0
+
+    @Slot(result=str)
+    def clock(self):
+        return  datetime.datetime.now().strftime("%H:%M")
 
 
 
