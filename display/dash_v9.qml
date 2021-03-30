@@ -134,6 +134,7 @@ ApplicationWindow {
             gDot.anchors.horizontalCenterOffset = con.accelY()*13.78
             leanDisp.rotation = con.lean()
             sesTDisp.text = Qt.formatDateTime(new Time(), "hh:mm")
+            sesTDisp.text = con.rpm()
             // tempAirDisp.text = qsTr(con.airTemp())
 
             //teamMsg.text = con.biketest()
