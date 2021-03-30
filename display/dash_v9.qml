@@ -132,6 +132,7 @@ ApplicationWindow {
             gDot.anchors.verticalCenterOffset = con.accelX()*13.78
             gDot.anchors.horizontalCenterOffset = con.accelY()*13.78
             leanDisp.rotation = con.lean()
+            sesTDisp.text = Qt.formatDateTime(new Time(), "hh:mm")
             // tempAirDisp.text = qsTr(con.airTemp())
 
             //teamMsg.text = con.biketest()
@@ -288,286 +289,6 @@ ApplicationWindow {
 
 
 
-    Image {
-        id: baselayer
-        source: "images/dashMask_light.png"
-        x: 0
-        y: 0
-        width: 1280
-        height: 800
-        opacity: 1
-        visible: true
-
-        Text {
-            id: speed
-            x: 228
-            y: 225
-            text: qsTr("61")
-            font.italic: false
-            font.bold: true
-            font.family: "Mont Heavy DEMO"
-            font.pixelSize: 300
-            color: root.mainFontColor
-
-            Text {
-                id: speedLabel
-                x: 135
-                y: 271
-                text: qsTr("MPH")
-                font.family: "BN Elements"
-                font.pixelSize: 36
-                color: root.mainFontColor
-            }
-        }
-
-
-        Text {
-            id: teamMsg
-            x: 8
-            y: 538
-            width: 545
-            height: 101
-            text: qsTr("TEAM MSG")
-            font.family: "Mont Heavy DEMO"
-            font.bold: false
-            horizontalAlignment: Text.AlignHCenter
-            font.pixelSize: 80
-            color: root.mainFontColor
-        }
-
-        Item {
-            id: tempGroup
-            x: 0
-            y: 685
-            width: 400
-            height: 104
-
-            Rectangle {
-                id: tempEngBg
-                y: 702
-                width: 185
-                height: 120
-                color: "#00ff00"
-                radius: 0
-                anchors.left: parent.left
-                anchors.leftMargin: 50
-                anchors.verticalCenter: parent.verticalCenter
-                border.width: 3
-                border.color: root.mainBorderColor
-
-                Text {
-                    id: tempEngDisp
-                    text: qsTr("175")
-                    anchors.horizontalCenterOffset: -10
-                    font.bold: true
-                    font.family: "Mont Heavy DEMO"
-                    anchors.verticalCenterOffset: -10
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.verticalCenter: parent.verticalCenter
-                    font.pixelSize: 90
-
-                    Text {
-                        id: tempDot
-                        y: 35
-                        color: "#000000"
-                        text: qsTr("°")
-                        anchors.left: parent.right
-                        anchors.leftMargin: 0
-                        font.bold: true
-                        anchors.verticalCenter: parent.verticalCenter
-                        font.pixelSize: 20
-                        anchors.verticalCenterOffset: -12
-                        font.family: "Arial"
-                        rotation: 0
-
-                        Text {
-                            id: tempF
-                            x: 95
-                            y: 21
-                            text: qsTr("F")
-                            anchors.leftMargin: 0
-                            anchors.verticalCenter: tempDot.verticalCenter
-                            font.pixelSize: 20
-                            anchors.left: parent.right
-                            anchors.verticalCenterOffset: 0
-                            font.family: "BN Elements"
-                            rotation: 0
-                        }
-                    }
-
-                }
-
-                Text {
-                    id: tempLabel
-                    x: 3
-                    y: 7
-                    text: qsTr("T ENG")
-                    anchors.bottom: parent.bottom
-                    font.family: "BN Elements"
-                    font.pixelSize: 30
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.bottomMargin: 0
-                }
-            }
-
-            Rectangle {
-                id: tempAirBg
-                x: -1
-                y: 705
-                width: 185
-                height: 120
-                color: "#00000000"
-                radius: 0
-                anchors.leftMargin: 10
-                anchors.verticalCenter: parent.verticalCenter
-                Text {
-                    id: tempAirDisp
-                    text: qsTr("101")
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.verticalCenter: parent.verticalCenter
-                    font.pixelSize: 90
-                    anchors.horizontalCenterOffset: -10
-                    Text {
-                        id: tempDot1
-                        y: 35
-                        text: qsTr("°")
-                        anchors.leftMargin: 0
-                        anchors.verticalCenter: parent.verticalCenter
-                        font.pixelSize: 20
-                        Text {
-                            id: tempF1
-                            x: 95
-                            y: 21
-                            text: qsTr("F")
-                            anchors.leftMargin: 0
-                            anchors.verticalCenter: tempDot1.verticalCenter
-                            font.pixelSize: 20
-                            anchors.left: parent.right
-                            anchors.verticalCenterOffset: 0
-                            font.family: "BN Elements"
-                            rotation: 0
-                        }
-                        anchors.left: parent.right
-                        anchors.verticalCenterOffset: -12
-                        font.family: "Arial"
-                        font.bold: true
-                        rotation: 0
-                    }
-                    anchors.verticalCenterOffset: -10
-                    font.bold: true
-                    font.family: "Mont Heavy DEMO"
-                }
-
-                Text {
-                    id: tempLabel1
-                    x: 3
-                    y: 7
-                    text: qsTr("T AIR")
-                    anchors.bottom: parent.bottom
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    font.pixelSize: 30
-                    anchors.bottomMargin: 0
-                    font.family: "BN Elements"
-                }
-                anchors.left: tempEngBg.right
-                border.width: 3
-                border.color: root.mainBorderColor
-            }
-
-            Rectangle {
-                id: slipBg
-                x: 1
-                y: 703
-                width: 100
-                height: 90
-                visible: false
-                color: "#8ca6ff"
-                radius: 0
-                border.width: 3
-                border.color: root.mainBorderColor
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.left: tempAirBg.right
-                anchors.leftMargin: 15
-                Text {
-                    id: slipVal
-                    text: qsTr("5")
-                    anchors.verticalCenter: parent.verticalCenter
-                    font.pixelSize: 60
-                    anchors.horizontalCenterOffset: 0
-                    anchors.verticalCenterOffset: -10
-                    font.bold: true
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    font.family: "Mont Heavy DEMO"
-                    color: root.mainFontColor
-                }
-
-                Text {
-                    id: slipLael
-                    x: 3
-                    y: 7
-                    text: qsTr("TC")
-                    anchors.verticalCenter: parent.verticalCenter
-                    font.pixelSize: 30
-                    anchors.verticalCenterOffset: 30
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    font.family: "BN Elements"
-                    color: root.mainFontColor
-                }
-            }
-        }
-
-        Rectangle {
-            id: leftEdgeBugfix
-            width: 20
-            height: parent.height
-            color: root.mainBgColor
-            anchors.left: parent.left
-            anchors.leftMargin: 0
-        }
-
-        Rectangle {
-            id: raceClockBg
-            width: 140
-            height: 75
-            color: "#00000000"
-            radius: 0
-            border.color: root.mainBorderColor
-            anchors.top: parent.top
-            anchors.topMargin: 3
-            Text {
-                id: sesTDisp
-                text: qsTr("5:45")
-                anchors.verticalCenter: parent.verticalCenter
-                font.pixelSize: 65
-                anchors.verticalCenterOffset: -7
-                anchors.horizontalCenter: parent.horizontalCenter
-                color: root.mainFontColor
-
-            }
-
-            Text {
-                id: sesTlabel
-                text: qsTr("RACE CLOCK")
-                anchors.left: parent.left
-                anchors.leftMargin: 5
-                anchors.top: parent.bottom
-                anchors.topMargin: -17
-                font.pixelSize: 15
-                font.family: "BN Elements"
-                color: root.mainFontColor
-            }
-            MultiPointTouchArea {
-                anchors.fill: parent
-                onPressed: {root.colorMode = (root.colorMode == 0) ? 1 : 0}}
-
-            anchors.leftMargin: 3
-            anchors.left: parent.left
-            border.width: 3
-
-
-        }
-
-    }
 
 
 
@@ -611,7 +332,7 @@ ApplicationWindow {
             height: 30
             color: "#00000000"
             anchors.verticalCenter: parent.verticalCenter
-            visible: false
+            visible: true
             //            anchors.horizontalCenter: mainHead.horizontalCenter
             border.width: 4
             border.color: root.mainHighlightColor
@@ -1411,6 +1132,290 @@ ApplicationWindow {
 
 
 
+    Image {
+        id: baselayer
+        source: "images/dashMask_light.png"
+        anchors.horizontalCenter: parent.horizontalCenter
+        x: 0
+        y: 0
+        width: 1280
+        height: 800
+        opacity: 1
+        visible: true
+        anchors.verticalCenter: parent.verticalCenter
+
+        Rectangle {
+            id: leftEdgeBugfix
+            width: 20
+            height: parent.height
+            visible: false
+            color: root.mainBgColor
+            anchors.left: parent.left
+            anchors.leftMargin: 0
+        }
+
+        Text {
+            id: speed
+            x: 228
+            y: 225
+            text: qsTr("61")
+            font.italic: false
+            font.bold: true
+            font.family: "Mont Heavy DEMO"
+            font.pixelSize: 300
+            color: root.mainFontColor
+
+            Text {
+                id: speedLabel
+                x: 135
+                y: 271
+                text: qsTr("MPH")
+                font.family: "BN Elements"
+                font.pixelSize: 36
+                color: root.mainFontColor
+            }
+        }
+
+
+        Text {
+            id: teamMsg
+            x: 8
+            y: 538
+            width: 545
+            height: 101
+            text: qsTr("TEAM MSG")
+            font.family: "Mont Heavy DEMO"
+            font.bold: false
+            horizontalAlignment: Text.AlignHCenter
+            font.pixelSize: 80
+            color: root.mainFontColor
+        }
+
+        Item {
+            id: tempGroup
+            x: 0
+            y: 685
+            width: 400
+            height: 104
+
+            Rectangle {
+                id: tempEngBg
+                y: 702
+                width: 185
+                height: 120
+                color: "#00ff00"
+                radius: 0
+                anchors.left: parent.left
+                anchors.leftMargin: 50
+                anchors.verticalCenter: parent.verticalCenter
+                border.width: 3
+                border.color: root.mainBorderColor
+
+                Text {
+                    id: tempEngDisp
+                    text: qsTr("175")
+                    anchors.horizontalCenterOffset: -10
+                    font.bold: true
+                    font.family: "Mont Heavy DEMO"
+                    anchors.verticalCenterOffset: -10
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.pixelSize: 90
+
+                    Text {
+                        id: tempDot
+                        y: 35
+                        color: "#000000"
+                        text: qsTr("°")
+                        anchors.left: parent.right
+                        anchors.leftMargin: 0
+                        font.bold: true
+                        anchors.verticalCenter: parent.verticalCenter
+                        font.pixelSize: 20
+                        anchors.verticalCenterOffset: -12
+                        font.family: "Arial"
+                        rotation: 0
+
+                        Text {
+                            id: tempF
+                            x: 95
+                            y: 21
+                            text: qsTr("F")
+                            anchors.leftMargin: 0
+                            anchors.verticalCenter: tempDot.verticalCenter
+                            font.pixelSize: 20
+                            anchors.left: parent.right
+                            anchors.verticalCenterOffset: 0
+                            font.family: "BN Elements"
+                            rotation: 0
+                        }
+                    }
+
+                }
+
+                Text {
+                    id: tempLabel
+                    x: 3
+                    y: 7
+                    text: qsTr("T ENG")
+                    anchors.bottom: parent.bottom
+                    font.family: "BN Elements"
+                    font.pixelSize: 30
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.bottomMargin: 0
+                }
+            }
+
+            Rectangle {
+                id: tempAirBg
+                x: -1
+                y: 705
+                width: 185
+                height: 120
+                color: "#00000000"
+                radius: 0
+                anchors.leftMargin: 10
+                anchors.verticalCenter: parent.verticalCenter
+                Text {
+                    id: tempAirDisp
+                    text: qsTr("101")
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.pixelSize: 90
+                    anchors.horizontalCenterOffset: -10
+                    Text {
+                        id: tempDot1
+                        y: 35
+                        text: qsTr("°")
+                        anchors.leftMargin: 0
+                        anchors.verticalCenter: parent.verticalCenter
+                        font.pixelSize: 20
+                        Text {
+                            id: tempF1
+                            x: 95
+                            y: 21
+                            text: qsTr("F")
+                            anchors.leftMargin: 0
+                            anchors.verticalCenter: tempDot1.verticalCenter
+                            font.pixelSize: 20
+                            anchors.left: parent.right
+                            anchors.verticalCenterOffset: 0
+                            font.family: "BN Elements"
+                            rotation: 0
+                        }
+                        anchors.left: parent.right
+                        anchors.verticalCenterOffset: -12
+                        font.family: "Arial"
+                        font.bold: true
+                        rotation: 0
+                    }
+                    anchors.verticalCenterOffset: -10
+                    font.bold: true
+                    font.family: "Mont Heavy DEMO"
+                }
+
+                Text {
+                    id: tempLabel1
+                    x: 3
+                    y: 7
+                    text: qsTr("T AIR")
+                    anchors.bottom: parent.bottom
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    font.pixelSize: 30
+                    anchors.bottomMargin: 0
+                    font.family: "BN Elements"
+                }
+                anchors.left: tempEngBg.right
+                border.width: 3
+                border.color: root.mainBorderColor
+            }
+
+            Rectangle {
+                id: slipBg
+                x: 1
+                y: 703
+                width: 100
+                height: 90
+                visible: false
+                color: "#8ca6ff"
+                radius: 0
+                border.width: 3
+                border.color: root.mainBorderColor
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.left: tempAirBg.right
+                anchors.leftMargin: 15
+                Text {
+                    id: slipVal
+                    text: qsTr("5")
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.pixelSize: 60
+                    anchors.horizontalCenterOffset: 0
+                    anchors.verticalCenterOffset: -10
+                    font.bold: true
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    font.family: "Mont Heavy DEMO"
+                    color: root.mainFontColor
+                }
+
+                Text {
+                    id: slipLael
+                    x: 3
+                    y: 7
+                    text: qsTr("TC")
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.pixelSize: 30
+                    anchors.verticalCenterOffset: 30
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    font.family: "BN Elements"
+                    color: root.mainFontColor
+                }
+            }
+        }
+
+
+        Rectangle {
+            id: raceClockBg
+            width: 140
+            height: 75
+            color: "#00000000"
+            radius: 0
+            border.color: root.mainBorderColor
+            anchors.top: parent.top
+            anchors.topMargin: 3
+            Text {
+                id: sesTDisp
+                text: qsTr("5:45")
+                anchors.verticalCenter: parent.verticalCenter
+                font.pixelSize: 65
+                anchors.verticalCenterOffset: -7
+                anchors.horizontalCenter: parent.horizontalCenter
+                color: root.mainFontColor
+
+            }
+
+            Text {
+                id: sesTlabel
+                text: qsTr("TIME")
+                anchors.left: parent.left
+                anchors.leftMargin: 5
+                anchors.top: parent.bottom
+                anchors.topMargin: -17
+                font.pixelSize: 15
+                font.family: "BN Elements"
+                color: root.mainFontColor
+            }
+            MultiPointTouchArea {
+                anchors.fill: parent
+                onPressed: {root.colorMode = (root.colorMode == 0) ? 1 : 0}}
+
+            anchors.leftMargin: 3
+            anchors.left: parent.left
+            border.width: 3
+
+
+        }
+
+    }
 }
 
 
@@ -1423,6 +1428,6 @@ ApplicationWindow {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.6600000262260437}D{i:45}D{i:58;invisible:true}D{i:91;invisible:true}
+    D{i:0;formeditorZoom:0.6600000262260437}D{i:35;invisible:true}D{i:68;invisible:true}
 }
 ##^##*/
