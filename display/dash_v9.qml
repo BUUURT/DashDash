@@ -13,6 +13,7 @@ ApplicationWindow {
     visible: true
     width:1280
     height:800
+    visibility: "FullScreen"
 
     property color mainFontColor: "black"
     property color mainBorderColor: "black"
@@ -34,7 +35,7 @@ ApplicationWindow {
     MouseArea {
         anchors.fill: parent
         enabled: false
-        //cursorShape: Qt.BlankCursor
+        cursorShape: Qt.BlankCursor
     }
 
     onPageChanged: {
@@ -769,7 +770,6 @@ ApplicationWindow {
                 color: "#00000000"
                 radius: 0
                 border.width: 4
-                anchors.verticalCenter: posBg.verticalCenter
                 anchors.left: parent.left
                 anchors.top: parent.top
                 anchors.leftMargin: 10
