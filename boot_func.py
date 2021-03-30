@@ -22,20 +22,20 @@ bike = Bike(_wheelspeed=False, _rpm=False,_gps=False,_imu=False,_engtemp=False)
 class Bridge(QObject):
 
 
-    @Slot(result=str)
-    def bikeLean(self):
-        #return bike.imu_y
-        return 0
+    # @Slot(result=str)
+    # def bikeLean(self):
+    #     #return bike.imu_y
+    #     return str(0)
 
     @Slot(result=str)
     def airTemp(self):
         #return bike.airTemp
-        return 0
+        return '0'
 
     @Slot(result=str)
     def speed(self):
         #return str(bike.speedCalc())
-        return 0
+        return '0'
 
     @Slot(result=int)
     def rpm(self):
