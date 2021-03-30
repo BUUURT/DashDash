@@ -24,31 +24,38 @@ class Bridge(QObject):
 
     @Slot(result=str)
     def bikeLean(self):
-        return bike.imu_y
+        #return bike.imu_y
+        return 0
 
     @Slot(result=str)
     def airTemp(self):
-        return bike.airTemp
+        #return bike.airTemp
+        return 0
 
     @Slot(result=str)
     def speed(self):
-        return str(bike.speedCalc())
+        #return str(bike.speedCalc())
+        return 0
 
     @Slot(result=int)
     def rpm(self):
-        return bike.rpmCalc()
+        #return bike.rpmCalc()
+        return 0
 
     @Slot(result=int)
     def lean(self):
-        return bike.imu.euler[1]
+        #return bike.imu.euler[1]
+        return 0
 
     @Slot(result=int)
     def accelX(self):
-        return bike.imu.acceleration[0]
+        # return bike.imu.acceleration[0]
+        return 0
 
     @Slot(result=int)
     def accelY(self):
-        return bike.imu.acceleration[1]
+        #return bike.imu.acceleration[1]
+        return 0
 
 
 
