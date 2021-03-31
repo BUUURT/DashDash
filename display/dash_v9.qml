@@ -513,6 +513,17 @@ ApplicationWindow {
 
     }
 
+
+    MouseArea {
+        id: mouseArea
+        x: 308
+        y: 580
+        visible: true
+        anchors.fill: parent
+        enabled: false
+        cursorShape: Qt.BlankCursor
+    }
+
     Dial {
         id: dial
         x: 308
@@ -536,16 +547,6 @@ ApplicationWindow {
         to: 13000.1
 
 
-    }
-
-    MouseArea {
-        id: mouseArea
-        x: 308
-        y: 580
-        visible: true
-        anchors.fill: parent
-        enabled: false
-        cursorShape: Qt.BlankCursor
     }
 
     Item {
