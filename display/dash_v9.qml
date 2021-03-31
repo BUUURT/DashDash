@@ -135,7 +135,7 @@ ApplicationWindow {
         running: true
         repeat: true
         onTriggered: {
-            root.rpm = con.rpm()
+//            root.rpm = con.rpm()
             root.speed = con.speed()
             gDot.anchors.verticalCenterOffset = con.accelX()*13.78
             gDot.anchors.horizontalCenterOffset = con.accelY()*13.78
