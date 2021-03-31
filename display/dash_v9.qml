@@ -523,12 +523,12 @@ ApplicationWindow {
 
 
         Text {
-            id: root.rpm
+            id: text1
             x: 80
             y: 73
             width: 156
             height: 103
-            text: qsTr("Text")
+            text: qsTr(root.rpm)
             anchors.bottom: parent.bottom
             font.pixelSize: 12
             anchors.bottomMargin: 8
