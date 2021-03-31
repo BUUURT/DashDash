@@ -10,7 +10,6 @@ import QtGraphicalEffects 1.0
 ApplicationWindow {
     id: root
     color: root.mainBgColor
-    property alias dialValue: dial.value
     property alias mouseArea: mouseArea
     visible: true
     width:1280
