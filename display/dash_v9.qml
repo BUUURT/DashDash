@@ -10,6 +10,7 @@ import QtGraphicalEffects 1.0
 ApplicationWindow {
     id: root
     color: root.mainBgColor
+    property alias dialValue: dial.value
     property alias mouseArea: mouseArea
     visible: true
     width:1280
@@ -528,9 +529,10 @@ ApplicationWindow {
         id: dial
         x: 308
         y: 580
-        value: 0
+
         anchors.left: text1.left
         onValueChanged: {root.rpm = value}
+
 
 
         Text {
@@ -545,11 +547,8 @@ ApplicationWindow {
             anchors.bottomMargin: 8
         }
 
-        Connections {
-            target: dial
-            onMoved: root.rpm=value
-        }
-        to: 13000.1
+
+        to: 13000
 
 
     }
@@ -1404,8 +1403,9 @@ ApplicationWindow {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.75}D{i:37;invisible:true}D{i:36;invisible:true}D{i:35;invisible:true}
-D{i:59;invisible:true}D{i:60;invisible:true}D{i:58;invisible:true}D{i:68;invisible:true}
-D{i:69;invisible:true}D{i:70;invisible:true}
+    D{i:0;formeditorZoom:0.75}D{i:36;invisible:true}D{i:37;invisible:true}D{i:35;invisible:true}
+D{i:34;invisible:true}D{i:58;invisible:true}D{i:59;invisible:true}D{i:57;invisible:true}
+D{i:67;invisible:true}D{i:68;invisible:true}D{i:69;invisible:true}D{i:70;invisible:true}
+D{i:60;invisible:true}
 }
 ##^##*/
