@@ -46,14 +46,6 @@ ApplicationWindow {
         transformOrigin: Item.TopRight
     }
 
-    MouseArea {
-        id: mouseArea
-        visible: true
-        anchors.fill: parent
-        enabled: false
-        cursorShape: Qt.BlankCursor
-    }
-
     onPageChanged: {
         //main
         if (root.page==0){
@@ -309,33 +301,6 @@ ApplicationWindow {
         anchors.verticalCenter: parent.verticalCenter
 
 
-        Text {
-            id: speed
-            x: 170
-            y: 141
-            width: 389
-            height: 386
-            text: qsTr("88")
-            font.italic: false
-            font.bold: true
-            font.pixelSize: 350
-            font.family: "Arial"
-            color: root.mainFontColor
-
-            Text {
-                id: speedLabel
-                x: 152
-                y: 314
-                text: qsTr("MPH")
-                anchors.bottom: parent.bottom
-                font.family: "BN Elements"
-                font.pixelSize: 36
-                anchors.bottomMargin: 20
-                anchors.horizontalCenter: parent.horizontalCenter
-                color: root.mainFontColor
-            }
-        }
-
 
         Item {
             id: tempGroup
@@ -519,6 +484,68 @@ ApplicationWindow {
             }
         }
 
+        Text {
+            id: speed
+            x: 170
+            y: 141
+            width: 389
+            height: 386
+            text: qsTr("88")
+            font.italic: false
+            font.bold: true
+            font.pixelSize: 350
+            font.family: "Arial"
+            color: root.mainFontColor
+
+            Text {
+                id: speedLabel
+                x: 152
+                y: 314
+                text: qsTr("MPH")
+                anchors.bottom: parent.bottom
+                font.family: "BN Elements"
+                font.pixelSize: 36
+                anchors.bottomMargin: 20
+                anchors.horizontalCenter: parent.horizontalCenter
+                color: root.mainFontColor
+            }
+        }
+
+    }
+
+    Dial {
+        id: dial
+        x: 308
+        y: 580
+        value: 0
+        anchors.left: text1.left
+        onValueChanged: {root.rpm = value}
+
+
+        Text {
+            id: root.rpm
+            x: 80
+            y: 73
+            width: 156
+            height: 103
+            text: qsTr("Text")
+            anchors.bottom: parent.bottom
+            font.pixelSize: 12
+            anchors.bottomMargin: 8
+        }
+        to: 13000.1
+
+
+    }
+
+    MouseArea {
+        id: mouseArea
+        x: 308
+        y: 580
+        visible: true
+        anchors.fill: parent
+        enabled: false
+        cursorShape: Qt.BlankCursor
     }
 
     Item {
@@ -1357,6 +1384,8 @@ ApplicationWindow {
 
 
 
+
+
 }
 
 
@@ -1369,8 +1398,8 @@ ApplicationWindow {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.75}D{i:34;invisible:true}D{i:33;invisible:true}D{i:32;invisible:true}
-D{i:56;invisible:true}D{i:57;invisible:true}D{i:55;invisible:true}D{i:65;invisible:true}
-D{i:66;invisible:true}D{i:67;invisible:true}
+    D{i:0;formeditorZoom:0.75}D{i:36;invisible:true}D{i:35;invisible:true}D{i:34;invisible:true}
+D{i:58;invisible:true}D{i:59;invisible:true}D{i:57;invisible:true}D{i:67;invisible:true}
+D{i:68;invisible:true}D{i:69;invisible:true}
 }
 ##^##*/
