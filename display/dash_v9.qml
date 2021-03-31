@@ -544,6 +544,11 @@ ApplicationWindow {
             font.pixelSize: 12
             anchors.bottomMargin: 8
         }
+
+        Connections {
+            target: dial
+            onMoved: root.rpm=value
+        }
         to: 13000.1
 
 
@@ -1399,8 +1404,8 @@ ApplicationWindow {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.75}D{i:36;invisible:true}D{i:35;invisible:true}D{i:34;invisible:true}
-D{i:58;invisible:true}D{i:59;invisible:true}D{i:57;invisible:true}D{i:67;invisible:true}
-D{i:68;invisible:true}D{i:69;invisible:true}
+    D{i:0;formeditorZoom:0.75}D{i:37;invisible:true}D{i:36;invisible:true}D{i:35;invisible:true}
+D{i:59;invisible:true}D{i:60;invisible:true}D{i:58;invisible:true}D{i:68;invisible:true}
+D{i:69;invisible:true}D{i:70;invisible:true}
 }
 ##^##*/
