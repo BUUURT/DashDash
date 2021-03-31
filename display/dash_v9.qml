@@ -174,13 +174,14 @@ ApplicationWindow {
 
     onRpmChanged: {
         // drive RPM animation
-        text1.text = qstr(rpm)
+
         if (rpm<6000) {
             rpmSweepMid.visible = false
             rpmSweepLow.height = rpm*209/6000
             rpmSweepHigh.visible = false
             rpmSweepOrange.visible = false
             rpmSweepRed.visible = false
+            text1.text = qstr(rpm)
         }
 
         if (rpm>6000 && rpm<7000) {
@@ -190,6 +191,7 @@ ApplicationWindow {
             rpmSweepHigh.visible = false
             rpmSweepOrange.visible = false
             rpmSweepRed.visible = false
+            text1.text = qstr(rpm)
         }
 
         if (rpm>7000 && rpm <11000) {
@@ -199,6 +201,7 @@ ApplicationWindow {
             rpmSweepHigh.width = (rpm-7000)*697/4000
             rpmSweepOrange.visible = false
             rpmSweepRed.visible = false
+            text1.text = qstr(rpm)
         }
 
         if (rpm>11000 && rpm<12000) {
@@ -206,12 +209,14 @@ ApplicationWindow {
             rpmSweepOrange.visible = true
             rpmSweepRed.visible = false
             rpmSweepOrange.width = (rpm-11000)*0.17
+            text1.text = qstr(rpm)
         }
 
         if (rpm>12000) {
             rpmSweepHigh.width = 697
             rpmSweepRed.visible = true
             rpmSweepRed.width = (rpm-12000)*.17
+            text1.text = qstr(rpm)
         }
 
         // set color and behavior of shift light
