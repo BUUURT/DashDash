@@ -174,6 +174,7 @@ ApplicationWindow {
 
     onRpmChanged: {
         // drive RPM animation
+        text1.text = qstr(root.rpm)
         if (rpm<6000) {
             rpmSweepMid.visible = false
             rpmSweepLow.height = rpm*209/6000
@@ -201,14 +202,14 @@ ApplicationWindow {
         }
 
         if (rpm>11000 && rpm<12000) {
-            rpmSweepHigh.width = 660
+            rpmSweepHigh.width = 697
             rpmSweepOrange.visible = true
             rpmSweepRed.visible = false
             rpmSweepOrange.width = (rpm-11000)*0.17
         }
 
         if (rpm>12000) {
-            rpmSweepHigh.width = 660
+            rpmSweepHigh.width = 697
             rpmSweepRed.visible = true
             rpmSweepRed.width = (rpm-12000)*.17
         }
@@ -248,10 +249,7 @@ ApplicationWindow {
         opacity: 1
         rotation: 0
         transformOrigin: Item.Top
-
     }
-
-
 
 
     Rectangle {
@@ -295,23 +293,6 @@ ApplicationWindow {
         anchors.left: parent.left
         anchors.leftMargin: 1074
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     Image {
         id: baselayer
@@ -536,6 +517,14 @@ ApplicationWindow {
                     color: root.mainFontColor
                 }
             }
+        }
+
+        Text {
+            id: text1
+            x: 273
+            y: 587
+            text: qsTr("Text")
+            font.pixelSize: 60
         }
 
     }
