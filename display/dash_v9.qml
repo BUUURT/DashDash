@@ -10,7 +10,6 @@ import QtGraphicalEffects 1.0
 ApplicationWindow {
     id: root
     color: root.mainBgColor
-    property alias mouseArea: mouseArea
     visible: true
     width:1280
     height:800
@@ -166,7 +165,7 @@ ApplicationWindow {
 
     onRpmChanged: {
         // drive RPM animation
-        text1.text = qstr(rpm)
+
         if (rpm<6000) {
             rpmSweepMid.visible = false
             rpmSweepLow.height = rpm*209/6000
@@ -211,6 +210,7 @@ ApplicationWindow {
         var rpmYellow = parseInt(root.shiftYellow)
         var rpmRed = parseInt(root.shiftRed)
         var rpmFlash = parseInt(root.shiftRedFlash)
+        text1.text = qstr(rpm)
 
         //        if (rpm < rpmGreen) {rpmColor = "#4d6278"}  // out of powerband, blue RPM
         //        if (rpm < rpmYellow && rpm > rpmGreen) {rpmColor = "#00ff00"}  //start powerband, green
