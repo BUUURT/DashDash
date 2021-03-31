@@ -136,7 +136,7 @@ ApplicationWindow {
         running: true
         repeat: true
         onTriggered: {
-//            root.rpm = con.rpm()
+            root.rpm = con.rpm()
             root.speed = con.speed()
             gDot.anchors.verticalCenterOffset = con.accelX()*13.78
             gDot.anchors.horizontalCenterOffset = con.accelY()*13.78
@@ -523,34 +523,16 @@ ApplicationWindow {
         anchors.fill: parent
         enabled: false
         cursorShape: Qt.BlankCursor
-    }
-
-    Dial {
-        id: dial
-        x: 308
-        y: 580
-
-        anchors.left: text1.left
-        onValueChanged: {root.rpm = value}
-
-
 
         Text {
             id: text1
-            x: 80
-            y: 73
-            width: 156
-            height: 103
-            text: dial.value
-            anchors.bottom: parent.bottom
-            font.pixelSize: 12
-            anchors.bottomMargin: 8
+            x: 326
+            y: 652
+            width: 174
+            height: 111
+            text: qsTr("Text")
+            font.pixelSize: 30
         }
-
-
-        to: 13000
-
-
     }
 
     Item {
@@ -1403,9 +1385,9 @@ ApplicationWindow {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.75}D{i:36;invisible:true}D{i:37;invisible:true}D{i:35;invisible:true}
-D{i:34;invisible:true}D{i:58;invisible:true}D{i:59;invisible:true}D{i:57;invisible:true}
-D{i:67;invisible:true}D{i:68;invisible:true}D{i:69;invisible:true}D{i:70;invisible:true}
-D{i:60;invisible:true}
+    D{i:0;formeditorZoom:0.75}D{i:34;invisible:true}D{i:35;invisible:true}D{i:33;invisible:true}
+D{i:32;invisible:true}D{i:56;invisible:true}D{i:57;invisible:true}D{i:55;invisible:true}
+D{i:65;invisible:true}D{i:66;invisible:true}D{i:67;invisible:true}D{i:68;invisible:true}
+D{i:58;invisible:true}
 }
 ##^##*/
