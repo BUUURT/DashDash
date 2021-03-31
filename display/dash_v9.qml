@@ -166,7 +166,7 @@ ApplicationWindow {
 
     onRpmChanged: {
         // drive RPM animation
-
+        text1.text = qstr(rpm)
         if (rpm<6000) {
             rpmSweepMid.visible = false
             rpmSweepLow.height = rpm*209/6000
@@ -528,7 +528,7 @@ ApplicationWindow {
             y: 73
             width: 156
             height: 103
-            text: qsTr(root.rpm)
+            text: root.rpm
             anchors.bottom: parent.bottom
             font.pixelSize: 12
             anchors.bottomMargin: 8
