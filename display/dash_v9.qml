@@ -197,14 +197,14 @@ ApplicationWindow {
             rpmSweepHigh.width = 697
             rpmSweepOrange.visible = true
             rpmSweepRed.visible = false
-            rpmSweepOrange.width = (rpm-11000)*0.17
+            rpmSweepOrange.width = (rpm-11000)*0.175
 
         }
 
         if (rpm>12000) {
             rpmSweepHigh.width = 697
             rpmSweepRed.visible = true
-            rpmSweepRed.width = (rpm-12000)*.17
+            rpmSweepRed.width = (rpm-12000)*.18
 
         }
 
@@ -266,13 +266,11 @@ ApplicationWindow {
         id: rpmSweepOrange
         x: 524
         y: 9
-        width: 170
+        width: 175
         height: 145
         color: "#ff9000"
         transformOrigin: Item.Center
         anchors.left: parent.left
-        anchors.right: rpmSweepRed.left
-        anchors.rightMargin: 0
         anchors.leftMargin: 900
     }
 
