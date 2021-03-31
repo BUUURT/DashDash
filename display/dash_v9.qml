@@ -528,7 +528,7 @@ ApplicationWindow {
             y: 73
             width: 156
             height: 103
-            text: root.rpm
+            text: dial.value
             anchors.bottom: parent.bottom
             font.pixelSize: 12
             anchors.bottomMargin: 8
