@@ -165,7 +165,7 @@ ApplicationWindow {
 
     onRpmChanged: {
         // drive RPM animation
-
+        text1.text = qsTr(rpm)
         if (rpm<6000) {
             rpmSweepMid.visible = false
             rpmSweepLow.height = rpm*209/6000
@@ -190,6 +190,7 @@ ApplicationWindow {
             rpmSweepHigh.width = (rpm-7000)*697/4000
             rpmSweepOrange.visible = false
             rpmSweepRed.visible = false
+
         }
 
         if (rpm>11000 && rpm<12000) {
@@ -197,12 +198,14 @@ ApplicationWindow {
             rpmSweepOrange.visible = true
             rpmSweepRed.visible = false
             rpmSweepOrange.width = (rpm-11000)*0.17
+
         }
 
         if (rpm>12000) {
             rpmSweepHigh.width = 697
             rpmSweepRed.visible = true
             rpmSweepRed.width = (rpm-12000)*.17
+
         }
 
         // set color and behavior of shift light
@@ -210,7 +213,7 @@ ApplicationWindow {
         var rpmYellow = parseInt(root.shiftYellow)
         var rpmRed = parseInt(root.shiftRed)
         var rpmFlash = parseInt(root.shiftRedFlash)
-        text1.text = qstr(rpm)
+
 
         //        if (rpm < rpmGreen) {rpmColor = "#4d6278"}  // out of powerband, blue RPM
         //        if (rpm < rpmYellow && rpm > rpmGreen) {rpmColor = "#00ff00"}  //start powerband, green
