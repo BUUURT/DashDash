@@ -10,6 +10,7 @@ import QtGraphicalEffects 1.0
 ApplicationWindow {
     id: root
     color: root.mainBgColor
+    property alias mouseArea: mouseArea
     visible: true
     width:1280
     height:800
@@ -32,7 +33,22 @@ ApplicationWindow {
     property int page: 0
 
 
+    Rectangle {
+        id: rpmSweepMid
+        x: -100
+        y: 232
+        width: 303
+        height: 200
+        color: root.rpmColor
+        visible: true
+        z: 0
+        rotation: 90
+        transformOrigin: Item.TopRight
+    }
+
     MouseArea {
+        id: mouseArea
+        visible: true
         anchors.fill: parent
         enabled: false
         cursorShape: Qt.BlankCursor
@@ -160,14 +176,14 @@ ApplicationWindow {
         // drive RPM animation
         if (rpm<6000) {
             rpmSweepMid.visible = false
-            rpmSweepLow.height = rpm*220/6000
+            rpmSweepLow.height = rpm*209/6000
             rpmSweepHigh.visible = false
             rpmSweepOrange.visible = false
             rpmSweepRed.visible = false
         }
 
         if (rpm>6000 && rpm<7000) {
-            rpmSweepLow.height = 220
+            rpmSweepLow.height = 209
             rpmSweepMid.visible = true
             rpmSweepMid.rotation = (rpm-6000)*9/100
             rpmSweepHigh.visible = false
@@ -176,10 +192,10 @@ ApplicationWindow {
         }
 
         if (rpm>7000 && rpm <11000) {
-            rpmSweepLow.height = 220
+            rpmSweepLow.height = 209
             rpmSweepHigh.visible = true
             rpmSweepMid.rotation = 90
-            rpmSweepHigh.width = (rpm-7000)*99/600
+            rpmSweepHigh.width = (rpm-7000)*697/4000
             rpmSweepOrange.visible = false
             rpmSweepRed.visible = false
         }
@@ -188,13 +204,13 @@ ApplicationWindow {
             rpmSweepHigh.width = 660
             rpmSweepOrange.visible = true
             rpmSweepRed.visible = false
-            rpmSweepOrange.width = (rpm-11000)*0.168
+            rpmSweepOrange.width = (rpm-11000)*0.17
         }
 
         if (rpm>12000) {
             rpmSweepHigh.width = 660
             rpmSweepRed.visible = true
-            rpmSweepRed.width = (rpm-12000)*.168
+            rpmSweepRed.width = (rpm-12000)*.17
         }
 
         // set color and behavior of shift light
@@ -220,14 +236,15 @@ ApplicationWindow {
 
     Rectangle {
         id: rpmSweepLow
-        y: 312
-        width: 122
-        height: 220
+        x: 0
+        y: 230
+        width: 90
+        height: 209
         color: root.rpmColor
-        anchors.left: parent.left
-        anchors.leftMargin: 37
+        anchors.left: rpmSweepMid.left
+        anchors.leftMargin: 103
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: 288
+        anchors.bottomMargin: 361
         opacity: 1
         rotation: 0
         transformOrigin: Item.Top
@@ -235,28 +252,19 @@ ApplicationWindow {
     }
 
 
-    Rectangle {
-        id: rpmSweepMid
-        x: -67
-        y: 292
-        width: 329
-        height: 207
-        color: root.rpmColor
-        visible: true
-        z: 0
-        rotation: 90
-        transformOrigin: Item.TopRight
-    }
 
 
     Rectangle {
         id: rpmSweepHigh
         y: 9
-        width: 990
+        width: 697
         height: 145
         color: root.rpmColor
+        anchors.verticalCenter: rpmSweepOrange.verticalCenter
         anchors.left: parent.left
-        anchors.leftMargin: 262
+        anchors.top: rpmSweepOrange.top
+        anchors.bottom: rpmSweepOrange.bottom
+        anchors.leftMargin: 203
         transformOrigin: Item.Center
     }
 
@@ -265,12 +273,14 @@ ApplicationWindow {
         id: rpmSweepOrange
         x: 524
         y: 9
-        width: 166
+        width: 170
         height: 145
         color: "#ff9000"
         transformOrigin: Item.Center
         anchors.left: parent.left
-        anchors.leftMargin: 916
+        anchors.right: rpmSweepRed.left
+        anchors.rightMargin: 0
+        anchors.leftMargin: 900
     }
 
 
@@ -278,12 +288,12 @@ ApplicationWindow {
         id: rpmSweepRed
         x: 523
         y: 9
-        width: 170
+        width: 180
         height: 145
         color: "#ff0000"
         transformOrigin: Item.Center
         anchors.left: parent.left
-        anchors.leftMargin: 1082
+        anchors.leftMargin: 1074
     }
 
 
@@ -306,6 +316,8 @@ ApplicationWindow {
     Image {
         id: baselayer
         source: "images/dashMask_light.png"
+        anchors.verticalCenterOffset: 0
+        anchors.horizontalCenterOffset: 0
         anchors.horizontalCenter: parent.horizontalCenter
         x: 0
         y: 0
@@ -315,52 +327,34 @@ ApplicationWindow {
         visible: true
         anchors.verticalCenter: parent.verticalCenter
 
-        Rectangle {
-            id: leftEdgeBugfix
-            width: 20
-            height: parent.height
-            visible: false
-            color: root.mainBgColor
-            anchors.left: parent.left
-            anchors.leftMargin: 0
-        }
 
         Text {
             id: speed
-            x: 228
-            y: 225
-            text: qsTr("61")
+            x: 170
+            y: 141
+            width: 389
+            height: 386
+            text: qsTr("88")
             font.italic: false
             font.bold: true
-            font.pixelSize: 300
+            font.pixelSize: 350
             font.family: "Arial"
             color: root.mainFontColor
 
             Text {
                 id: speedLabel
-                x: 135
-                y: 271
+                x: 152
+                y: 314
                 text: qsTr("MPH")
+                anchors.bottom: parent.bottom
                 font.family: "BN Elements"
                 font.pixelSize: 36
+                anchors.bottomMargin: 20
+                anchors.horizontalCenter: parent.horizontalCenter
                 color: root.mainFontColor
             }
         }
 
-
-        Text {
-            id: teamMsg
-            x: 8
-            y: 538
-            width: 545
-            height: 101
-            text: qsTr("TEAM MSG")
-            font.bold: false
-            horizontalAlignment: Text.AlignHCenter
-            font.family: "Arial"
-            font.pixelSize: 80
-            color: root.mainFontColor
-        }
 
         Item {
             id: tempGroup
@@ -377,8 +371,8 @@ ApplicationWindow {
                 color: "#00ff00"
                 radius: 0
                 anchors.left: parent.left
-                anchors.verticalCenterOffset: -4
-                anchors.leftMargin: 50
+                anchors.verticalCenterOffset: -17
+                anchors.leftMargin: 40
                 anchors.verticalCenter: parent.verticalCenter
                 border.width: 3
                 border.color: root.mainBorderColor
@@ -388,7 +382,7 @@ ApplicationWindow {
                     text: qsTr("175")
                     anchors.horizontalCenterOffset: -10
                     font.bold: true
-                    anchors.verticalCenterOffset: -10
+                    anchors.verticalCenterOffset: -5
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
                     font.pixelSize: 90
@@ -432,7 +426,7 @@ ApplicationWindow {
                     text: qsTr("T ENG")
                     anchors.bottom: parent.bottom
                     font.family: "BN Elements"
-                    font.pixelSize: 30
+                    font.pixelSize: 20
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.bottomMargin: 0
                 }
@@ -446,8 +440,6 @@ ApplicationWindow {
                 height: 120
                 color: "#00000000"
                 radius: 0
-                anchors.leftMargin: 10
-                anchors.verticalCenter: tempEngBg.verticalCenter
                 Text {
                     id: tempAirDisp
                     text: qsTr("101")
@@ -482,7 +474,7 @@ ApplicationWindow {
                         font.bold: true
                         rotation: 0
                     }
-                    anchors.verticalCenterOffset: -10
+                    anchors.verticalCenterOffset: -5
                     font.bold: true
                 }
 
@@ -493,12 +485,14 @@ ApplicationWindow {
                     text: qsTr("T AIR")
                     anchors.bottom: parent.bottom
                     anchors.horizontalCenter: parent.horizontalCenter
-                    font.pixelSize: 30
+                    font.pixelSize: 20
                     anchors.bottomMargin: 0
                     font.family: "BN Elements"
                 }
-                anchors.left: tempEngBg.right
+                anchors.horizontalCenter: tempEngBg.horizontalCenter
                 border.width: 3
+                anchors.bottom: tempEngBg.top
+                anchors.bottomMargin: 10
                 border.color: root.mainBorderColor
             }
 
@@ -544,49 +538,6 @@ ApplicationWindow {
             }
         }
 
-
-        Rectangle {
-            id: raceClockBg
-            width: 140
-            height: 75
-            color: "#00000000"
-            radius: 0
-            border.color: root.mainBorderColor
-            anchors.top: parent.top
-            anchors.topMargin: 3
-            Text {
-                id: sesTDisp
-                text: qsTr("5:45")
-                anchors.verticalCenter: parent.verticalCenter
-                font.pixelSize: 65
-                anchors.verticalCenterOffset: -7
-                anchors.horizontalCenter: parent.horizontalCenter
-                color: root.mainFontColor
-
-            }
-
-            Text {
-                id: sesTlabel
-                text: qsTr("TIME")
-                anchors.left: parent.left
-                anchors.leftMargin: 5
-                anchors.top: parent.bottom
-                anchors.topMargin: -17
-                font.pixelSize: 15
-                font.family: "BN Elements"
-                color: root.mainFontColor
-            }
-            MultiPointTouchArea {
-                anchors.fill: parent
-                onPressed: {root.colorMode = (root.colorMode == 0) ? 1 : 0}}
-
-            anchors.leftMargin: 3
-            anchors.left: parent.left
-            border.width: 3
-
-
-        }
-
     }
 
     Item {
@@ -630,14 +581,18 @@ ApplicationWindow {
         Rectangle {
             id: head_divider
             x: 0
-            y: 46
-            width: 710
+            y: 36
+            width: 702
             height: 4
             color: "#5a5f78"
             anchors.bottom: parent.bottom
+            anchors.rightMargin: 8
             anchors.bottomMargin: 0
             border.color: "#7a755f"
             border.width: 2
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.top: bikePage.top
         }
 
         Text {
@@ -660,7 +615,7 @@ ApplicationWindow {
             x: 0
             y: 4
             color: "#b0acac"
-            text: qsTr("BIKE")
+            text: qsTr("MESSAGE")
             styleColor: "#0000ff"
             anchors.leftMargin: 50
             anchors.verticalCenter: parent.verticalCenter
@@ -736,7 +691,7 @@ ApplicationWindow {
             Rectangle {
                 id: lastDeltaBg
                 width: 340
-                height: 150
+                height: 125
                 color: "#00ff00"
                 radius: 0
                 anchors.left: sessionTimeBg.right
@@ -745,9 +700,9 @@ ApplicationWindow {
                 Text {
                     id: lastDeltaDisp
                     text: qsTr("-14.32")
-                    font.bold: false
+                    font.bold: true
                     anchors.verticalCenter: parent.verticalCenter
-                    font.pixelSize: 110
+                    font.pixelSize: 100
                     font.family: "Arial"
                     anchors.horizontalCenter: parent.horizontalCenter
                     color: root.mainFontColor
@@ -774,25 +729,25 @@ ApplicationWindow {
             Rectangle {
                 id: sessionTimeBg
                 width: 340
-                height: 150
+                height: 125
                 color: "#00000000"
                 radius: 0
                 border.width: 4
                 anchors.left: parent.left
                 anchors.top: parent.top
-                anchors.leftMargin: 10
-                anchors.topMargin: 10
+                anchors.leftMargin: 6
+                anchors.topMargin: 9
                 border.color: root.mainBorderColor
                 Text {
                     id: sessionTimeVal
                     width: 130
                     text: qsTr("30:04")
                     anchors.verticalCenter: parent.verticalCenter
-                    font.pixelSize: 120
+                    font.pixelSize: 100
                     horizontalAlignment: Text.AlignHCenter
                     font.family: "Arial"
                     anchors.verticalCenterOffset: -5
-                    font.bold: false
+                    font.bold: true
                     anchors.horizontalCenter: parent.horizontalCenter
                     color: root.mainFontColor
                 }
@@ -802,7 +757,7 @@ ApplicationWindow {
                     text: qsTr("SESSION TIME")
                     anchors.left: parent.left
                     anchors.bottom: parent.bottom
-                    font.pixelSize: 15
+                    font.pixelSize: 20
                     anchors.bottomMargin: 0
                     anchors.leftMargin: 7
                     font.family: "BN Elements"
@@ -841,7 +796,7 @@ ApplicationWindow {
                     id: sector1Label
                     text: qsTr("SECTOR 1")
                     anchors.bottom: parent.bottom
-                    font.pixelSize: 25
+                    font.pixelSize: 20
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.bottomMargin: 0
                     font.family: "BN Elements"
@@ -882,7 +837,7 @@ ApplicationWindow {
                     id: sector3Label
                     text: qsTr("SECTOR 3")
                     anchors.bottom: parent.bottom
-                    font.pixelSize: 25
+                    font.pixelSize: 20
                     anchors.bottomMargin: 0
                     anchors.horizontalCenter: parent.horizontalCenter
                     font.family: "BN Elements"
@@ -922,7 +877,7 @@ ApplicationWindow {
                     id: sector2Label
                     text: qsTr("SECTOR 2")
                     anchors.bottom: parent.bottom
-                    font.pixelSize: 25
+                    font.pixelSize: 20
                     anchors.bottomMargin: 0
                     anchors.horizontalCenter: parent.horizontalCenter
                     font.family: "BN Elements"
@@ -1433,7 +1388,6 @@ ApplicationWindow {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.75}D{i:35;invisible:true}D{i:58;invisible:true}D{i:68;invisible:true}
-D{i:91;invisible:true}
+    D{i:0;formeditorZoom:0.5}D{i:34;invisible:true}D{i:57;invisible:true}D{i:67;invisible:true}
 }
 ##^##*/
