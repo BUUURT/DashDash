@@ -48,61 +48,61 @@ ApplicationWindow {
     onPageChanged: {
         //main
         if (root.page==0){
-            mainPage.visible = true
-            timePage.visible = false
-            bikePage.visible = false
+            timingPage.visible = true
+            racePage.visible = false
+            messagePage.visible = false
             configPage.visible = false
             //            selection.anchors.horizontalCenter = mainHead.horizontalCenter
-            selection.x = mainHead.x-10
-            selection.width = mainHead.width+20
+            selection.x = timingHead.x-10
+            selection.width = timingHead.width+20
             //            const sleep = (milliseconds) => {
             //                return new Promise(resolve => setTimeout(resolve, milliseconds))
             //            }
-            mainHead.color = "#0000ff"
-            timeHead.color = "#f0f0f0"
-            bikeHead.color = "#7a755f"
+            timingHead.color = "#0000ff"
+            raceHead.color = "#7a755"
+            messageHead.color = "#7a755f"
             configHead.color = "#7a755f"
         }
         //time
         if (root.page==1){
-            mainPage.visible = false
-            timePage.visible = true
-            bikePage.visible = false
+            timingPage.visible = false
+            racePage.visible = true
+            messagePage.visible = false
             configPage.visible = false
-            selection.x = timeHead.x-10
+            selection.x = raceHead.x-10
             //            selection.anchors.horizontalCenter = timeHead.horizontalCenter
-            selection.width = timeHead.width+20
-            mainHead.color = "#7a755f"
-            timeHead.color = "#0000ff"
-            bikeHead.color = "#7a755f"
+            selection.width = raceHead.width+20
+            timingHead.color = "#7a755f"
+            raceHead.color = "#0000ff"
+            messageHead.color = "#7a755f"
             configHead.color = "#7a755f"
         }
         //tele
         if (root.page==2){
-            mainPage.visible = false
-            timePage.visible = false
-            bikePage.visible = true
+            timingPage.visible = false
+            racePage.visible = false
+            messagePage.visible = true
             configPage.visible = false
-            selection.x = bikeHead.x-10
+            selection.x = messageHead.x-10
             //            selection.anchors.horizontalCenter = teleHead.horizontalCenter
-            selection.width = bikeHead.width+20
-            mainHead.color = "#7a755f"
-            timeHead.color = "#7a755f"
-            bikeHead.color = "#0000ff"
+            selection.width = messageHead.width+20
+            timingHead.color = "#7a755f"
+            raceHead.color = "#7a755f"
+            messageHead.color = "#0000ff"
             configHead.color = "#7a755f"
         }
         //config
         if (root.page==3){
-            mainPage.visible = false
-            timePage.visible = false
-            bikePage.visible = false
+            timingPage.visible = false
+            racePage.visible = false
+            messagePage.visible = false
             configPage.visible = true
             selection.x = configHead.x-10
             //            selection.anchors.horizontalCenter = configHead.horizontalCenter
             selection.width = configHead.width+20
-            mainHead.color = "#7a755f"
-            timeHead.color = "#7a755f"
-            bikeHead.color = "#7a755f"
+            timingHead.color = "#7a755f"
+            raceHead.color = "#7a755f"
+            messageHead.color = "#7a755f"
             configHead.color = "#0000ff"
         }
     }
@@ -165,7 +165,7 @@ ApplicationWindow {
 
     onRpmChanged: {
         // drive RPM animation
-        text1.text = rpm
+        msgText_pit.text = rpm
         if (rpm<6000) {
             rpmSweepMid.visible = false
             rpmSweepLow.height = rpm*209/6000
@@ -523,16 +523,6 @@ ApplicationWindow {
         anchors.fill: parent
         enabled: false
         cursorShape: Qt.BlankCursor
-
-        Text {
-            id: text1
-            x: 326
-            y: 652
-            width: 174
-            height: 111
-            text: qsTr("Text")
-            font.pixelSize: 30
-        }
     }
 
     Item {
@@ -546,9 +536,9 @@ ApplicationWindow {
 
 
         Text {
-            id: mainHead
+            id: timingHead
             color: "#0000ff"
-            text: qsTr("MAIN")
+            text: qsTr("TIMING")
             styleColor: "#0000ff"
             anchors.verticalCenterOffset: 3
             anchors.left: parent.left
@@ -559,9 +549,9 @@ ApplicationWindow {
         }
         Rectangle {
             id: selection
-            x: mainHead.x-10
-            y: mainHead.y
-            width: mainHead.width+20
+            x: timingHead.x-10
+            y: timingHead.y
+            width: timingHead.width+20
             height: 30
             color: "#00000000"
             anchors.verticalCenter: parent.verticalCenter
@@ -587,26 +577,26 @@ ApplicationWindow {
             border.width: 2
             anchors.left: parent.left
             anchors.right: parent.right
-            anchors.top: bikePage.top
+            anchors.top: messagePage.top
         }
 
         Text {
-            id: timeHead
+            id: raceHead
             x: 4
             y: 0
             color: "#b0acac"
-            text: qsTr("TIMING")
+            text: qsTr("RACE")
             styleColor: "#0000ff"
             anchors.leftMargin: 50
             anchors.verticalCenter: parent.verticalCenter
             font.pixelSize: 28
-            anchors.left: mainHead.right
+            anchors.left: timingHead.right
             anchors.verticalCenterOffset: 3
             font.family: "BN Elements"
         }
 
         Text {
-            id: bikeHead
+            id: messageHead
             x: 0
             y: 4
             color: "#b0acac"
@@ -615,7 +605,7 @@ ApplicationWindow {
             anchors.leftMargin: 50
             anchors.verticalCenter: parent.verticalCenter
             font.pixelSize: 28
-            anchors.left: timeHead.right
+            anchors.left: raceHead.right
             anchors.verticalCenterOffset: 3
             font.family: "BN Elements"
         }
@@ -630,20 +620,20 @@ ApplicationWindow {
             anchors.leftMargin: 50
             anchors.verticalCenter: parent.verticalCenter
             font.pixelSize: 28
-            anchors.left: bikeHead.right
+            anchors.left: messageHead.right
             anchors.verticalCenterOffset: 3
             font.family: "BN Elements"
         }
 
         Item {
-            id: mainPage
+            id: timingPage
             x: 0
             y: 36
             width: 710
             height: 512
-            visible: true
-            anchors.verticalCenter: timePage.verticalCenter
-            anchors.horizontalCenter: timePage.horizontalCenter
+            visible: false
+            anchors.verticalCenter: racePage.verticalCenter
+            anchors.horizontalCenter: racePage.horizontalCenter
 
             Rectangle {
                 id: lastLapBg
@@ -731,7 +721,7 @@ ApplicationWindow {
                 anchors.left: parent.left
                 anchors.top: parent.top
                 anchors.leftMargin: 6
-                anchors.topMargin: 9
+                anchors.topMargin: 7
                 border.color: root.mainBorderColor
                 Text {
                     id: sessionTimeVal
@@ -790,9 +780,10 @@ ApplicationWindow {
                 Text {
                     id: sector1Label
                     text: qsTr("SECTOR 1")
+                    anchors.left: parent.left
                     anchors.bottom: parent.bottom
                     font.pixelSize: 20
-                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.leftMargin: 7
                     anchors.bottomMargin: 0
                     font.family: "BN Elements"
                     color: root.mainFontColor
@@ -831,10 +822,11 @@ ApplicationWindow {
                 Text {
                     id: sector3Label
                     text: qsTr("SECTOR 3")
+                    anchors.left: parent.left
                     anchors.bottom: parent.bottom
                     font.pixelSize: 20
+                    anchors.leftMargin: 7
                     anchors.bottomMargin: 0
-                    anchors.horizontalCenter: parent.horizontalCenter
                     font.family: "BN Elements"
                     color: root.mainFontColor
                 }
@@ -871,10 +863,11 @@ ApplicationWindow {
                 Text {
                     id: sector2Label
                     text: qsTr("SECTOR 2")
+                    anchors.left: parent.left
                     anchors.bottom: parent.bottom
                     font.pixelSize: 20
+                    anchors.leftMargin: 7
                     anchors.bottomMargin: 0
-                    anchors.horizontalCenter: parent.horizontalCenter
                     font.family: "BN Elements"
                     color: root.mainFontColor
                 }
@@ -882,16 +875,17 @@ ApplicationWindow {
         }
 
         Item {
-            id: timePage
+            id: racePage
             y: 36
-            width: 710
-            height: 512
+            width: 700
+            height: 500
             visible: false
 
             Rectangle {
                 id: bestLapBg
                 width: 420
                 height: 130
+                visible: false
                 color: "#00000000"
                 radius: 0
                 anchors.leftMargin: 0
@@ -931,7 +925,7 @@ ApplicationWindow {
                 x: 0
                 y: 5
                 width: 340
-                height: 140
+                height: 150
                 color: "#00000000"
                 radius: 0
                 anchors.left: posBg.right
@@ -955,12 +949,12 @@ ApplicationWindow {
                 Text {
                     id: lapDisp
                     width: 130
-                    text: qsTr("L114")
+                    text: qsTr("L837")
                     horizontalAlignment: Text.AlignHCenter
                     font.bold: false
                     font.family: "Arial"
                     anchors.horizontalCenter: parent.horizontalCenter
-                    font.pixelSize: 120
+                    font.pixelSize: 140
                     anchors.verticalCenter: parent.verticalCenter
                     color: root.mainFontColor
                 }
@@ -968,9 +962,11 @@ ApplicationWindow {
 
             Item {
                 id: dnGroup
-                width: 700
-                height: 90
+                width: 720
+                height: 140
+                anchors.left: parent.left
                 anchors.top: upGroup.bottom
+                anchors.leftMargin: -30
                 anchors.topMargin: 30
 
                 Image {
@@ -991,8 +987,8 @@ ApplicationWindow {
                     id: dnTeamNumBg
                     x: 100
                     y: 250
-                    width: 150
-                    height: 90
+                    width: 160
+                    height: 140
                     color: "#00000000"
                     radius: 0
                     border.width: 3
@@ -1005,9 +1001,10 @@ ApplicationWindow {
                         id: dnTeamNumDisp
                         x: 8
                         y: -152
+                        height: 90
                         text: qsTr("13")
                         anchors.verticalCenter: parent.verticalCenter
-                        font.pixelSize: 80
+                        font.pixelSize: 90
                         font.family: "Arial"
                         anchors.horizontalCenter: parent.horizontalCenter
                         color: root.mainFontColor
@@ -1019,7 +1016,7 @@ ApplicationWindow {
                     x: 210
                     y: 250
                     width: 185
-                    height: 90
+                    height: 140
                     color: "#00000000"
                     radius: 0
                     anchors.leftMargin: 10
@@ -1033,10 +1030,11 @@ ApplicationWindow {
                         id: dnTeamLapVal
                         x: -329
                         y: 72
+                        height: 90
                         text: qsTr("-0L")
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.verticalCenter: parent.verticalCenter
-                        font.pixelSize: 70
+                        font.pixelSize: 90
                         font.family: "Arial"
                         color: root.mainFontColor
                     }
@@ -1046,8 +1044,8 @@ ApplicationWindow {
                     id: dnTeamDeltaBg
                     x: 340
                     y: 231
-                    width: 245
-                    height: 90
+                    width: 260
+                    height: 140
                     color: "#ff0000"
                     radius: 0
                     anchors.leftMargin: 10
@@ -1060,10 +1058,10 @@ ApplicationWindow {
                         id: dnTeamDeltaDisp
                         x: -458
                         y: -149
-                        height: 73
+                        height: 90
                         text: qsTr("+15.34")
                         anchors.verticalCenter: parent.verticalCenter
-                        font.pixelSize: 70
+                        font.pixelSize: 90
                         font.family: "Arial"
                         anchors.horizontalCenter: parent.horizontalCenter
                         color: root.mainFontColor
@@ -1117,10 +1115,12 @@ ApplicationWindow {
 
             Item {
                 id: upGroup
-                width: 700
-                height: 90
+                width: 720
+                height: 140
+                anchors.left: parent.left
                 anchors.top: posBg.bottom
-                anchors.topMargin: 10
+                anchors.leftMargin: -30
+                anchors.topMargin: 5
 
                 Image {
                     id: upTeamLabel
@@ -1138,8 +1138,8 @@ ApplicationWindow {
                     id: upTeamNumBg
                     x: 100
                     y: 145
-                    width: 150
-                    height: 90
+                    width: 160
+                    height: 140
                     color: "#00000000"
                     radius: 0
                     anchors.left: upTeamLabel.right
@@ -1155,7 +1155,7 @@ ApplicationWindow {
                         text: qsTr("666")
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.horizontalCenter: parent.horizontalCenter
-                        font.pixelSize: 80
+                        font.pixelSize: 90
                         font.family: "Arial"
                         color: root.mainFontColor
                     }
@@ -1166,7 +1166,7 @@ ApplicationWindow {
                     x: 210
                     y: 145
                     width: 185
-                    height: 90
+                    height: 140
                     color: "#00000000"
                     radius: 0
                     border.width: 3
@@ -1181,11 +1181,11 @@ ApplicationWindow {
                         x: -33
                         y: 0
                         width: 186
-                        height: 70
+                        height: 90
                         text: qsTr("+23L")
                         anchors.verticalCenter: parent.verticalCenter
                         font.family: "Arial"
-                        font.pixelSize: 70
+                        font.pixelSize: 90
                         anchors.horizontalCenter: parent.horizontalCenter
                         color: root.mainFontColor
                     }
@@ -1195,8 +1195,8 @@ ApplicationWindow {
                     id: upTeamDeltaBg
                     x: 370
                     y: 145
-                    width: 245
-                    height: 90
+                    width: 260
+                    height: 140
                     color: "#00ff00"
                     radius: 0
                     border.width: 3
@@ -1209,9 +1209,10 @@ ApplicationWindow {
                         id: upTeamDeltaDisp
                         x: -22
                         y: -6
+                        height: 90
                         text: qsTr("-5.34")
                         anchors.verticalCenter: parent.verticalCenter
-                        font.pixelSize: 70
+                        font.pixelSize: 90
                         font.family: "Arial"
                         anchors.horizontalCenter: parent.horizontalCenter
                         color: root.mainFontColor
@@ -1224,13 +1225,13 @@ ApplicationWindow {
                 x: 10
                 y: 5
                 width: 250
-                height: 140
+                height: 150
                 color: "#00000000"
                 radius: 0
                 anchors.top: parent.top
                 anchors.topMargin: 8
                 anchors.left: parent.left
-                anchors.leftMargin: 99
+                anchors.leftMargin: 69
                 Text {
                     id: posDisp
                     text: qsTr("P11")
@@ -1240,7 +1241,7 @@ ApplicationWindow {
                     font.italic: false
                     font.bold: false
                     anchors.horizontalCenter: parent.horizontalCenter
-                    font.pixelSize: 120
+                    font.pixelSize: 140
                     anchors.verticalCenter: parent.verticalCenter
                     color: root.mainFontColor
                 }
@@ -1281,63 +1282,30 @@ ApplicationWindow {
         }
 
         Item {
-            id: bikePage
+            id: messagePage
             width: 710
             height: 512
-            visible: false
+            visible: true
             anchors.top: parent.top
             anchors.topMargin: 36
 
-
             Rectangle {
-                id: leanDisp
-                x: 500
-                y: 33
-                width: 15
-                height: 275
+                id: msgBox_pit
+                x: 175
+                y: 166
+                width: 350
+                height: 175
                 visible: true
-                color: "#00ff00"
-                border.width: 2
-                rotation: 0
-                transformOrigin: Item.Bottom
-                anchors.horizontalCenter: parent.horizontalCenter
-            }
-            Image {
-                id: teleBg
-                x: -250
-                y: -161
-                width: 700
-                height: 450
-                visible: true
+                color: "#f20000"
                 anchors.verticalCenter: parent.verticalCenter
-                source: "images/tele_light.png"
                 anchors.horizontalCenter: parent.horizontalCenter
-                fillMode: Image.PreserveAspectFit
 
-                Rectangle {
-                    id: gboundary
-                    x: 175
-                    y: 98
-                    width: 350
-                    height: 350
-                    visible: true
-                    color: "#00000000"
-                    radius: 175
-                    border.color: "#00000000"
-
-                    Rectangle {
-                        id: gDot
-                        width: 20
-                        height: 20
-                        visible: true
-                        color: "#00ff00"
-                        radius: 12
-                        anchors.verticalCenterOffset: 0
-                        anchors.horizontalCenterOffset: 0
-                        border.width: 4
-                        anchors.verticalCenter: parent.verticalCenter
-                        anchors.horizontalCenter: parent.horizontalCenter
-                    }
+                Text {
+                    id: msgText_pit
+                    text: qsTr("PIT")
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.pixelSize: 175
+                    anchors.horizontalCenter: parent.horizontalCenter
                 }
             }
 
@@ -1353,11 +1321,13 @@ ApplicationWindow {
 
         MultiPointTouchArea {
             id: pageR
-            x: 75
-            y: 0
-            width: 640
-            height: 550
+            x: 0
+            y: -10
+            width: 700
+            height: 500
             visible: true
+            anchors.top: parent.top
+            anchors.topMargin: 40
             mouseEnabled: true
             maximumTouchPoints: 1
             onPressed: {root.page = (root.page != 3) ? root.page+1 : 0}
@@ -1385,9 +1355,10 @@ ApplicationWindow {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.75}D{i:34;invisible:true}D{i:35;invisible:true}D{i:33;invisible:true}
-D{i:32;invisible:true}D{i:56;invisible:true}D{i:57;invisible:true}D{i:55;invisible:true}
-D{i:65;invisible:true}D{i:66;invisible:true}D{i:67;invisible:true}D{i:68;invisible:true}
+    D{i:0;formeditorZoom:0.6600000262260437}D{i:31;invisible:true}D{i:34;invisible:true}
+D{i:35;invisible:true}D{i:33;invisible:true}D{i:32;invisible:true}D{i:54;invisible:true}
+D{i:56;invisible:true}D{i:57;invisible:true}D{i:55;invisible:true}D{i:65;invisible:true}
+D{i:64;invisible:true}D{i:66;invisible:true}D{i:67;invisible:true}D{i:68;invisible:true}
 D{i:58;invisible:true}
 }
 ##^##*/
