@@ -34,6 +34,6 @@ if __name__ == '__main__':
 	init_GPIO()
 	init_interrupt()
 	while True:
-		i = calculate_speed()	# call this function with wheel radius as parameter
-		print(f'rpm: {i}')
+		calculate_speed()	# call this function with wheel radius as parameter
+		print(f'rpm: {rpm}')
 		sleep(0.01)
