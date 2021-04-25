@@ -134,15 +134,24 @@ ApplicationWindow {
         running: true
         repeat: true
         onTriggered: {
-            root.rpm = con.rpm()
-            root.speed = con.speed()
-            gDot.anchors.verticalCenterOffset = con.accelX()*13.78
-            gDot.anchors.horizontalCenterOffset = con.accelY()*13.78
-            leanDisp.rotation = con.lean()
-            sesTDisp.text = Qt.formatDateTime(new Time(), "hh:mm")
-            sesTDisp.text = con.clock()
-            // tempAirDisp.text = qsTr(con.airTemp())
+            sensorDict = con.influxRefresh()
+            root.rpm = sensorDict['rpm']    //con.rpm()
+            root.speed = sensorDict['speed']    //con.speed()
+            tempAirDisp.text = sensorDict['airTemp']    //qsTr(con.airTemp())
+            tempEngDisp.text = sensorDict['engTemp']
+//            sector1Val = sensorDict['s1Time']
+//            sector2Val = sensorDict['s2Time']
+//            sector3Val = sensorDict['s3Time']
+//            gDot.anchors.verticalCenterOffset = sensorDict['']    //con.accelX()*13.78
+//            gDot.anchors.horizontalCenterOffset = sensorDict['']    //con.accelY()*13.78
+        }
 
+    }
+    Timer {
+        interval: 5000
+        running: true
+        repeat: true
+        onTriggered: {
             //teamMsg.text = con.biketest()
             //positionNumber.text = con.raceTimeData('selfPosition')
             //lapNumber.text = con.raceTimeData('selfLaps')
@@ -151,7 +160,8 @@ ApplicationWindow {
             //lapNumber.text = '123'
             //lapTimeSelf.text = '0:49.431'
             //tempAirDisp.text = con.airTemp()
-
+            //sesTDisp.text = sensorDict['']    //Qt.formatDateTime(new Time(), "hh:mm")
+            //sesTDisp.text = sensorDict['']    //con.clock()
         }
 
     }
@@ -631,13 +641,13 @@ ApplicationWindow {
             y: 36
             width: 710
             height: 512
-            visible: false
+            visible: true
             anchors.verticalCenter: racePage.verticalCenter
             anchors.horizontalCenter: racePage.horizontalCenter
 
             Rectangle {
                 id: lastLapBg
-                width: 690
+                width: 660
                 height: 200
                 color: "#00000000"
                 radius: 0
@@ -646,7 +656,7 @@ ApplicationWindow {
                 anchors.topMargin: 10
                 Text {
                     id: lastLapDisp
-                    width: 675
+                    width: 650
                     text: qsTr("0:45.14")
                     anchors.verticalCenter: parent.verticalCenter
                     font.bold: true
@@ -675,7 +685,7 @@ ApplicationWindow {
 
             Rectangle {
                 id: lastDeltaBg
-                width: 340
+                width: 325
                 height: 125
                 color: "#00ff00"
                 radius: 0
@@ -713,15 +723,15 @@ ApplicationWindow {
 
             Rectangle {
                 id: sessionTimeBg
-                width: 340
+                width: 325
                 height: 125
                 color: "#00000000"
                 radius: 0
                 border.width: 4
                 anchors.left: parent.left
                 anchors.top: parent.top
-                anchors.leftMargin: 6
-                anchors.topMargin: 7
+                anchors.leftMargin: 25
+                anchors.topMargin: 25
                 border.color: root.mainBorderColor
                 Text {
                     id: sessionTimeVal
@@ -753,7 +763,7 @@ ApplicationWindow {
             Rectangle {
                 id: sector1Bg
                 x: 10
-                width: 225
+                width: 215
                 height: 125
                 visible: true
                 color: "#00000000"
@@ -768,7 +778,7 @@ ApplicationWindow {
                     width: 130
                     text: qsTr("20.45")
                     anchors.verticalCenter: parent.verticalCenter
-                    font.pixelSize: 85
+                    font.pixelSize: 80
                     horizontalAlignment: Text.AlignHCenter
                     font.family: "Arial"
                     anchors.verticalCenterOffset: -5
@@ -810,7 +820,7 @@ ApplicationWindow {
                     width: 130
                     text: qsTr("19.71")
                     anchors.verticalCenter: parent.verticalCenter
-                    font.pixelSize: 85
+                    font.pixelSize: 80
                     horizontalAlignment: Text.AlignHCenter
                     font.family: "Arial"
                     anchors.verticalCenterOffset: -5
@@ -851,7 +861,7 @@ ApplicationWindow {
                     width: 130
                     text: qsTr("12.89")
                     anchors.verticalCenter: parent.verticalCenter
-                    font.pixelSize: 85
+                    font.pixelSize: 80
                     horizontalAlignment: Text.AlignHCenter
                     font.family: "Arial"
                     anchors.verticalCenterOffset: -5
@@ -880,45 +890,6 @@ ApplicationWindow {
             width: 700
             height: 500
             visible: false
-
-            Rectangle {
-                id: bestLapBg
-                width: 420
-                height: 130
-                visible: false
-                color: "#00000000"
-                radius: 0
-                anchors.leftMargin: 0
-                Text {
-                    id: bestLapVal
-                    width: 130
-                    text: qsTr("0:42.61")
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.verticalCenter: parent.verticalCenter
-                    font.pixelSize: 120
-                    horizontalAlignment: Text.AlignHCenter
-                    font.bold: false
-                    font.family: "Arial"
-                    color: root.mainFontColor
-                }
-
-                Text {
-                    id: bestLapLabel
-                    text: qsTr("BEST LAP")
-                    anchors.bottomMargin: 0
-                    anchors.leftMargin: 7
-                    font.pixelSize: 15
-                    anchors.bottom: parent.bottom
-                    anchors.left: parent.left
-                    font.family: "BN Elements"
-                    color: root.mainFontColor
-                }
-                anchors.left: posBg.left
-                anchors.top: dnGroup.bottom
-                anchors.topMargin: 10
-                border.width: 4
-                border.color: root.mainBorderColor
-            }
 
             Rectangle {
                 id: lapBg
@@ -1285,7 +1256,7 @@ ApplicationWindow {
             id: messagePage
             width: 710
             height: 512
-            visible: true
+            visible: false
             anchors.top: parent.top
             anchors.topMargin: 36
 
@@ -1339,6 +1310,18 @@ ApplicationWindow {
 
     }
 
+    Rectangle {
+        id: shiftFlasher
+        x: -63
+        y: 612
+        width: 1280
+        height: 800
+        visible: false
+        color: "#ff0000"
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.horizontalCenter: parent.horizontalCenter
+    }
+
 
 
 
@@ -1355,10 +1338,10 @@ ApplicationWindow {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.6600000262260437}D{i:31;invisible:true}D{i:34;invisible:true}
-D{i:35;invisible:true}D{i:33;invisible:true}D{i:32;invisible:true}D{i:54;invisible:true}
-D{i:56;invisible:true}D{i:57;invisible:true}D{i:55;invisible:true}D{i:65;invisible:true}
-D{i:64;invisible:true}D{i:66;invisible:true}D{i:67;invisible:true}D{i:68;invisible:true}
-D{i:58;invisible:true}
+    D{i:0;formeditorZoom:0.6600000262260437}D{i:31;invisible:true}D{i:35;invisible:true}
+D{i:34;invisible:true}D{i:33;invisible:true}D{i:54;invisible:true}D{i:55;invisible:true}
+D{i:53;invisible:true}D{i:57;invisible:true}D{i:58;invisible:true}D{i:61;invisible:true}
+D{i:63;invisible:true}D{i:62;invisible:true}D{i:64;invisible:true}D{i:65;invisible:true}
+D{i:66;invisible:true}D{i:56;invisible:true}D{i:68;invisible:true}D{i:67;invisible:true}
 }
 ##^##*/

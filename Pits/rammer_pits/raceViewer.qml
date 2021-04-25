@@ -13,11 +13,32 @@ ApplicationWindow {
     visible: true
     width:1920
     height:1080
-    visibility: "FullScreen"
+//    visibility: "FullScreen"
+
+    Timer {
+        interval: 150
+        running: true
+        repeat: true
+        onTriggered: {
+            rectangle.visible = !rectangle.visible
+
+        }
+    }
+
     Image {
         anchors.verticalCenter: parent.verticalCenter
         source: "test.png"
         anchors.horizontalCenter: parent.horizontalCenter
+    }
+
+    Rectangle {
+        id: rectangle
+        x: 0
+        y: 0
+        width: 1920
+        height: 1080
+        color: "#ff0000"
+        visible: true
     }
 
 

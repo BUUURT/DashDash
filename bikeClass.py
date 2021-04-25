@@ -11,25 +11,45 @@ import adafruit_gps
 import adafruit_max31855
 import digitalio
 
+from influxdb_client import InfluxDBClient, Point, WritePrecision
+from influxdb_client.client.write_api import SYNCHRONOUS
+
 ### to do ###
 # test all ports at once
-# test return of class attrs; func or attr call
-# gps mapping
 
-#
+# influx output wrapup
+ # lap timing / sector timing tuple
 
-#from multiprocessing import Process
+##from multiprocessing import Process
 
 class Bike:
-    def __init__(self, _wheelspeed=True, _rpm=True,_gps=True,_imu=True,_engtemp=True):
+    def __init__(self,
+        _wheelspeed=True,
+        _rpm=True,
+        _gps=True,
+        _imu=True,
+        _engTemp=True,
+        influxUrl='http://192.168.254.40:8086',
+        influxToken="JsGcGk3NLpEAN4NEQy7piJCL4fGVSBOSsPBKHWkLkP8DKlz6slQh9TFoC5VBwuHkMoDWFvrnOP1t90TTPdRfuA==",
+        race='test',
+        units='standard'):
+        """_args enables sensor type"""
+        #influx config
+        self.org = "rammers"
+        self.bucket = race
+        self.client = influxDBClient(url=influxUrl, token=influxToken)
+        self.write_api = self.client.write_api(write_optiosn=SYNCHRONOUS)
+
+        self.units = units
         self.laps = 0
         self.distance = 0
         self.speed = 0 #mph
-        self.wheel_elapse = time.time() #meta
         self.rpm = 0 #int
-        self.Etemp= 0 #degF
+        self.engineTemp= 0
+        self.airTemp = 0
         self.rpm_elapse = time.monotonic()
-        # self.airTemp = int((1.8*self.imu.temperature)+32)
+        self.wheel_elapse = time.monotonic() #meta
+
 
         #timing
 
@@ -72,16 +92,17 @@ class Bike:
         if _wheelspeed == True:
             self.GPIO.setup(17,GPIO.IN,GPIO.PUD_UP)#fix
             self.GPIO.add_event_detect(17,GPIO.FALLING,callback=self.speedCalc,bouncetime=20)
+
         if _rpm == True:
             self.GPIO.setup(27,GPIO.IN,GPIO.PUD_UP)#fix
             self.GPIO.add_event_detect(27,GPIO.FALLING,callback=self.rpmCalc,bouncetime=20)
 
         if _imu == True:#IMU
             self.imu = adafruit_bno055.BNO055_I2C(busio.I2C(board.SCL, board.SDA))
-            self.airTemp = int((1.8*self.imu.temperature)+32) #degF
-            self.rotationX = self.sensor.euler[0]
-            self.rotationY = self.sensor.euler[1]
-            self.rotationZ = self.sensor.euler[2]
+            self.airTemp = lambda x: self.max31855.temperature*9/5+32 if self.units == 'standard' else self.max31855.temperature
+            self.rotationX = self.imu.euler[0]
+            self.rotationY = self.imu.euler[1]
+            self.rotationZ = self.imu.euler[2]
 
         if _gps == True:
             uart = serial.Serial("/dev/ttyS0", baudrate=9600, timeout=10)
@@ -93,13 +114,16 @@ class Bike:
             self.spi = busio.SPI(board.SCK, MOSI=board.MOSI, MISO=board.MISO)
             self.cs = digitalio.DigitalInOut(board.D5)
             self.max31855 = adafruit_max31855.MAX31855(spi, cs)
-            self.EngineTemp = max31855.temperature*9/5+32
+            self.engineTemp = lambda x: self.max31855.temperature*9/5+32 if self.units == 'standard' else self.max31855.temperature
 
     def speedCalc(self):
         #circ = 3140 #mm @ 500mm dia / ~20"
         timeDelta = time.monotonic()-self.wheel_elapse
         self.wheel_elapse = time.monotonic()
-        self.speed = (3140/timeDelta)/447.04 # mph/mmps conversion
+        if self.units = 'standard':
+            self.speed = (3140/timeDelta)/447.04 # mph/mmps conversion
+        if self.units = 'metric'
+            self.speed = timeDelta/277.778 # mmps to kmh
         return self.speed
 
     def rpmCalc(self):
@@ -108,10 +132,6 @@ class Bike:
         self.rpm_elapse = time.monotonic()
         self.rpm_elapse = int(60/timeDelta) # 1rev/mmps conversion
         return self.rpm
-
-    def airTemp(self):
-        self.airTemp = int((1.8*self.imu.temperature)+32)
-        return self.airTemp
 
     def setTrack(self,track='tckc'):
         with open('tracklist.json') as trackList:
@@ -127,15 +147,14 @@ class Bike:
             return "set track"
         self.gps.update()
 
-        location = [(self.gps.latitude,self.gps.longitude)]
+        self.location = [(self.gps.latitude,self.gps.longitude)]
 
         sectorindex = {1:2,2:3,3:1}
         nextsector = sectorindex[self.current_sector]
-        if self.mapData[nextsector].contains(location)[0]:
+        if self.mapData[nextsector].contains(self.location)[0]:
             secTimeFinal = time.monotonic()-self.sectorTime
             self.sectorTime = time.monotonic()
             self.current_sector = nextsector
-
 
             if nextsector == 1:
                 self.lap += 1
@@ -144,33 +163,31 @@ class Bike:
                 if self.lastLap<self.bestLap:
                     self.bestlap = self.lastlap
 
+        def influxUpdate(self):
+        lap = self.lap
+        timeStamp = str(time.time()).replace('.','')+'0'
 
+        sensorDict = {
+            rpm : self.rpmCalc(),
+            speed : self.speedCalc(),
+            #brake :
+            engTemp : self.engineTemp,
+            airTemp : self.airTemp,
+            gps : f'{self.gps.latitude},{self.gps.longitude}',
+            euler : self.imu.euler,
+            accel : self.imu.accelearation,
+            laptime : self.lapTime,
+            s1Time : self.s1Time,
+            s2Time : self.s2Time,
+            s3Time : self.s3Time}
 
-        # if self.sector == 1:
-        #     sectorTime = time.monotonic()-self.s1_time
-        #     if self.map_s2.contains_points(location)[0] == True:
-        #         self.s1_time = sectorTime
-        #         self.sector = 2
-        #         self.s2_time = time.monotonic()
-        #     return (self.s1_time, none)
-        #
-        # if self.sector == 2:
-        #     if self.map_s3.contains_points(location)[0] == True:
-        #         self.s2_time = time.monotonic()-self.s2_time
-        #         self.sector = 3
-        #         self.s3_time = time.monotonic()
-        #         return (self.s2_time, none)
-        #
-        # if self.sector == 3:
-        #     if self.map_s1.contains_points(location)[0] == True:
-        #         self.s3_time = time.monotonic()-self.s3_time
-        #         self.laptime
-        #         self.sector = 3
-        #         self.s3_time = time.monotonic()
-        #         return (self.s3_time, self.lapTime)
+        sensorList = [f"{k}={v}" for k,v in sensorDict.items()]
+        data = f'rammerRpi,lap={self.lap} {','.join(sensorList)}
+        self.write_api.write(self.bucket,self.org, data)
+        return sensorDict
 
-
-
+    def messageRefresh(self):
+        pass
 
 
 if __name__ == '__main__':

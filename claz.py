@@ -6,22 +6,22 @@ import matplotlib.patches as patches
 import time
 import json
 
+#
+# with open('tracklist.json') as file:
+#     data = json.load(file)
+#
+# s1 = data['tckc']['s1']
+# s2 = data['tckc']['s2']
+# s3 = data['tckc']['s3']
+# area = Path(s3)
+# area
 
-with open('tracklist.json') as file:
-    data = json.load(file)
-
-s1 = data['tckc']['s1']
-s2 = data['tckc']['s2']
-s3 = data['tckc']['s3']
-area = Path(s3)
-area
-
-fig, ax = plt.subplots()
-patch = patches.PathPatch(area, facecolor='orange', lw=2)
-ax.add_patch(patch)
-ax.set_xlim(-119.3482044, -119.3459201)
-ax.set_ylim(46.3478294, 46.3499652)
-plt.show()
+# fig, ax = plt.subplots()
+# patch = patches.PathPatch(area, facecolor='orange', lw=2)
+# ax.add_patch(patch)
+# ax.set_xlim(-119.3482044, -119.3459201)
+# ax.set_ylim(46.3478294, 46.3499652)
+# plt.show()
 
 
 
@@ -29,14 +29,20 @@ plt.show()
 # print(areas)
 #
 #
-# class Test:
-#     def __init__(self,elm):
-#         self.elm = elm
-#         self.sure = lambda x :  int(self.elm)*x
-#
-#     def maths(self,elm):
-#         dat = len(elm)
-#         print(f'your len is {dat}')
-#         self.dat = dat
-#
-# i = Test('5')
+class Test:
+    def __init__(self,elm):
+        self.elm = elm
+        self.sure = lambda x :  int(self.elm)*x
+
+    def maths(self,elm):
+        dat = len(elm)
+        print(f'your len is {dat}')
+        self.dat = dat
+
+    def top(self):
+        return "the answer is"+self.elm
+
+    def layout(self):
+        print (self.top()+"!!!")
+
+i = Test('hello')
