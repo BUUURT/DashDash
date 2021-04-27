@@ -60,6 +60,9 @@ class Bike:
 
         self.sectorTime = time.monotonic()
         self.mapData = None
+        self.s1Time=0
+        self.s2Time=0
+        self.s3Time=0
         #
         # self.s1_last = None
         # self.s1_time = time.monotonic()
