@@ -37,8 +37,8 @@ class Bike:
         #influx config
         self.org = "rammers"
         self.bucket = race
-        self.client = influxDBClient(url=influxUrl, token=influxToken)
-        self.write_api = self.client.write_api(write_optiosn=SYNCHRONOUS)
+        self.client = InfluxDBClient(url=influxUrl, token=influxToken)
+        self.write_api = self.client.write_api(write_options=SYNCHRONOUS)
 
         self.units = units
         self.laps = 0
@@ -110,10 +110,10 @@ class Bike:
             self.gps.send_command(b"PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0")
             self.gps.send_command(b"PMTK220,10000")
 
-        if _engtemp == True: #thermocouple
+        if _engTemp == True: #thermocouple
             self.spi = busio.SPI(board.SCK, MOSI=board.MOSI, MISO=board.MISO)
             self.cs = digitalio.DigitalInOut(board.D5)
-            self.max31855 = adafruit_max31855.MAX31855(spi, cs)
+            self.max31855 = adafruit_max31855.MAX31855(self.spi, self.cs)
             self.engineTemp = lambda x: self.max31855.temperature*9/5+32 if self.units == 'standard' else self.max31855.temperature
 
     def speedCalc(self):
@@ -122,7 +122,7 @@ class Bike:
         self.wheel_elapse = time.monotonic()
         if self.units == 'standard':
             self.speed = (3140/timeDelta)/447.04 # mph/mmps conversion
-        if self.units == 'metric'
+        if self.units == 'metric':
             self.speed = timeDelta/277.778 # mmps to kmh
         return self.speed
 
@@ -182,7 +182,7 @@ class Bike:
             s3Time : self.s3Time}
 
         sensorList = [f"{k}={v}" for k,v in sensorDict.items()]
-        data = f'rammerRpi,lap={self.lap} {','.join(sensorList)}
+        data = f'rammerRpi,lap={self.lap} {",".join(sensorList)}'
         self.write_api.write(self.bucket,self.org, data)
         return sensorDict
 
