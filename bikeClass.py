@@ -31,9 +31,9 @@ class Bike:
         _engTemp=True,
         influxUrl='http://192.168.254.40:8086',
         influxToken="JsGcGk3NLpEAN4NEQy7piJCL4fGVSBOSsPBKHWkLkP8DKlz6slQh9TFoC5VBwuHkMoDWFvrnOP1t90TTPdRfuA==",
-        race='test',
+        race='test3',
         units='standard'):
-        """_args enables sensor type"""
+        """_args enables sensor type, on by default"""
         #influx config
         self.org = "rammers"
         self.bucket = race
@@ -117,7 +117,7 @@ class Bike:
             self.spi = busio.SPI(board.SCK, MOSI=board.MOSI, MISO=board.MISO)
             self.cs = digitalio.DigitalInOut(board.D5)
             self.max31855 = adafruit_max31855.MAX31855(self.spi, self.cs)
-            self.engineTemp = lambda x: self.max31855.temperature*9/5+32 if self.units == 'standard' else self.max31855.temperature
+            self.engineTemp = lambda : self.max31855.temperature*9/5+32 if self.units == 'standard' else self.max31855.temperature
 
     def speedCalc(self):
         #circ = 3140 #mm @ 500mm dia / ~20"
@@ -174,8 +174,8 @@ class Bike:
             "speed" : self.speedCalc(),
             "rpm" : self.rpmCalc(),
             #brake :
-            "engTemp" : self.engineTemp,
-            "airTemp" : self.airTemp,
+            "engTemp" : self.engineTemp(),
+            "airTemp" : self.airTemp(),
             "gps" : f'{self.gps.latitude},{self.gps.longitude}',
             "euler" : self.imu.euler,
             "accel" : self.imu.acceleration,
