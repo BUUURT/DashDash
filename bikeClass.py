@@ -100,9 +100,9 @@ class Bike:
         if _imu == True:#IMU
             self.imu = adafruit_bno055.BNO055_I2C(busio.I2C(board.SCL, board.SDA))
             self.airTemp = lambda x: self.max31855.temperature*9/5+32 if self.units == 'standard' else self.max31855.temperature
-            self.rotationX = self.imu.euler[0]
-            self.rotationY = self.imu.euler[1]
-            self.rotationZ = self.imu.euler[2]
+            # self.rotationX = self.imu.euler[0]
+            # self.rotationY = self.imu.euler[1]
+            # self.rotationZ = self.imu.euler[2]
 
         if _gps == True:
             uart = serial.Serial("/dev/ttyS0", baudrate=9600, timeout=10)
@@ -171,11 +171,11 @@ class Bike:
             "speed" : str(self.speedCalc()),
             "rpm" : str(self.rpmCalc()),
             #brake :
-            "engTemp" : self.engineTemp,
-            "airTemp" : self.airTemp,
+            "engTemp" : str(self.engineTemp),
+            "airTemp" : str(self.airTemp),
             "gps" : f'{self.gps.latitude},{self.gps.longitude}',
-            "euler" : self.imu.euler,
-            "accel" : self.imu.accelearation,
+            "euler" : str(self.imu.euler),
+            "accel" : str(self.imu.accelearation),
             "laptime" : self.lapTime,
             "s1Time" : self.s1Time,
             "s2Time" : self.s2Time,
