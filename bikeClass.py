@@ -120,9 +120,9 @@ class Bike:
         #circ = 3140 #mm @ 500mm dia / ~20"
         timeDelta = time.monotonic()-self.wheel_elapse
         self.wheel_elapse = time.monotonic()
-        if self.units = 'standard':
+        if self.units == 'standard':
             self.speed = (3140/timeDelta)/447.04 # mph/mmps conversion
-        if self.units = 'metric'
+        if self.units == 'metric'
             self.speed = timeDelta/277.778 # mmps to kmh
         return self.speed
 
@@ -163,7 +163,7 @@ class Bike:
                 if self.lastLap<self.bestLap:
                     self.bestlap = self.lastlap
 
-        def influxUpdate(self):
+    def influxUpdate(self):
         lap = self.lap
         timeStamp = str(time.time()).replace('.','')+'0'
 
