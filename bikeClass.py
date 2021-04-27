@@ -41,7 +41,7 @@ class Bike:
         self.write_api = self.client.write_api(write_options=SYNCHRONOUS)
 
         self.units = units
-        self.laps = 0
+        self.lap = 0
         self.distance = 0
         self.speed = 0 #mph
         self.rpm = 0 #int
@@ -168,18 +168,18 @@ class Bike:
         timeStamp = str(time.time()).replace('.','')+'0'
 
         sensorDict = {
-            rpm : self.rpmCalc(),
-            speed : self.speedCalc(),
+            "speed" : str(self.speedCalc()),
+            "rpm" : str(self.rpmCalc()),
             #brake :
-            engTemp : self.engineTemp,
-            airTemp : self.airTemp,
-            gps : f'{self.gps.latitude},{self.gps.longitude}',
-            euler : self.imu.euler,
-            accel : self.imu.accelearation,
-            laptime : self.lapTime,
-            s1Time : self.s1Time,
-            s2Time : self.s2Time,
-            s3Time : self.s3Time}
+            "engTemp" : self.engineTemp,
+            "airTemp" : self.airTemp,
+            "gps" : f'{self.gps.latitude},{self.gps.longitude}',
+            "euler" : self.imu.euler,
+            "accel" : self.imu.accelearation,
+            "laptime" : self.lapTime,
+            "s1Time" : self.s1Time,
+            "s2Time" : self.s2Time,
+            "s3Time" : self.s3Time}
 
         sensorList = [f"{k}={v}" for k,v in sensorDict.items()]
         data = f'rammerRpi,lap={self.lap} {",".join(sensorList)}'
