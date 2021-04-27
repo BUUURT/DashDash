@@ -54,15 +54,15 @@ class Bike:
         #timing
 
         self.current_sector = 1
-        self.lapTime = None
-        self.lastLap = None
-        self.bestLap = None
+        self.lapTime = 0
+        self.lastLap = 0
+        self.bestLap = 0
 
         self.sectorTime = time.monotonic()
-        self.mapData = None
-        self.s1Time=None
-        self.s2Time=None
-        self.s3Time=None
+        self.mapData = 0
+        self.s1Time=0
+        self.s2Time=0
+        self.s3Time=0
 
         if _wheelspeed == True or _rpm == True:
             self.GPIO = GPIO
