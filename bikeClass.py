@@ -168,14 +168,14 @@ class Bike:
         timeStamp = str(time.time()).replace('.','')+'0'
 
         sensorDict = {
-            "speed" : str(self.speedCalc()),
-            "rpm" : str(self.rpmCalc()),
+            "speed" : self.speedCalc(),
+            "rpm" : self.rpmCalc(),
             #brake :
             "engTemp" : self.engineTemp,
             "airTemp" : self.airTemp,
             "gps" : f'{self.gps.latitude},{self.gps.longitude}',
             "euler" : self.imu.euler,
-            "accel" : strself.imu.acceleration,
+            "accel" : self.imu.acceleration,
             "laptime" : self.lapTime,
             "s1Time" : self.s1Time,
             "s2Time" : self.s2Time,
