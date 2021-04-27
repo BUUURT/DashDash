@@ -102,7 +102,7 @@ class Bike:
 
         if _imu == True:#IMU
             self.imu = adafruit_bno055.BNO055_I2C(busio.I2C(board.SCL, board.SDA))
-            self.airTemp = lambda x: self.max31855.temperature*9/5+32 if self.units == 'standard' else self.max31855.temperature
+            self.airTemp = lambda : self.max31855.temperature*9/5+32 if self.units == 'standard' else self.max31855.temperature
             # self.rotationX = self.imu.euler[0]
             # self.rotationY = self.imu.euler[1]
             # self.rotationZ = self.imu.euler[2]
