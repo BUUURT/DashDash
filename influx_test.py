@@ -7,7 +7,7 @@ from influxdb_client.client.write_api import SYNCHRONOUS
 # You can generate a Token from the "Tokens Tab" in the UI
 token = "JsGcGk3NLpEAN4NEQy7piJCL4fGVSBOSsPBKHWkLkP8DKlz6slQh9TFoC5VBwuHkMoDWFvrnOP1t90TTPdRfuA=="
 org = "rammers"
-bucket = "test"
+bucket = "test3"
 
 #client = InfluxDBClient(url="http://localhost:8086", token=token)
 client = InfluxDBClient(url="192.168.254.40:8086", token=token)

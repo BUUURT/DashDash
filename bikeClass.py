@@ -54,7 +54,7 @@ class Bike:
         #timing
 
         self.current_sector = 1
-        self.lapTime = time.monotonic()
+        self.lapTime = None
         self.lastLap = None
         self.bestLap = None
 
@@ -103,6 +103,8 @@ class Bike:
         if _imu == True:#IMU
             self.imu = adafruit_bno055.BNO055_I2C(busio.I2C(board.SCL, board.SDA))
             self.airTemp = lambda : self.max31855.temperature*9/5+32 if self.units == 'standard' else self.max31855.temperature
+            self.euler = str(self.imu.euler).replace(' ','')
+            self.acceleration = str(self.imu.acceleration).replace(' ','')
             # self.rotationX = self.imu.euler[0]
             # self.rotationY = self.imu.euler[1]
             # self.rotationZ = self.imu.euler[2]
@@ -176,9 +178,9 @@ class Bike:
             #brake :
             "engTemp" : self.engineTemp(),
             "airTemp" : self.airTemp(),
-            "gps" : f'{self.gps.latitude},{self.gps.longitude}',
-            "euler" : self.imu.euler,
-            "accel" : self.imu.acceleration,
+            "gps" : f'({self.gps.latitude},{self.gps.longitude}'),
+            "euler" : self.euler,
+            "accel" : self.acceleration,
             "laptime" : self.lapTime,
             "s1Time" : self.s1Time,
             "s2Time" : self.s2Time,
@@ -186,6 +188,9 @@ class Bike:
 
         sensorList = [f"{k}={v}" for k,v in sensorDict.items()]
         data = f'rammerRpi,lap={self.lap} {",".join(sensorList)}'
+        print("/n")
+        print(data)
+        print("/n")
         self.write_api.write(self.bucket,self.org, data)
         return sensorDict
 
