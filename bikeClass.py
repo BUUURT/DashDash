@@ -60,32 +60,9 @@ class Bike:
 
         self.sectorTime = time.monotonic()
         self.mapData = None
-        self.s1Time=0
-        self.s2Time=0
-        self.s3Time=0
-        #
-        # self.s1_last = None
-        # self.s1_time = time.monotonic()
-        #
-        # self.s2_last = None
-        # self.s2_time = None
-        #
-        # self.s3_last = None
-        # self.s3_time = None
-        #
-        # self.map_s1 = None
-        # self.map_s2 = None
-        # self.map_s3 = None
-
-        #old??
-        # if wheelspeed == True:
-        #     self.GPIO.setmode(GPIO.BCM)
-        #     self.GPIO.setup(17,GPIO.IN,GPIO.PUD_UP)#wheelspeed
-        #     self.GPIO.setwarnings(False)
-        # GPIO.setup(27,GPIO.IN,GPIO.PUD_UP)#wheelspeed
-        # GPIO.setwarnings(False)
-        # GPIO.add_event_detector(17,GPIO.FALLING,callback=surething,bouncetime=20)
-        # GPIO.add_event_detector(27,GPIO.FALLING,callback=surething,bouncetime=20)
+        self.s1Time=None
+        self.s2Time=None
+        self.s3Time=None
 
         if _wheelspeed == True or _rpm == True:
             self.GPIO = GPIO
@@ -178,7 +155,8 @@ class Bike:
             #brake :
             "engTemp" : self.engineTemp(),
             "airTemp" : self.airTemp(),
-            "gps" : f'({self.gps.latitude},{self.gps.longitude}'),
+            "gps_lat" : str(self.gps.longitude),
+            "gps_long" : str(self.gps.latitude),
             "euler" : self.euler,
             "accel" : self.acceleration,
             "laptime" : self.lapTime,
