@@ -106,7 +106,7 @@ class Bike:
         timeDelta = time.monotonic()-self.wheel_elapse
         self.wheel_elapse = time.monotonic()
         if self.units == 'standard':
-            self.speed = (3140/timeDelta)/447.04 # mph/mmps conversion
+            self.speed = round(7.023979/timeDelta,2) # mph/mmps conversion
         if self.units == 'metric':
             self.speed = round(timeDelta/277.778,2) # mmps to kmh
         return self.speed
@@ -179,7 +179,7 @@ class Bike:
             # self.accelZ = self.imu.acceleration[2]
 
         sensorList = [f"{k}={v}" for k,v in sensorDict.items()]
-        data = f'rammerRpi,lap={self.lap} {",".join(sensorList)} {str(time.time()).replace('.','')+'0'}'
+        data = f'rammerRpi,lap={self.lap} {",".join(sensorList)} {str(time.time()).replace(".","")+"0"}'
         print("/n")
         print(data)
         print("/n")
