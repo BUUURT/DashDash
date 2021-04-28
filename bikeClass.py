@@ -108,14 +108,14 @@ class Bike:
         if self.units == 'standard':
             self.speed = (3140/timeDelta)/447.04 # mph/mmps conversion
         if self.units == 'metric':
-            self.speed = int(timeDelta/277.778),2) # mmps to kmh
+            self.speed = round(timeDelta/277.778,2) # mmps to kmh
         return self.speed
 
     def rpmCalc(self):
         #circ = 3140 #mm @ 500mm dia / ~20"
         timeDelta = time.monotonic()-self.rpm_elapse
         self.rpm_elapse = time.monotonic()
-        self.rpm_elapse = round(60/timeDelta,2) # 1rev/mmps conversion
+        self.rpm_elapse = int(60/timeDelta) # 1rev/mmps conversion
         return self.rpm
 
     def setTrack(self,track='tckc'):
