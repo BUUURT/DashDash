@@ -18,9 +18,12 @@ data = "mem,host=host1 used_percent=23.43234543"
 # write_api.write(bucket, org, data)
 
 i = 0
-while True:
-    j = int(str(time.time()).split('.')[0][-1:])
-    i+=j
-    write_api.write(bucket, org, f"grower,bike=computer cycle3={i} {str(time.time()).replace('.','')+'0'}")
-    time.sleep(0.1)
-    print(i)
+# while True:
+#     j = int(str(time.time()).split('.')[0][-1:])
+#     i+=j
+#     write_api.write(bucket, org, f"grower,bike=computer cycle3={i} {str(time.time()).replace('.','')+'0'}")
+#     time.sleep(0.1)
+#     print(i)
+
+test = 'rammerRpi,lap=0 speed=10.63,rpm=0,engTemp=68.9,airTemp=68.9,gps_lat=None'#,gps_long=None,rotationX=0.0,rotationY=0.0,rotationZ=0.0,accelX=-0.76,accelY=-1.39,accelZ=9.42,laptime=0,s1Time=0,s2Time=0,s3Time=0 16195854652219036'
+write_api.write(bucket, org, test)
