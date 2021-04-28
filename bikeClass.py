@@ -179,7 +179,7 @@ class Bike:
             # self.accelZ = self.imu.acceleration[2]
 
         sensorList = [f"{k}={v}" for k,v in sensorDict.items()]
-        data = f'rammerRpi,lap={self.lap} {",".join(sensorList)} {time.monotonic()}'
+        data = f'rammerRpi,lap={self.lap} {",".join(sensorList)} {str(time.time()).replace('.','')+'0'}'
         print("/n")
         print(data)
         print("/n")
