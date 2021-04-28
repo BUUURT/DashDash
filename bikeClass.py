@@ -82,12 +82,12 @@ class Bike:
             self.airTemp = lambda : self.max31855.temperature*9/5+32 if self.units == 'standard' else self.max31855.temperature
             # self.euler = str(self.imu.euler).replace(' ','')
             # self.acceleration = str(self.imu.acceleration).replace(' ','')
-            self.rotationX = self.imu.euler[0]
-            self.rotationY = self.imu.euler[1]
-            self.rotationZ = self.imu.euler[2]
-            self.accelX = self.imu.acceleration[0]
-            self.accelY = self.imu.acceleration[1]
-            self.accelZ = self.imu.acceleration[2]
+            self.rotationX = round(self.imu.euler[0],6)
+            self.rotationY = round(self.imu.euler[1],6)
+            self.rotationZ = round(self.imu.euler[2],6)
+            self.accelX = round(self.imu.acceleration[0],6)
+            self.accelY = round(self.imu.acceleration[1],6)
+            self.accelZ = round(self.imu.acceleration[2],6)
 
         if _gps == True:
             uart = serial.Serial("/dev/ttyS0", baudrate=9600, timeout=10)
@@ -108,14 +108,14 @@ class Bike:
         if self.units == 'standard':
             self.speed = (3140/timeDelta)/447.04 # mph/mmps conversion
         if self.units == 'metric':
-            self.speed = timeDelta/277.778 # mmps to kmh
+            self.speed = int(timeDelta/277.778),2) # mmps to kmh
         return self.speed
 
     def rpmCalc(self):
         #circ = 3140 #mm @ 500mm dia / ~20"
         timeDelta = time.monotonic()-self.rpm_elapse
         self.rpm_elapse = time.monotonic()
-        self.rpm_elapse = int(60/timeDelta) # 1rev/mmps conversion
+        self.rpm_elapse = round(60/timeDelta,2) # 1rev/mmps conversion
         return self.rpm
 
     def setTrack(self,track='tckc'):
