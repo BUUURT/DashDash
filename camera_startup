@@ -1,0 +1,4 @@
+#!/bin/bash
+
+
+raspivid -o - -t 0 -hf -n -w 1280 -h 720 -fps 60 |cvlc -vvv stream:///dev/stdin --sout

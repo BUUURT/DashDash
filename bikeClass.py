@@ -110,7 +110,7 @@ class Bike:
             self.engineTemp = lambda : self.max31855.temperature*9/5+32 if self.units == 'standard' else self.max31855.temperature
 
         if _camera == True:
-            subprocess.run('raspivid -o - -t 0 -hf -n -w 1280 -h 720 -fps 60 |cvlc -vvv stream:///dev/stdin --sout')
+            subprocess.run(['camera_startup'])
             #1280 x 720
 
     def speedCalc(self):
