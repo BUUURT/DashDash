@@ -26,4 +26,4 @@ i = 0
 #     print(i)
 
 test = 'rammerRpi,lap=0 speed=10.63,rpm=0,engTemp=68.9,airTemp=68.9,gps_lat=None'#,gps_long=None,rotationX=0.0,rotationY=0.0,rotationZ=0.0,accelX=-0.76,accelY=-1.39,accelZ=9.42,laptime=0,s1Time=0,s2Time=0,s3Time=0 16195854652219036'
-write_api.write(bucket, org, test)
+write_api.write('test4', org, 'rammerRpi,lap=0 speed=0.27,rpm=0,engTemp=68.45,airTemp=68.45,gps_lat=False,gps_long=False,rotationX=0.0,rotationY=0.0,rotationZ=0.0,accelX=-0.81,accelY=-1.41,accelZ=9.43,laptime=0,s1Time=0,s2Time=0,s3Time=0 161958947393832760')

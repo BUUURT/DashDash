@@ -2,6 +2,7 @@ import time
 import serial
 import json
 import matplotlib.path as path
+import subprocess
 
 import board
 import busio
@@ -29,6 +30,7 @@ class Bike:
         _gps=True,
         _imu=True,
         _engTemp=True,
+        _camera=True,
         influxUrl='http://192.168.254.40:8086',
         influxToken="JsGcGk3NLpEAN4NEQy7piJCL4fGVSBOSsPBKHWkLkP8DKlz6slQh9TFoC5VBwuHkMoDWFvrnOP1t90TTPdRfuA==",
         race='test3',
@@ -79,7 +81,7 @@ class Bike:
 
         if _imu == True:#IMU
             self.imu = adafruit_bno055.BNO055_I2C(busio.I2C(board.SCL, board.SDA))
-            self.airTemp = lambda : self.max31855.temperature*9/5+32 if self.units == 'standard' else self.max31855.temperature
+            self.airTemp = lambda : self.imu.temperature*9/5+32 if self.units == 'standard' else self.max31855.temperature
             # self.euler = str(self.imu.euler).replace(' ','')
             # self.acceleration = str(self.imu.acceleration).replace(' ','')
             self.rotationX = round(self.imu.euler[0],6)
@@ -106,6 +108,10 @@ class Bike:
             self.cs = digitalio.DigitalInOut(board.D5)
             self.max31855 = adafruit_max31855.MAX31855(self.spi, self.cs)
             self.engineTemp = lambda : self.max31855.temperature*9/5+32 if self.units == 'standard' else self.max31855.temperature
+
+        if _camera == True:
+            subprocess.run('raspivid -o - -t 0 -hf -n -w 1280 -h 720 -fps 60 |cvlc -vvv stream:///dev/stdin --sout')
+            #1280 x 720
 
     def speedCalc(self):
         #circ = 3140 #mm @ 500mm dia / ~20"
@@ -186,9 +192,7 @@ class Bike:
 
         sensorList = [f"{k}={v}" for k,v in sensorDict.items()]
         data = f'rammerRpi,lap={self.lap} {",".join(sensorList)} {str(time.time()).replace(".","")+"0"}'
-        print("/n")
-        print(data)
-        print("/n")
+
         self.write_api.write(self.bucket,self.org, data)
         # write_api.write(bucket, org, f"grower,bike=computer cycle3={i} {str(time.time()).replace('.','')+'0'}")
         return sensorDict
