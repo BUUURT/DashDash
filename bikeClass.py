@@ -109,9 +109,9 @@ class Bike:
             self.max31855 = adafruit_max31855.MAX31855(self.spi, self.cs)
             self.engineTemp = lambda : self.max31855.temperature*9/5+32 if self.units == 'standard' else self.max31855.temperature
 
-        if _camera == True:
-            subprocess.run(['camera_startup'])
-            #1280 x 720
+        # if _camera == True:
+        #     subprocess.run(['camera_startup'])
+        #     #1280 x 720
 
     def speedCalc(self):
         #circ = 3140 #mm @ 500mm dia / ~20"
