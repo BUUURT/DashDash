@@ -113,7 +113,7 @@ class Bike:
         #     subprocess.run(['camera_startup'])
         #     #1280 x 720
 
-    def speedCalc(self):
+    def speedCalc(self,channel):
         #circ = 3140 #mm @ 500mm dia / ~20"
         timeDelta = time.monotonic()-self.wheel_elapse
         self.wheel_elapse = time.monotonic()
