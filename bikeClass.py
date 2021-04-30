@@ -77,7 +77,7 @@ class Bike:
 
         if _rpm == True:
             self.GPIO.setup(27,GPIO.IN,GPIO.PUD_UP)#fix
-            self.GPIO.add_event_detect(27,GPIO.FALLING,callback=self.rpmCalc,bouncetime=20)
+            self.GPIO.add_event_detect(27,GPIO.FALLING,callback=self.rpmCalc,bouncetime=2)
 
         if _imu == True:#IMU
             self.imu = adafruit_bno055.BNO055_I2C(busio.I2C(board.SCL, board.SDA))
@@ -121,7 +121,7 @@ class Bike:
             self.speed = round(7.023979/timeDelta,2) # mph/mmps conversion
         if self.units == 'metric':
             self.speed = round(timeDelta/277.778,2) # mmps to kmh
-        return self.speed
+        # return self.speed
 
     def rpmCalc(self):
         #circ = 3140 #mm @ 500mm dia / ~20"
@@ -165,8 +165,8 @@ class Bike:
         timeStamp = str(time.time()).replace('.','')+'0'
 
         sensorDict = {
-            "speed" : self.speedCalc(),
-            "rpm" : self.rpmCalc(),
+            "speed" : self.speed,
+            "rpm" : self.rpm,
             #brake :
             "engTemp" : self.engineTemp(),
             "airTemp" : self.airTemp(),
