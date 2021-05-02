@@ -134,15 +134,14 @@ ApplicationWindow {
         running: true
         repeat: true
         onTriggered: {
-            var sensorDict = con.influxRefresh()
-            console.log(String(sensorDict))
-//            root.rpm = parseInt(sensorDict['rpm'])    //con.rpm()
-//            root.speed = parseInt(sensorDict['speed'])    //con.speed(w)
-//            tempAirDisp.text = String(sensorDict['airTemp'])    //qsTr(con.airTemp())
-//            tempEngDisp.text = String(sensorDict['engTemp'])
-//            sector1Val = sensorDict['s1Time']
-//            sector2Val = sensorDict['s2Time']
-//            sector3Val = sensorDict['s3Time']
+            sensorDict = con.influxRefresh()
+            root.rpm = parseInt(sensorDict['rpm'])    //con.rpm()
+            root.speed = parseInt(sensorDict['speed'])    //con.speed(w)
+            tempAirDisp.text = String(sensorDict['airTemp'])    //qsTr(con.airTemp())
+            tempEngDisp.text = String(sensorDict['engTemp'])
+            sector1Val = sensorDict['s1Time']
+            sector2Val = sensorDict['s2Time']
+            sector3Val = sensorDict['s3Time']
 //            gDot.anchors.verticalCenterOffset = sensorDict['']    //con.accelX()*13.78
 //            gDot.anchors.horizontalCenterOffset = sensorDict['']    //con.accelY()*13.78
 //                    # speed,<class 'int'>

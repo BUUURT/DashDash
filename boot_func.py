@@ -44,7 +44,7 @@ class Bridge(QObject):
     #     return '0'
     #
     # @Slot(result=int)
-    # def rpm(self):
+    # def rpm(self):b
     #     #return bike.rpmCalc()
     #     i = str(time.time()).split('.')
     #     elm = i[0][-1:]+i[1][:2]
