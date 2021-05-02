@@ -21,13 +21,13 @@ from bikeClass import Bike
 # bike = Bike(_wheelspeed=False,_rpm=False,_gps=False,_imu=False,_engTemp=False)
 bike = Bike()
 class Bridge(QObject):
-    @Slot(result=str)
+    @Slot(result=QVariant)
     def influxRefresh(self):
-        bike.influxUpdate()
+        return bike.influxUpdate()
 
-    @Slot(result=str)
-    def sensorRefresh(self):
-        return bike.sensorRefresh()
+    # @Slot(result=)
+    # def sensorRefresh(self):
+    #     return bike.sensorRefresh()
 
     @Slot(result=str)
     def messageRefresh(self):
