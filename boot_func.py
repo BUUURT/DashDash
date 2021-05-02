@@ -9,7 +9,7 @@ import datetime
 
 #import requests
 
-from PyQt5.QtCore import QObject, QUrl
+from PyQt5.QtCore import QObject, QUrl, QVariant
 from PyQt5.QtCore import pyqtSlot as Slot
 from PyQt5.QtCore import pyqtSignal as Signal
 from PyQt5.QtGui import QGuiApplication
