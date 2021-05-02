@@ -136,10 +136,10 @@ ApplicationWindow {
         onTriggered: {
             var sensorDict = con.influxRefresh()
             console.log(sensorDict)
-            root.rpm = sensorDict['rpm']    //con.rpm()
-            root.speed = sensorDict['speed']    //con.speed()
-            tempAirDisp.text = sensorDict['airTemp']    //qsTr(con.airTemp())
-            tempEngDisp.text = sensorDict['engTemp']
+            root.rpm = parseInt(sensorDict['rpm'])    //con.rpm()
+            root.speed = parseInt(sensorDict['speed'])    //con.speed(w)
+            tempAirDisp.text = String(sensorDict['airTemp'])    //qsTr(con.airTemp())
+            tempEngDisp.text = String(qsensorDict['engTemp'])
 //            sector1Val = sensorDict['s1Time']
 //            sector2Val = sensorDict['s2Time']
 //            sector3Val = sensorDict['s3Time']
