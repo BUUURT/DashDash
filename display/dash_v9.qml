@@ -135,16 +135,32 @@ ApplicationWindow {
         repeat: true
         onTriggered: {
             var sensorDict = con.influxRefresh()
-            console.log(sensorDict)
-            root.rpm = parseInt(sensorDict['rpm'])    //con.rpm()
-            root.speed = parseInt(sensorDict['speed'])    //con.speed(w)
-            tempAirDisp.text = String(sensorDict['airTemp'])    //qsTr(con.airTemp())
-            tempEngDisp.text = String(qsensorDict['engTemp'])
+            console.log(String(sensorDict))
+//            root.rpm = parseInt(sensorDict['rpm'])    //con.rpm()
+//            root.speed = parseInt(sensorDict['speed'])    //con.speed(w)
+//            tempAirDisp.text = String(sensorDict['airTemp'])    //qsTr(con.airTemp())
+//            tempEngDisp.text = String(sensorDict['engTemp'])
 //            sector1Val = sensorDict['s1Time']
 //            sector2Val = sensorDict['s2Time']
 //            sector3Val = sensorDict['s3Time']
 //            gDot.anchors.verticalCenterOffset = sensorDict['']    //con.accelX()*13.78
 //            gDot.anchors.horizontalCenterOffset = sensorDict['']    //con.accelY()*13.78
+//                    # speed,<class 'int'>
+//                    # rpm,<class 'int'>
+//                    # engTemp,<class 'float'>
+//                    # airTemp,<class 'float'>
+//                    # gps_lat,<class 'bool'>
+//                    # gps_long,<class 'bool'>
+//                    # rotationX,<class 'float'>
+//                    # rotationY,<class 'float'>
+//                    # rotationZ,<class 'float'>
+//                    # accelX,<class 'float'>
+//                    # accelY,<class 'float'>
+//                    # accelZ,<class 'float'>
+//                    # laptime,<class 'int'>
+//                    # s1Time,<class 'int'>
+//                    # s2Time,<class 'int'>
+//                    # s3Time,<class 'int'>
         }
 
     }
