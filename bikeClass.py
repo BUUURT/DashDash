@@ -32,7 +32,7 @@ class Bike:
         _engTemp=True,
         _camera=True,
         influxUrl='http://192.168.254.40:8086',
-        influxToken="JsGcGk3NLpEAN4NEQy7piJCL4fGVSBOSsPBKHWkLkP8DKlz6slQh9TFoC5VBwuHkMoDWFvrnOP1t90TTPdRfuA==",
+        influxToken="rc0LjEy36DIyrb1CX6rnUDeMJ0-ldW5Mps1KOwkSRrRhbRWDsGzPlNn6BOiyg96vWEKRMZ3xwsfZVgIAxL2gCw==",
         race='test3',
         units='standard'):
         """_args enables sensor type, on by default"""
@@ -182,6 +182,7 @@ class Bike:
             "s1Time" : self.s1Time,
             "s2Time" : self.s2Time,
             "s3Time" : self.s3Time}
+
 
             # self.rotationX = self.imu.euler[0]
             # self.rotationY = self.imu.euler[1]
