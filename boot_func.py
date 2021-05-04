@@ -21,9 +21,11 @@ from bikeClass import Bike
 # bike = Bike(_wheelspeed=False,_rpm=False,_gps=False,_imu=False,_engTemp=False)
 bike = Bike()
 class Bridge(QObject):
+
     @Slot(result=QVariant)
-    def influxRefresh(self):
+    def sensorRefresh(self):
         return bike.influxUpdate()
+
 
     # @Slot(result=)
     # def sensorRefresh(self):
@@ -39,6 +41,9 @@ class Bridge(QObject):
         minutes,seconds = divmod(floatTime,60)
         return "%02d:%02d"%(minutes,seconds)
 
+        # influxUrl='http://192.168.254.40:8086',
+        # influxToken="rc0LjEy36DIyrb1CX6rnUDeMJ0-ldW5Mps1KOwkSRrRhbRWDsGzPlNn6BOiyg96vWEKRMZ3xwsfZVgIAxL2gCw==",
+        # race='test3',
 
     #
     # @Slot(result=str)

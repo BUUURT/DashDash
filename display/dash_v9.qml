@@ -134,7 +134,7 @@ ApplicationWindow {
         running: true
         repeat: true
         onTriggered: {
-            var sensorDict = con.influxRefresh()
+            var sensorDict = con.sensorRefresh()
             root.rpm = parseInt(sensorDict['rpm'])    //con.rpm()
             root.speed = parseInt(sensorDict['speed'])    //con.speed(w)
             tempAirDisp.text = String(sensorDict['airTemp'])    //qsTr(con.airTemp())

@@ -50,7 +50,7 @@ class Bike:
         self.engineTemp= 0
         self.airTemp = 0
         self.rpm_elapse = time.monotonic()
-        self.wheel_elapse = time.monotonic() #meta
+        self.wheel_elapse = time.monotonic()
 
         #timing
 
@@ -178,7 +178,6 @@ class Bike:
             "accelX" : self.accelX(),
             "accelY" : self.accelY(),
             "accelZ" : self.accelZ(),
-            "session" : str(time.monotonic()-self.sessionTime)
             # "laptime" : self.lapTime,
             # "s1Time" : self.s1Time,
             # "s2Time" : self.s2Time,
