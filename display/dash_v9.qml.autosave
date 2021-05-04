@@ -184,11 +184,9 @@ ApplicationWindow {
 
     //    Behavior on rpm {
     //        NumberAnimation { properties: "rpm"; duration: 1000 }
-
     //    }
 
-
-
+    
     onRpmChanged: {
         // drive RPM animation
         msgText_pit.text = rpm
@@ -216,7 +214,6 @@ ApplicationWindow {
             rpmSweepHigh.width = (rpm-7000)*697/4000
             rpmSweepOrange.visible = false
             rpmSweepRed.visible = false
-
         }
 
         if (rpm>11000 && rpm<12000) {
