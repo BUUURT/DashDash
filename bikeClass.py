@@ -98,9 +98,9 @@ class Bike:
             self.lat = False
             self.long = False
             if self.gps.latitude != None:
-                self.lat = self.gps.latitude
+                self.lat = lambda : self.gps.latitude
             if self.gps.longitude != None:
-                self.long = self.gps.longitude
+                self.long = lambda : self.gps.longitude
 
         if _engTemp == True: #thermocouple
             self.spi = busio.SPI(board.SCK, MOSI=board.MOSI, MISO=board.MISO)
@@ -168,18 +168,19 @@ class Bike:
             #brake :
             "engTemp" : self.engineTemp(),
             "airTemp" : self.airTemp(),
-            "gps_lat" : self.long,
-            "gps_long" : self.lat,
-            "rotationX" : self.rotationX,
-            "rotationY" : self.rotationY,
-            "rotationZ" : self.rotationZ,
-            "accelX" : self.accelX,
-            "accelY" : self.accelY,
-            "accelZ" : self.accelZ,
-            "laptime" : self.lapTime,
-            "s1Time" : self.s1Time,
-            "s2Time" : self.s2Time,
-            "s3Time" : self.s3Time}
+            "gps_lat" : self.long(),
+            "gps_long" : self.lat(),
+            "rotationX" : self.rotationX(),
+            "rotationY" : self.rotationY(),
+            "rotationZ" : self.rotationZ(),
+            "accelX" : self.accelX(),
+            "accelY" : self.accelY(),
+            "accelZ" : self.accelZ(),
+            # "laptime" : self.lapTime,
+            # "s1Time" : self.s1Time,
+            # "s2Time" : self.s2Time,
+            # "s3Time" : self.s3Time
+            }
 
 
             # self.rotationX = self.imu.euler[0]
