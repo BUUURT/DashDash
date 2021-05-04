@@ -139,6 +139,7 @@ ApplicationWindow {
             root.speed = parseInt(sensorDict['speed'])    //con.speed(w)
             tempAirDisp.text = String(sensorDict['airTemp'])    //qsTr(con.airTemp())
             tempEngDisp.text = String(sensorDict['engTemp'])
+            
 //            sector1Val = sensorDict['s1Time']
 //            sector2Val = sensorDict['s2Time']
 //            sector3Val = sensorDict['s3Time']

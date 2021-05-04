@@ -58,7 +58,8 @@ class Bike:
         self.lapTime = 0
         self.lastLap = 0
         self.bestLap = 0
-
+        self.sessionTime = time.monotonic()
+        self.rider = 'default'
         self.sectorTime = time.monotonic()
         self.mapData = 0
         self.s1Time=0
@@ -177,6 +178,7 @@ class Bike:
             "accelX" : self.accelX(),
             "accelY" : self.accelY(),
             "accelZ" : self.accelZ(),
+            "session" : str(time.monotonic()-self.sessionTime)
             # "laptime" : self.lapTime,
             # "s1Time" : self.s1Time,
             # "s2Time" : self.s2Time,
