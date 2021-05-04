@@ -36,7 +36,7 @@ class Bridge(QObject):
     @Slot(result=str)
     def sessionTime(self):
         floatTime = time.monotonic()-bike.sessionTime
-        minute,seconds = divmod(floatTime*60, 60)
+        minutes,seconds = divmod(floatTime,60)
         return "%02d:%02d"%(minutes,seconds)
 
 
