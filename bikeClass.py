@@ -95,12 +95,13 @@ class Bike:
             self.gps = adafruit_gps.GPS(uart, debug=False)
             self.gps.send_command(b"PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0")
             self.gps.send_command(b"PMTK220,10000")
-            self.lat = False
-            self.long = False
-            if self.gps.latitude != None:
-                self.lat = lambda : self.gps.latitude
-            if self.gps.longitude != None:
-                self.long = lambda : self.gps.longitude
+            self.lat = lambda : self.gps.latitude if self.gps.latitude!= None else False
+            self.long = lambda : self.gps.longitude if self.gps.longitude!= None else False
+            # self.long = False
+            # if self.gps.latitude != None:
+            #     # self.lat = lambda : self.gps.latitude
+            # if self.gps.longitude != None:
+            #     self.long = lambda : self.gps.longitude
 
         if _engTemp == True: #thermocouple
             self.spi = busio.SPI(board.SCK, MOSI=board.MOSI, MISO=board.MISO)
