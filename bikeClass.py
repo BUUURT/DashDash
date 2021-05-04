@@ -52,7 +52,6 @@ class Bike:
         self.rpm_elapse = time.monotonic()
         self.wheel_elapse = time.monotonic() #meta
 
-
         #timing
 
         self.current_sector = 1
@@ -81,15 +80,15 @@ class Bike:
 
         if _imu == True:#IMU
             self.imu = adafruit_bno055.BNO055_I2C(busio.I2C(board.SCL, board.SDA))
-            self.airTemp = lambda : self.imu.temperature*9/5+32 if self.units == 'standard' else self.max31855.temperature
+            self.airTemp = lambda : round(self.imu.temperature*9/5+32 if self.units == 'standard' else self.max31855.temperature,0)
             # self.euler = str(self.imu.euler).replace(' ','')
             # self.acceleration = str(self.imu.acceleration).replace(' ','')
-            self.rotationX = round(self.imu.euler[0],6)
-            self.rotationY = round(self.imu.euler[1],6)
-            self.rotationZ = round(self.imu.euler[2],6)
-            self.accelX = round(self.imu.acceleration[0],6)
-            self.accelY = round(self.imu.acceleration[1],6)
-            self.accelZ = round(self.imu.acceleration[2],6)
+            self.rotationX = lambda : round(self.imu.euler[0],6)
+            self.rotationY = lambda : round(self.imu.euler[1],6)
+            self.rotationZ = lambda : round(self.imu.euler[2],6)
+            self.accelX = lambda round(self.imu.acceleration[0],6)
+            self.accelY = lambda : round(self.imu.acceleration[1],6)
+            self.accelZ = lambda : round(self.imu.acceleration[2],6)
 
         if _gps == True:
             uart = serial.Serial("/dev/ttyS0", baudrate=9600, timeout=10)
@@ -107,7 +106,7 @@ class Bike:
             self.spi = busio.SPI(board.SCK, MOSI=board.MOSI, MISO=board.MISO)
             self.cs = digitalio.DigitalInOut(board.D5)
             self.max31855 = adafruit_max31855.MAX31855(self.spi, self.cs)
-            self.engineTemp = lambda : self.max31855.temperature*9/5+32 if self.units == 'standard' else self.max31855.temperature
+            self.engineTemp = lambda : round(self.max31855.temperature*9/5+32 if self.units == 'standard' else self.max31855.temperature,0)
 
         # if _camera == True:
         #     subprocess.run(['camera_startup'])

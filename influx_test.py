@@ -7,7 +7,7 @@ from influxdb_client.client.write_api import SYNCHRONOUS
 # You can generate a Token from the "Tokens Tab" in the UI
 token = "rc0LjEy36DIyrb1CX6rnUDeMJ0-ldW5Mps1KOwkSRrRhbRWDsGzPlNn6BOiyg96vWEKRMZ3xwsfZVgIAxL2gCw=="
 org = "rammers"
-bucket = "test3"
+bucket = "test4"
 
 #client = InfluxDBClient(url="http://localhost:8086", token=token)
 client = InfluxDBClient(url="192.168.254.40:8086", token=token)
@@ -24,7 +24,9 @@ i = 0
 #     write_api.write(bucket, org, f"grower,bike=computer cycle3={i} {str(time.time()).replace('.','')+'0'}")
 #     time.sleep(0.1)
 #     print(i)
+#
 
-test = 'rammerRpi,lap=0 speed=10.63,rpm=0,engTemp=68.9,airTemp=68.9,gps_lat=None'#,gps_long=None,rotationX=0.0,rotationY=0.0,rotationZ=0.0,accelX=-0.76,accelY=-1.39,accelZ=9.42,laptime=0,s1Time=0,s2Time=0,s3Time=0 16195854652219036'
+# test = 'rammerRpi,lap=0 speed=10.63,rpm=0,engTemp=68.9,airTemp=68.9,gps_lat=None'#,gps_long=None,rotationX=0.0,rotationY=0.0,rotationZ=0.0,accelX=-0.76,accelY=-1.39,accelZ=9.42,laptime=0,s1Time=0,s2Time=0,s3Time=0 16195854652219036'
 # write_api.write('test4', org, f'rammerRpi,lap=0 speed=0.27,rpm=0,engTemp=68.45,airTemp=68.45,gps_lat=False,gps_long=False,rotationX=0.0,rotationY=0.0,rotationZ=0.0,accelX=-0.81,accelY=-1.41,accelZ=9.43,laptime=0,s1Time=0,s2Time=0,s3Time=0 {str(time.time()).replace(".","")+"0"}')
-write_api.write('test4', 'rammers', 'newData speed=1')
+a= write_api.write('test4', 'rammers', 'newData speed=1')
+print(a)
