@@ -279,7 +279,6 @@ ApplicationWindow {
         width: 697
         height: 145
         color: root.rpmColor
-        anchors.verticalCenter: rpmSweepOrange.verticalCenter
         anchors.left: parent.left
         anchors.top: rpmSweepOrange.top
         anchors.bottom: rpmSweepOrange.bottom
@@ -341,7 +340,7 @@ ApplicationWindow {
                 y: 702
                 width: 185
                 height: 120
-                color: "#00ff00"
+                color: "#00000000"
                 radius: 0
                 anchors.left: parent.left
                 anchors.verticalCenterOffset: -17
@@ -352,7 +351,7 @@ ApplicationWindow {
 
                 Text {
                     id: tempEngDisp
-                    text: qsTr("175")
+                    text: qsTr("-")
                     anchors.horizontalCenterOffset: -10
                     font.bold: true
                     anchors.verticalCenterOffset: -5
@@ -415,7 +414,7 @@ ApplicationWindow {
                 radius: 0
                 Text {
                     id: tempAirDisp
-                    text: qsTr("101")
+                    text: qsTr("-")
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
                     font.pixelSize: 90
@@ -517,10 +516,11 @@ ApplicationWindow {
             y: 141
             width: 389
             height: 386
-            text: qsTr("88")
+            text: qsTr("0")
             font.italic: false
             font.bold: true
             font.pixelSize: 350
+            horizontalAlignment: Text.AlignHCenter
             font.family: "Arial"
             color: root.mainFontColor
 
@@ -673,7 +673,7 @@ ApplicationWindow {
                 Text {
                     id: lastLapDisp
                     width: 650
-                    text: qsTr("0:45.14")
+                    text: qsTr("--")
                     anchors.verticalCenter: parent.verticalCenter
                     font.bold: true
                     font.pixelSize: 190
@@ -703,14 +703,15 @@ ApplicationWindow {
                 id: lastDeltaBg
                 width: 325
                 height: 125
-                color: "#00ff00"
+                visible: true
+                color: "#00000000"
                 radius: 0
                 anchors.left: sessionTimeBg.right
                 anchors.leftMargin: 10
                 anchors.verticalCenter: sessionTimeBg.verticalCenter
                 Text {
                     id: lastDeltaDisp
-                    text: qsTr("-14.32")
+                    text: qsTr("")
                     font.bold: true
                     anchors.verticalCenter: parent.verticalCenter
                     font.pixelSize: 100
@@ -752,7 +753,7 @@ ApplicationWindow {
                 Text {
                     id: sessionTimeVal
                     width: 130
-                    text: qsTr("30:04")
+                    text: qsTr("--")
                     anchors.verticalCenter: parent.verticalCenter
                     font.pixelSize: 100
                     horizontalAlignment: Text.AlignHCenter
@@ -792,7 +793,7 @@ ApplicationWindow {
                 Text {
                     id: sector1Val
                     width: 130
-                    text: qsTr("20.45")
+                    text: qsTr("--")
                     anchors.verticalCenter: parent.verticalCenter
                     font.pixelSize: 80
                     horizontalAlignment: Text.AlignHCenter
@@ -834,7 +835,7 @@ ApplicationWindow {
                 Text {
                     id: sector3Val
                     width: 130
-                    text: qsTr("19.71")
+                    text: qsTr("--")
                     anchors.verticalCenter: parent.verticalCenter
                     font.pixelSize: 80
                     horizontalAlignment: Text.AlignHCenter
@@ -875,7 +876,7 @@ ApplicationWindow {
                 Text {
                     id: sector2Val
                     width: 130
-                    text: qsTr("12.89")
+                    text: qsTr("--")
                     anchors.verticalCenter: parent.verticalCenter
                     font.pixelSize: 80
                     horizontalAlignment: Text.AlignHCenter

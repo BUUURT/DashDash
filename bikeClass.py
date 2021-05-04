@@ -86,7 +86,7 @@ class Bike:
             self.rotationX = lambda : round(self.imu.euler[0],6)
             self.rotationY = lambda : round(self.imu.euler[1],6)
             self.rotationZ = lambda : round(self.imu.euler[2],6)
-            self.accelX = lambda round(self.imu.acceleration[0],6)
+            self.accelX = lambda : round(self.imu.acceleration[0],6)
             self.accelY = lambda : round(self.imu.acceleration[1],6)
             self.accelZ = lambda : round(self.imu.acceleration[2],6)
 
