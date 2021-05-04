@@ -142,7 +142,6 @@ class Bike:
         if self.mapData == None:
             return "set track"
         self.gps.update()
-
         self.location = [(self.gps.latitude,self.gps.longitude)]
 
         sectorindex = {1:2,2:3,3:1}
