@@ -9,8 +9,8 @@ import QtGraphicalEffects 1.0
 
 ApplicationWindow {
     id: root
-    color: root.mainBgColor
     visible: true
+    color: "#d4dee6"
     width:1280
     height:800
     visibility: "FullScreen"
@@ -139,6 +139,7 @@ ApplicationWindow {
             root.speed = parseInt(sensorDict['speed'])    //con.speed(w)
             tempAirDisp.text = String(sensorDict['airTemp'])    //qsTr(con.airTemp())
             tempEngDisp.text = String(sensorDict['engTemp'])
+
 //            sector1Val = sensorDict['s1Time']
 //            sector2Val = sensorDict['s2Time']
 //            sector3Val = sensorDict['s3Time']
@@ -168,6 +169,7 @@ ApplicationWindow {
         running: true
         repeat: true
         onTriggered: {
+            sessionTimeVal.text = con.sessionTime()
             //teamMsg.text = con.biketest()
             //positionNumber.text = con.raceTimeData('selfPosition')
             //lapNumber.text = con.raceTimeData('selfLaps')
@@ -184,9 +186,7 @@ ApplicationWindow {
 
     //    Behavior on rpm {
     //        NumberAnimation { properties: "rpm"; duration: 1000 }
-
     //    }
-
 
 
     onRpmChanged: {
@@ -216,7 +216,6 @@ ApplicationWindow {
             rpmSweepHigh.width = (rpm-7000)*697/4000
             rpmSweepOrange.visible = false
             rpmSweepRed.visible = false
-
         }
 
         if (rpm>11000 && rpm<12000) {
