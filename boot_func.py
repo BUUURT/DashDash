@@ -33,10 +33,13 @@ class Bridge(QObject):
     def messageRefresh(self):
         return bike.messageRefresh()
 
-    # @Slot(result=str)
-    # def airTemp(self):
-    #     #return bike.airTemp
-    #     return '0'
+    @Slot(result=str)
+    def sessionTime(self):
+        floatTime = time.monotonic()-self.sessionTime
+        minute,seconds = divmod(floatTime*60, 60)
+        return "%02d:%02d"%(minutes,seconds)
+        
+
     #
     # @Slot(result=str)
     # def speed(self):
@@ -44,7 +47,7 @@ class Bridge(QObject):
     #     return '0'
     #
     # @Slot(result=int)
-    # def rpm(self):b
+    # def rpm(self):
     #     #return bike.rpmCalc()
     #     i = str(time.time()).split('.')
     #     elm = i[0][-1:]+i[1][:2]
