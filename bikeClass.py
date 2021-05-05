@@ -88,7 +88,7 @@ class Bike:
             self.rotationX = lambda : round(self.imu.euler[0],6) if self.imu.euler != None else False
             self.rotationY = lambda : round(self.imu.euler[1],6) if self.imu.euler != None else False
             self.rotationZ = lambda : round(self.imu.euler[2],6) if self.imu.euler != None else False
-            self.accelX = lambda : round(self.imu.acceleration[0],6) if self.imu.accelerationr != None else False
+            self.accelX = lambda : round(self.imu.acceleration[0],6) if self.imu.acceleration != None else False
             self.accelY = lambda : round(self.imu.acceleration[1],6) if self.imu.acceleration != None else False
             self.accelZ = lambda : round(self.imu.acceleration[2],6) if self.imu.acceleration != None else False
 
