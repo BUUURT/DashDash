@@ -10,7 +10,7 @@ import QtGraphicalEffects 1.0
 ApplicationWindow {
     id: root
     visible: true
-    color: "#d4dee6"
+    color: "#d9d8d8"
     width:1280
     height:800
     visibility: "FullScreen"
@@ -25,11 +25,12 @@ ApplicationWindow {
     property int colorMode: 0
     property int rpm: 0
     property int speed: 0
+    property int engTemp: 0
     property int shiftLow: 11000
     property int shiftHigh: 12200
     property var pageSelect: "main"
-    property var test: 0
     property int page: 0
+    property var units: 'standard'
 
 
     Rectangle {
@@ -251,6 +252,18 @@ ApplicationWindow {
         //        speed.text = root.speed
 
     }
+
+    onEngTempChanged: {
+        var evalTemp = root.engTemp
+        if (root.units == 'metric') {evalTemp = (evalTemp*9/5)+32}
+
+        if (evalTemp<160) {tempEngBg.color = '#0064ff'}
+        if (evalTemp<230) {tempEngBg.color = '#b4ff00'}
+        if (evalTemp<250) {tempEngBg.color = '#ffff00'}
+        if (evalTemp<280) {tempEngBg.color = '#ffb400'}
+        if (evalTemp>280) {tempEngBg.color = '#ff0000'}
+    }
+
     onSpeedChanged: {
         speed.text = root.speed
     }
@@ -343,7 +356,7 @@ ApplicationWindow {
                 y: 702
                 width: 185
                 height: 120
-                color: "#00000000"
+                color: "#ff0000"
                 radius: 0
                 anchors.left: parent.left
                 anchors.verticalCenterOffset: -17
@@ -557,7 +570,7 @@ ApplicationWindow {
     Item {
         id: pageHead
         x: 570
-        y: 252
+        y: 205
         width: 710
         height: 40
         visible: true
@@ -705,7 +718,7 @@ ApplicationWindow {
             Rectangle {
                 id: lastDeltaBg
                 width: 325
-                height: 125
+                height: 150
                 visible: true
                 color: "#00000000"
                 radius: 0
@@ -717,7 +730,7 @@ ApplicationWindow {
                     text: qsTr("")
                     font.bold: true
                     anchors.verticalCenter: parent.verticalCenter
-                    font.pixelSize: 100
+                    font.pixelSize: 110
                     font.family: "Arial"
                     anchors.horizontalCenter: parent.horizontalCenter
                     color: root.mainFontColor
@@ -744,7 +757,7 @@ ApplicationWindow {
             Rectangle {
                 id: sessionTimeBg
                 width: 325
-                height: 125
+                height: 150
                 color: "#00000000"
                 radius: 0
                 border.width: 4
@@ -758,7 +771,7 @@ ApplicationWindow {
                     width: 130
                     text: qsTr("--")
                     anchors.verticalCenter: parent.verticalCenter
-                    font.pixelSize: 100
+                    font.pixelSize: 110
                     horizontalAlignment: Text.AlignHCenter
                     font.family: "Arial"
                     anchors.verticalCenterOffset: -5
@@ -784,7 +797,7 @@ ApplicationWindow {
                 id: sector1Bg
                 x: 10
                 width: 215
-                height: 125
+                height: 150
                 visible: true
                 color: "#00000000"
                 radius: 0

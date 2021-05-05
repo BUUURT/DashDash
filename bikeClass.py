@@ -43,6 +43,7 @@ class Bike:
         self.write_api = self.client.write_api(write_options=SYNCHRONOUS)
 
         self.units = units
+        self.unitCalc_temp = lambda x : x*9/5+32 if self.units == 'standard' else if self.units == "metric" x
         self.lap = 0
         self.distance = 0
         self.speed = 0 #mph
@@ -81,15 +82,15 @@ class Bike:
 
         if _imu == True:#IMU
             self.imu = adafruit_bno055.BNO055_I2C(busio.I2C(board.SCL, board.SDA))
-            self.airTemp = lambda : round(self.imu.temperature*9/5+32 if self.units == 'standard' else self.max31855.temperature,0)
+            self.airTemp = lambda : round(self.unitCalc_temp(self.imu.temperature) #*9/5+32 if self.units == 'standard' else self.max31855.temperature,0)
             # self.euler = str(self.imu.euler).replace(' ','')
             # self.acceleration = str(self.imu.acceleration).replace(' ','')
-            self.rotationX = lambda : round(self.imu.euler[0],6)
-            self.rotationY = lambda : round(self.imu.euler[1],6)
-            self.rotationZ = lambda : round(self.imu.euler[2],6)
-            self.accelX = lambda : round(self.imu.acceleration[0],6)
-            self.accelY = lambda : round(self.imu.acceleration[1],6)
-            self.accelZ = lambda : round(self.imu.acceleration[2],6)
+            self.rotationX = lambda : round(self.imu.euler[0],6) if self.imu.euler != None else False
+            self.rotationY = lambda : round(self.imu.euler[1],6) if self.imu.euler != None else False
+            self.rotationZ = lambda : round(self.imu.euler[2],6) if self.imu.euler != None else False
+            self.accelX = lambda : round(self.imu.acceleration[0],6) if self.imu.accelerationr != None else False
+            self.accelY = lambda : round(self.imu.acceleration[1],6) if self.imu.acceleration != None else False
+            self.accelZ = lambda : round(self.imu.acceleration[2],6) if self.imu.acceleration != None else False
 
         if _gps == True:
             uart = serial.Serial("/dev/ttyS0", baudrate=9600, timeout=10)
@@ -108,7 +109,7 @@ class Bike:
             self.spi = busio.SPI(board.SCK, MOSI=board.MOSI, MISO=board.MISO)
             self.cs = digitalio.DigitalInOut(board.D5)
             self.max31855 = adafruit_max31855.MAX31855(self.spi, self.cs)
-            self.engineTemp = lambda : round(self.max31855.temperature*9/5+32 if self.units == 'standard' else self.max31855.temperature,0)
+            self.engineTemp = lambda : round(self.unitCalc_temp(self.max31855.temperature),0)
 
         # if _camera == True:
         #     subprocess.run(['camera_startup'])
