@@ -260,8 +260,8 @@ ApplicationWindow {
         if (evalTemp<160) {tempEngBg.color = '#0064ff'} //blue
         if (evalTemp>160 && evalTemp<210) {tempEngBg.color = '#00ff00'}
         if (evalTemp>210 && evalTemp<230) {tempEngBg.color = '#b4ff00'}/ //lime
-        if (evalTemp<250) {tempEngBg.color = '#ffff00'} //yellow
-        if (evalTemp<280) {tempEngBg.color = '#ffb400'} //orange 
+        if (evalTemp>230 && evalTemp<250) {tempEngBg.color = '#ffff00'} //yellow
+        if (evalTemp>250 && evalTemp<280) {tempEngBg.color = '#ffb400'} //orange 
         if (evalTemp>280) {tempEngBg.color = '#ff0000'} //red
     }
 
