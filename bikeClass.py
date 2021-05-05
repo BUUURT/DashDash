@@ -1,5 +1,5 @@
-import time
 import serial
+import time
 import json
 import matplotlib.path as path
 import subprocess
@@ -43,7 +43,7 @@ class Bike:
         self.write_api = self.client.write_api(write_options=SYNCHRONOUS)
 
         self.units = units
-        self.unitCalc_temp = lambda x : x*9/5+32 if self.units == 'standard' else x
+        # self.unitCalc_temp = lambda x : x*9/5+32 if self.units == 'standard' else x
         self.lap = 0
         self.distance = 0
         self.speed = 0 #mph
@@ -82,7 +82,7 @@ class Bike:
 
         if _imu == True:#IMU
             self.imu = adafruit_bno055.BNO055_I2C(busio.I2C(board.SCL, board.SDA))
-            self.airTemp = lambda : round(self.unitCalc_temp(self.imu.temperature) #*9/5+32 if self.units == 'standard' else self.max31855.temperature,0)
+            self.airTemp = lambda : round(self.imu.temperature*9/5+32,0) if self.units == 'standard' else round(self.imu.temperature,0)
             # self.euler = str(self.imu.euler).replace(' ','')
             # self.acceleration = str(self.imu.acceleration).replace(' ','')
             self.rotationX = lambda : round(self.imu.euler[0],6) if self.imu.euler != None else False
@@ -109,8 +109,8 @@ class Bike:
             self.spi = busio.SPI(board.SCK, MOSI=board.MOSI, MISO=board.MISO)
             self.cs = digitalio.DigitalInOut(board.D5)
             self.max31855 = adafruit_max31855.MAX31855(self.spi, self.cs)
-            self.engineTemp = lambda : round(self.unitCalc_temp(self.max31855.temperature),0)
-
+            self.engineTemp = lambda : round(self.max31855.temperature*9/5+35,0) if self.units == 'standard' else round(self.max31855.temperature,0)
+# round(self.imu.temperature*9/5+32,0) if self.units == 'standard' else round(self.imu.temperature,0)
         # if _camera == True:
         #     subprocess.run(['camera_startup'])
         #     #1280 x 720
