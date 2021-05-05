@@ -43,7 +43,7 @@ class Bike:
         self.write_api = self.client.write_api(write_options=SYNCHRONOUS)
 
         self.units = units
-        self.unitCalc_temp = lambda x : x*9/5+32 if self.units == 'standard' else x if self.units == "metric"
+        self.unitCalc_temp = lambda x : x*9/5+32 if self.units == 'standard' else x
         self.lap = 0
         self.distance = 0
         self.speed = 0 #mph
