@@ -131,7 +131,7 @@ ApplicationWindow {
 
 
     Timer {
-        interval: 10
+        interval: 16
         running: true
         repeat: true
         onTriggered: {
@@ -254,14 +254,15 @@ ApplicationWindow {
     }
 
     onEngTempChanged: {
-        var evalTemp = root.engTemp
-        if (root.units == 'metric') {evalTemp = (evalTemp*9/5)+32}
 
-        if (evalTemp<160) {tempEngBg.color = '#0064ff'}
-        if (evalTemp<230) {tempEngBg.color = '#b4ff00'}
-        if (evalTemp<250) {tempEngBg.color = '#ffff00'}
-        if (evalTemp<280) {tempEngBg.color = '#ffb400'}
-        if (evalTemp>280) {tempEngBg.color = '#ff0000'}
+        if (root.units == 'standard') {
+            if (root.engTemp<160) {tempEngBg.color = '#0064ff'} //blue
+            if (root.engTemp>160 && root.engTemp<210) {tempEngBg.color = '#00ff00'}
+            if (root.engTemp>210 && root.engTemp<230) {tempEngBg.color = '#b4ff00'}/ //lime
+            if (root.engTemp>230 && root.engTemp<250) {tempEngBg.color = '#ffff00'} //yellow
+            if (root.engTemp>250 && root.engTemp<280) {tempEngBg.color = '#ffb400'} //orange
+            if (root.engTemp>280) {tempEngBg.color = '#ff0000'} //red
+        }
     }
 
     onSpeedChanged: {
