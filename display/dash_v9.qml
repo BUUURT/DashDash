@@ -140,6 +140,7 @@ ApplicationWindow {
             root.speed = parseInt(sensorDict['speed'])    //con.speed(w)
             tempAirDisp.text = String(sensorDict['airTemp'])    //qsTr(con.airTemp())
             tempEngDisp.text = String(sensorDict['engTemp'])
+            root.engTemp = sensorDict['engTemp']
 
 //            sector1Val = sensorDict['s1Time']
 //            sector2Val = sensorDict['s2Time']
@@ -257,11 +258,11 @@ ApplicationWindow {
 
 
         if (root.engTemp<160) {tempEngBg.color = '#0064ff'} //blue
-//        if (root.engTemp>160 && root.engTemp<210) {tempEngBg.color = '#00ff00'}
-//        if (root.engTemp>210 && root.engTemp<230) {tempEngBg.color = '#b4ff00'}/ //lime
-//        if (root.engTemp>230 && root.engTemp<250) {tempEngBg.color = '#ffff00'} //yellow
-//        if (root.engTemp>250 && root.engTemp<280) {tempEngBg.color = '#ffb400'} //orange
-//        if (root.engTemp>280) {tempEngBg.color = '#ff0000'} //red
+        if (root.engTemp>160 && root.engTemp<210) {tempEngBg.color = '#00ff00'}
+        if (root.engTemp>210 && root.engTemp<230) {tempEngBg.color = '#b4ff00'}/ //lime
+        if (root.engTemp>230 && root.engTemp<250) {tempEngBg.color = '#ffff00'} //yellow
+        if (root.engTemp>250 && root.engTemp<280) {tempEngBg.color = '#ffb400'} //orange
+        if (root.engTemp>280) {tempEngBg.color = '#ff0000'} //red
 
     }
 
@@ -356,7 +357,7 @@ ApplicationWindow {
                 y: 702
                 width: 185
                 height: 120
-//                color: "#00000000"
+                color: "#00000000"
                 radius: 0
                 anchors.left: parent.left
                 anchors.verticalCenterOffset: -17
