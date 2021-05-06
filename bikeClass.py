@@ -189,8 +189,8 @@ class Bike:
 
     def influxUpdate(self):
         lap = self.lap
-        gpsTup=call_gps()
-        imuDict=call_imu()
+        gpsTup = self.call_gps()
+        imuDict = self.call_imu()
 
         sensorDict = {
             "speed" : self.speed,
