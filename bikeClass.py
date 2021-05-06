@@ -132,13 +132,13 @@ class Bike:
             accelY = 0
             accelZ = 0
         return {
-            'airTemp' = airTemp,
-            'rotX' = rotX,
-            'rotY' = rotY,
-            'rotZ' = rotZ,
-            'accelX' = accelX,
-            'accelY' = accelY,
-            'accelZ' = accelZ
+            'airTemp' : airTemp,
+            'rotX' : rotX,
+            'rotY' : rotY,
+            'rotZ' : rotZ,
+            'accelX' : accelX,
+            'accelY' : accelY,
+            'accelZ' : accelZ
         }
 
     def speedCalc(self,channel):
