@@ -82,38 +82,75 @@ class Bike:
 
         if _imu == True:#IMU
             self.imu = adafruit_bno055.BNO055_I2C(busio.I2C(board.SCL, board.SDA))
-            self.airTemp = lambda : round(self.imu.temperature*9/5+32,0) if self.units == 'standard' else round(self.imu.temperature,0)
-            # self.euler = str(self.imu.euler).replace(' ','')
-            # self.acceleration = str(self.imu.acceleration).replace(' ','')
-            self.rotationX = lambda : round(self.imu.euler[0],6) if self.imu.euler != None else False
-            self.rotationY = lambda : round(self.imu.euler[1],6) if self.imu.euler != None else False
-            self.rotationZ = lambda : round(self.imu.euler[2],6) if self.imu.euler != None else False
-            self.accelX = lambda : round(self.imu.acceleration[0],6) if self.imu.acceleration != None else False
-            self.accelY = lambda : round(self.imu.acceleration[1],6) if self.imu.acceleration != None else False
-            self.accelZ = lambda : round(self.imu.acceleration[2],6) if self.imu.acceleration != None else False
 
         if _gps == True:
             uart = serial.Serial("/dev/ttyS0", baudrate=9600, timeout=10)
             self.gps = adafruit_gps.GPS(uart, debug=False)
             self.gps.send_command(b"PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0")
             self.gps.send_command(b"PMTK220,10000")
-            self.lat = lambda : self.gps.latitude if self.gps.latitude!= None else False
-            self.long = lambda : self.gps.longitude if self.gps.longitude!= None else False
-            # self.long = False
-            # if self.gps.latitude != None:
-            #     # self.lat = lambda : self.gps.latitude
-            # if self.gps.longitude != None:
-            #     self.long = lambda : self.gps.longitude
 
         if _engTemp == True: #thermocouple
             self.spi = busio.SPI(board.SCK, MOSI=board.MOSI, MISO=board.MISO)
             self.cs = digitalio.DigitalInOut(board.D5)
             self.max31855 = adafruit_max31855.MAX31855(self.spi, self.cs)
-            self.engineTemp = lambda : round(self.max31855.temperature*9/5+35,0) if self.units == 'standard' else round(self.max31855.temperature,0)
+
+
+
 # round(self.imu.temperature*9/5+32,0) if self.units == 'standard' else round(self.imu.temperature,0)
         # if _camera == True:
         #     subprocess.run(['camera_startup'])
         #     #1280 x 720
+    def call_engTemp(self):
+        try:
+            i = self.max31855.temperature
+            if self.units == 'standard':
+                i = i*9/5+32
+            engineTemp = round(i,0)
+        except:
+            engineTemp = 0
+        return engineTemp
+
+    def call_gps(self):
+        try:
+            x = self.gps.latitude
+            y = self.gps.longitude
+        except:
+            x = None
+            y = None
+        return (x,y)
+
+    def call_imu(self):
+        try:
+            airTemp round(self.imu.temperature*9/5+32,0) if self.units == 'standard' else round(self.imu.temperature,0)
+                        # self.euler = str(self.imu.euler).replace(' ','')
+                        # self.acceleration = str(self.imu.acceleration).replace(' ','')
+            rotX = round(self.imu.euler[0],6)
+            rotY = round(self.imu.euler[1],6)
+            rotZ = round(self.imu.euler[2],6)
+            accelX = round(self.imu.acceleration[0],6)
+            accelY = round(self.imu.acceleration[1],6)
+            accelZ = round(self.imu.acceleration[2],6)
+        except:
+            airTemp = 0
+            rotX = 0
+            rotY = 0
+            rotZ = 0
+            accelX = 0
+            accelY = 0
+            accelZ = 0
+        return {
+            'airTemp' = airTemp,
+            'rotX' = rotX,
+            'rotY' = rotY,
+            'rotZ' = rotZ,
+            'accelX' = accelX,
+            'accelY' = accelY,
+            'accelZ' = accelZ
+        }
+
+
+
+
 
     def speedCalc(self,channel):
         #circ = 3140 #mm @ 500mm dia / ~20"
@@ -165,14 +202,16 @@ class Bike:
         lap = self.lap
         timeStamp = str(time.time()).replace('.','')+'0'
 
+        gpsTup=call_gps()
+
         sensorDict = {
             "speed" : self.speed,
             "rpm" : self.rpm,
             #brake :
-            "engTemp" : self.engineTemp(),
+            "engTemp" : self.call_engTemp(),
             "airTemp" : self.airTemp(),
-            "gps_lat" : self.long(),
-            "gps_long" : self.lat(),
+            "gps_lat" : gpsTup[0],
+            "gps_long" : gpsTup[1],
             "rotationX" : self.rotationX(),
             "rotationY" : self.rotationY(),
             "rotationZ" : self.rotationZ(),
