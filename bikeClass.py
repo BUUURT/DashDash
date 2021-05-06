@@ -95,11 +95,6 @@ class Bike:
             self.max31855 = adafruit_max31855.MAX31855(self.spi, self.cs)
 
 
-
-# round(self.imu.temperature*9/5+32,0) if self.units == 'standard' else round(self.imu.temperature,0)
-        # if _camera == True:
-        #     subprocess.run(['camera_startup'])
-        #     #1280 x 720
     def call_engTemp(self):
         try:
             i = self.max31855.temperature
@@ -121,9 +116,7 @@ class Bike:
 
     def call_imu(self):
         try:
-            airTemp round(self.imu.temperature*9/5+32,0) if self.units == 'standard' else round(self.imu.temperature,0)
-                        # self.euler = str(self.imu.euler).replace(' ','')
-                        # self.acceleration = str(self.imu.acceleration).replace(' ','')
+            airTemp = round(self.imu.temperature*9/5+32,0) if self.units == 'standard' else round(self.imu.temperature,0)
             rotX = round(self.imu.euler[0],6)
             rotY = round(self.imu.euler[1],6)
             rotZ = round(self.imu.euler[2],6)
@@ -147,10 +140,6 @@ class Bike:
             'accelY' = accelY,
             'accelZ' = accelZ
         }
-
-
-
-
 
     def speedCalc(self,channel):
         #circ = 3140 #mm @ 500mm dia / ~20"
@@ -200,43 +189,34 @@ class Bike:
 
     def influxUpdate(self):
         lap = self.lap
-        timeStamp = str(time.time()).replace('.','')+'0'
-
         gpsTup=call_gps()
+        imuDict=call_imu()
 
         sensorDict = {
             "speed" : self.speed,
             "rpm" : self.rpm,
             #brake :
             "engTemp" : self.call_engTemp(),
-            "airTemp" : self.airTemp(),
+            "airTemp" : imuDict['airTemp'],
             "gps_lat" : gpsTup[0],
             "gps_long" : gpsTup[1],
-            "rotationX" : self.rotationX(),
-            "rotationY" : self.rotationY(),
-            "rotationZ" : self.rotationZ(),
-            "accelX" : self.accelX(),
-            "accelY" : self.accelY(),
-            "accelZ" : self.accelZ(),
+            "rotationX" : imuDict['rotX'],
+            "rotationY" : imuDict['rotX'],
+            "rotationZ" : imuDict['rotZ'],
+            "accelX" : imuDict['accelX'],
+            "accelY" : imuDict['accelY'],
+            "accelZ" : imuDict['accelZ']
             # "laptime" : self.lapTime,
             # "s1Time" : self.s1Time,
             # "s2Time" : self.s2Time,
             # "s3Time" : self.s3Time
             }
-
-
-            # self.rotationX = self.imu.euler[0]
-            # self.rotationY = self.imu.euler[1]
-            # self.rotationZ = self.imu.euler[2]
-            # self.accelX = self.imu.acceleration[0]
-            # self.accelY = self.imu.acceleration[1]
-            # self.accelZ = self.imu.acceleration[2]
-
-        sensorList = [f"{k}={v}" for k,v in sensorDict.items()]
-        data = f'rammerRpi,lap={self.lap} {",".join(sensorList)} {str(time.time()).replace(".","")+"0"}'
-
-        self.write_api.write(self.bucket,self.org, data)
-        # write_api.write(bucket, org, f"grower,bike=computer cycle3={i} {str(time.time()).replace('.','')+'0'}")
+        try:
+            sensorList = [f"{k}={v}" for k,v in sensorDict.items()]
+            data = f'rammerRpi,lap={self.lap} {",".join(sensorList)} {str(time.time()).replace(".","")+"0"}'
+            self.write_api.write(self.bucket,self.org, data)
+        except:
+            print('influx error')
         return sensorDict
 
     def messageRefresh(self):
