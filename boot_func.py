@@ -24,9 +24,7 @@ class Bridge(QObject):
 
     @Slot(result=QVariant)
     def sensorRefresh(self):
-        # i= bike.call_sensorDict()
-
-        return bike.sensorDict()
+        return bike.sensorDict
 
 
     # @Slot(result=)

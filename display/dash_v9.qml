@@ -13,7 +13,7 @@ ApplicationWindow {
     color: "#d9d8d8"
     width:1280
     height:800
-    visibility: "FullScreen"
+    //visibility: "FullScreen"
 
     property color mainFontColor: "black"
     property color mainBorderColor: "black"
