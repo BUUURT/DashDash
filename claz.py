@@ -2,7 +2,7 @@
 import matplotlib.pyplot as plt
 from matplotlib.path import Path
 import matplotlib.patches as patches
-
+import threading
 import time
 import json
 
@@ -32,12 +32,20 @@ import json
 class Test:
     def __init__(self,elm):
         self.elm = elm
-        self.sure = lambda x :  int(self.elm)*x
+        # self.sure = lambda x :  int(self.elm)*x
+        self.n=elm
+        self.x = threading.Thread(target=self.bump)
+        self.x.start()
 
-    def maths(self,elm):
-        dat = len(elm)
-        print(f'your len is {dat}')
-        self.dat = dat
+
+    # def maths(self,elm):
+    #     dat = len(elm)
+    #     print(f'your len is {dat}')
+    #     self.dat = dat
+    def bump(self):
+        while True:
+            self.n+=1
+            time.sleep(0.001)
 
     def top(self):
         return "the answer is"+self.elm
@@ -45,4 +53,4 @@ class Test:
     def layout(self):
         print (self.top()+"!!!")
 
-i = Test('hello')
+i = Test(3)

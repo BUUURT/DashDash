@@ -95,8 +95,9 @@ class Bike:
             self.cs = digitalio.DigitalInOut(board.D5)
             self.max31855 = adafruit_max31855.MAX31855(self.spi, self.cs)
 
-        self.sensorThread = threading.Thread(target=self.call_sensorDict())
-        self.influxThread = threading.Thread(target=self.influxUpdate,arg=(self.sensorDict))
+
+        self.sensorThread = threading.Thread(target=self.call_sensorDict)
+        self.influxThread = threading.Thread(target=self.influxUpdate,args=(self.sensorDict))
         self.sensorThread.start()
         self.influxThread.start()
 
@@ -199,7 +200,7 @@ class Bike:
             gpsTup = self.call_gps()
             imuDict = self.call_imu()
 
-            sensorDict = {
+            self.sensorDict = {
                 "speed" : self.speed,
                 "rpm" : self.rpm,
                 #brake :
@@ -218,8 +219,7 @@ class Bike:
                 # "s2Time" : self.s2Time,
                 # "s3Time" : self.s3Time
                 }
-            self.sensorDict=sensorDict
-            time.sleep(0.1)
+            time.sleep(0.001)
 
     def influxUpdate(self,sensorDict):
         while True:
