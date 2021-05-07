@@ -226,7 +226,9 @@ class Bike:
             sensorList = [f"{k}={v}" for k,v in sensorDict.items()]
             data = f'rammerRpi,lap={self.lap} {",".join(sensorList)}'#{str(time.time()).replace(".","")+"0"}'
             try:
-                self.write_api.write(self.bucket,self.org, data)
+                print(self.sensorDict)
+                print(sensorDict)
+                # self.write_api.write(self.bucket,self.org, data)
             except:
                 print('influx error')
                 time.sleep(0.1)
