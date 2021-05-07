@@ -95,10 +95,10 @@ class Bike:
             self.cs = digitalio.DigitalInOut(board.D5)
             self.max31855 = adafruit_max31855.MAX31855(self.spi, self.cs)
 
-        sensorThread = threading.Thread(target=self.call_sensorDict())
-        influxThread = threading.Thread(target=self.influxUpdate,arg=(self.sensorDict))
-        sensorThread.start()
-        influxThread.start()
+        self.sensorThread = threading.Thread(target=self.call_sensorDict())
+        self.influxThread = threading.Thread(target=self.influxUpdate,arg=(self.sensorDict))
+        self.sensorThread.start()
+        self.influxThread.start()
 
 
     def call_engTemp(self):
