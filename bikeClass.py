@@ -95,9 +95,9 @@ class Bike:
             self.cs = digitalio.DigitalInOut(board.D5)
             self.max31855 = adafruit_max31855.MAX31855(self.spi, self.cs)
 
-
+        self.sensorDict=dict()
         self.sensorThread = threading.Thread(target=self.call_sensorDict)
-        self.influxThread = threading.Thread(target=self.influxUpdate,args=(self.sensorDict))
+        self.influxThread = threading.Thread(target=self.influxUpdate)
         self.sensorThread.start()
         self.influxThread.start()
 
@@ -221,10 +221,10 @@ class Bike:
                 }
             time.sleep(0.001)
 
-    def influxUpdate(self,sensorDict):
+    def influxUpdate(self):
         while True:
             try:
-                sensorList = [f"{k}={v}" for k,v in sensorDict.items()]
+                sensorList = [f"{k}={v}" for k,v in self.sensorDict.items()]
                 data = f'rammerRpi,lap={self.lap} {",".join(sensorList)} {str(time.time()).replace(".","")+"0"}'
                 self.write_api.write(self.bucket,self.org, data)
             except:
