@@ -3,6 +3,7 @@ import time
 import json
 import matplotlib.path as path
 import subprocess
+import threading
 
 import board
 import busio
@@ -93,6 +94,11 @@ class Bike:
             self.spi = busio.SPI(board.SCK, MOSI=board.MOSI, MISO=board.MISO)
             self.cs = digitalio.DigitalInOut(board.D5)
             self.max31855 = adafruit_max31855.MAX31855(self.spi, self.cs)
+
+        sensorThread = threading.Thread(target=self.call_sensorDict())
+        influxThread = threading.Thread(target=self.influxUpdate,arg=(self.sensorDict))
+        sensorThread.start()
+        influxThread.start()
 
 
     def call_engTemp(self):
@@ -187,37 +193,43 @@ class Bike:
                 if self.lastLap<self.bestLap:
                     self.bestlap = self.lastlap
 
-    def influxUpdate(self):
-        lap = self.lap
-        gpsTup = self.call_gps()
-        imuDict = self.call_imu()
+    def call_sensorDict(self):
+        while True:
+            lap = self.lap
+            gpsTup = self.call_gps()
+            imuDict = self.call_imu()
 
-        sensorDict = {
-            "speed" : self.speed,
-            "rpm" : self.rpm,
-            #brake :
-            "engTemp" : self.call_engTemp(),
-            "airTemp" : imuDict['airTemp'],
-            "gps_lat" : gpsTup[0],
-            "gps_long" : gpsTup[1],
-            "rotationX" : imuDict['rotX'],
-            "rotationY" : imuDict['rotX'],
-            "rotationZ" : imuDict['rotZ'],
-            "accelX" : imuDict['accelX'],
-            "accelY" : imuDict['accelY'],
-            "accelZ" : imuDict['accelZ']
-            # "laptime" : self.lapTime,
-            # "s1Time" : self.s1Time,
-            # "s2Time" : self.s2Time,
-            # "s3Time" : self.s3Time
-            }
-        try:
-            sensorList = [f"{k}={v}" for k,v in sensorDict.items()]
-            data = f'rammerRpi,lap={self.lap} {",".join(sensorList)} {str(time.time()).replace(".","")+"0"}'
-            self.write_api.write(self.bucket,self.org, data)
-        except:
-            print('influx error')
-        return sensorDict
+            sensorDict = {
+                "speed" : self.speed,
+                "rpm" : self.rpm,
+                #brake :
+                "engTemp" : self.call_engTemp(),
+                "airTemp" : imuDict['airTemp'],
+                "gps_lat" : gpsTup[0],
+                "gps_long" : gpsTup[1],
+                "rotationX" : imuDict['rotX'],
+                "rotationY" : imuDict['rotX'],
+                "rotationZ" : imuDict['rotZ'],
+                "accelX" : imuDict['accelX'],
+                "accelY" : imuDict['accelY'],
+                "accelZ" : imuDict['accelZ']
+                # "laptime" : self.lapTime,
+                # "s1Time" : self.s1Time,
+                # "s2Time" : self.s2Time,
+                # "s3Time" : self.s3Time
+                }
+            self.sensorDict=sensorDict
+            time.sleep(0.1)
+
+    def influxUpdate(self,sensorDict):
+        while True:
+            try:
+                sensorList = [f"{k}={v}" for k,v in sensorDict.items()]
+                data = f'rammerRpi,lap={self.lap} {",".join(sensorList)} {str(time.time()).replace(".","")+"0"}'
+                self.write_api.write(self.bucket,self.org, data)
+            except:
+                print('influx error')
+                time.sleep(0.1)
 
     def messageRefresh(self):
         pass

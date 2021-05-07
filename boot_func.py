@@ -4,7 +4,7 @@ import os
 from os.path import abspath, dirname, join
 import random
 import ast
-
+import threading
 import datetime
 
 #import requests
@@ -24,7 +24,9 @@ class Bridge(QObject):
 
     @Slot(result=QVariant)
     def sensorRefresh(self):
-        return bike.influxUpdate()
+        # i= bike.call_sensorDict()
+
+        return bike.sensorDict()
 
 
     # @Slot(result=)

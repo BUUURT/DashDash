@@ -256,12 +256,12 @@ ApplicationWindow {
 
     onEngTempChanged: {
 
-        if (root.engTemp<50 ) {tempEngBg.color = '#0064ff'} //blue 160
-        if (root.engTemp<60 && root.engTemp>50) {tempEngBg.color = '#00ff00'} //gren 160
-        if (root.engTemp<70 && root.engTemp>60) {tempEngBg.color = '#b4ff00'} //lime 210
-        if (root.engTemp<85 && root.engTemp>70) {tempEngBg.color = '#ffff00'} //yellow 230
-        if (root.engTemp<90 && root.engTemp>85) {tempEngBg.color = '#ffb400'} //orange 250
-        if (root.engTemp>90) {tempEngBg.color = '#ff0000'} //red 280
+        if (root.engTemp<160 ) {tempEngBg.color = '#0064ff'} //blue 160
+        if (root.engTemp<210 && root.engTemp>160) {tempEngBg.color = '#00ff00'} //gren 160
+        if (root.engTemp<230 && root.engTemp>210) {tempEngBg.color = '#b4ff00'} //lime 210
+        if (root.engTemp<250 && root.engTemp>230) {tempEngBg.color = '#ffff00'} //yellow 230
+        if (root.engTemp<280 && root.engTemp>250) {tempEngBg.color = '#ffb400'} //orange 250
+        if (root.engTemp>280) {tempEngBg.color = '#ff0000'} //red 280
 
     }
 
