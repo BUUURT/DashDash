@@ -34,7 +34,7 @@ class Bike:
         _camera=True,
         influxUrl='http://192.168.254.40:8086',
         influxToken="rc0LjEy36DIyrb1CX6rnUDeMJ0-ldW5Mps1KOwkSRrRhbRWDsGzPlNn6BOiyg96vWEKRMZ3xwsfZVgIAxL2gCw==",
-        race='test3',
+        race='test5',
         units='standard'):
         """_args enables sensor type, on by default"""
         #influx config
@@ -97,7 +97,7 @@ class Bike:
 
         self.sensorDict=dict()
         self.sensorThread = threading.Thread(target=self.call_sensorDict)
-        self.influxThread = threading.Thread(target=self.influxUpdate)
+        self.influxThread = threading.Thread(target=self.influxUpdate, args=(self.sensorDict,))
         self.sensorThread.start()
         self.influxThread.start()
 
@@ -221,10 +221,10 @@ class Bike:
                 }
             time.sleep(0.001)
 
-    def influxUpdate(self):
+    def influxUpdate(self,sensorDict):
         while True:
             try:
-                sensorList = [f"{k}={v}" for k,v in self.sensorDict.items()]
+                sensorList = [f"{k}={v}" for k,v in sensorDict.items()]
                 data = f'rammerRpi,lap={self.lap} {",".join(sensorList)} {str(time.time()).replace(".","")+"0"}'
                 self.write_api.write(self.bucket,self.org, data)
             except:
