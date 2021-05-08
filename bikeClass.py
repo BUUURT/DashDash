@@ -97,9 +97,9 @@ class Bike:
 
         self.sensorDict=dict()
         self.sensorThread = threading.Thread(target=self.call_sensorDict)
-        self.influxThread = threading.Thread(target=self.influxUpdate, args=(self.sensorDict,))
+        # self.influxThread = threading.Thread(target=self.influxUpdate, args=(self.sensorDict,))
         self.sensorThread.start()
-        self.influxThread.start()
+        # self.influxThread.start()
 
 
     def call_engTemp(self):
@@ -219,18 +219,26 @@ class Bike:
                 # "s2Time" : self.s2Time,
                 # "s3Time" : self.s3Time
                 }
-            time.sleep(0.001)
-
-    def influxUpdate(self,sensorDict):
-        while True:
-            if len(sensorList) !=0:
-                sensorList = [f"{k}={v}" for k,v in sensorDict.items()]
+            if len(self.sensorDict) !=0:
+                sensorList = [f"{k}={v}" for k,v in self.sensorDict.items()]
                 data = f'rammerRpi,lap={self.lap} {",".join(sensorList)}'#{str(time.time()).replace(".","")+"0"}'
                 try:
                     self.write_api.write(self.bucket,self.org, data)
                 except:
                     print('influx error')
-            time.sleep(0.1)
+            time.sleep(0.001)
+
+    # def influxUpdate(self,sensorDict):
+    #     print(sensorDict)
+    #     while True:
+    #         if len(sensorDict) !=0:
+    #             sensorList = [f"{k}={v}" for k,v in sensorDict.items()]
+    #             data = f'rammerRpi,lap={self.lap} {",".join(sensorList)}'#{str(time.time()).replace(".","")+"0"}'
+    #             try:
+    #                 self.write_api.write(self.bucket,self.org, data)
+    #             except:
+    #                 print('influx error')
+    #         time.sleep(0.1)
 
     def messageRefresh(self):
         pass
