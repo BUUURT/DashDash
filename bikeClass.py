@@ -116,9 +116,13 @@ class Bike:
         try:
             x = self.gps.latitude
             y = self.gps.longitude
+            if x == None:
+                x = False
+            if y == None:
+                y=False
         except:
-            x = None
-            y = None
+            x = False
+            y = False
         return (x,y)
 
     def call_imu(self):
@@ -222,6 +226,7 @@ class Bike:
             if len(self.sensorDict) !=0:
                 sensorList = [f"{k}={v}" for k,v in self.sensorDict.items()]
                 data = f'rammerRpi,lap={self.lap} {",".join(sensorList)}'#{str(time.time()).replace(".","")+"0"}'
+
                 try:
                     self.write_api.write(self.bucket,self.org, data)
                 except:
