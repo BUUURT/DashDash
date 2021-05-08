@@ -36,7 +36,9 @@ class Test:
         self.n=elm
         self.x = threading.Thread(target=self.bump)
         self.x.start()
-
+        self.y = threading.Thread(target=self.top)
+        self.y.start()
+        # self.x.join()
 
     # def maths(self,elm):
     #     dat = len(elm)
@@ -45,10 +47,11 @@ class Test:
     def bump(self):
         while True:
             self.n+=1
-            time.sleep(0.001)
-
+            
     def top(self):
-        return "the answer is"+self.elm
+        while True:
+            print("the answer is"+str(self.n))
+            time.sleep(0.5)
 
     def layout(self):
         print (self.top()+"!!!")
