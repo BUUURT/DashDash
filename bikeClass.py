@@ -68,18 +68,24 @@ class Bike:
         self.s2Time=0
         self.s3Time=0
 
-        if _wheelspeed == True or _rpm == True:
-            self.GPIO = GPIO
-            self.GPIO.setmode(GPIO.BCM)
-            self.GPIO.setwarnings(False)
+        # if _wheelspeed == True or _rpm == True:
+        #     self.GPIO = GPIO
+        #     self.GPIO.setmode(GPIO.BCM)
+        #     self.GPIO.setwarnings(False)
 
         if _wheelspeed == True:
-            self.GPIO.setup(17,GPIO.IN,GPIO.PUD_UP)#fix
-            self.GPIO.add_event_detect(17,GPIO.FALLING,callback=self.speedCalc,bouncetime=20)
+            self.GPIOws = GPIO
+            self.GPIOws.setmode(GPIO.BCM)
+            self.GPIOws.setwarnings(False)
+            self.GPIOws.setup(17,GPIO.IN,GPIO.PUD_UP)#fix
+            self.GPIOws.add_event_detect(17,GPIO.FALLING,callback=self.speedCalc,bouncetime=20)
 
         if _rpm == True:
-            self.GPIO.setup(27,GPIO.IN,GPIO.PUD_UP)#fix
-            self.GPIO.add_event_detect(27,GPIO.FALLING,callback=self.rpmCalc,bouncetime=2)
+            self.GPIOrpm = GPIO
+            self.GPIOrpm.setmode(GPIO.BCM)
+            self.GPIOrpm.setwarnings(False)
+            self.GPIOrpm.setup(27,GPIO.IN,GPIO.PUD_UP)#fix
+            self.GPIOrpm.add_event_detect(27,GPIO.FALLING,callback=self.rpmCalc,bouncetime=2)
 
         if _imu == True:#IMU
             self.imu = adafruit_bno055.BNO055_I2C(busio.I2C(board.SCL, board.SDA))
@@ -164,6 +170,7 @@ class Bike:
 
     def rpmCalc(self):
         #circ = 3140 #mm @ 500mm dia / ~20"
+        print('rpm')
         timeDelta = time.monotonic()-self.rpm_elapse
         self.rpm_elapse = time.monotonic()
         self.rpm_elapse = int(60/timeDelta) # 1rev/mmps conversion

@@ -10,7 +10,7 @@ import QtGraphicalEffects 1.0
 ApplicationWindow {
     id: root
     visible: true
-    color: "#d9d8d8"
+    color: "#d4d1d1"
     width:1280
     height:800
     //visibility: "FullScreen"
@@ -39,8 +39,8 @@ ApplicationWindow {
         y: 232
         width: 303
         height: 200
-        color: root.rpmColor
         visible: false
+        color: "#3f465e"
         z: 0
         rotation: 90
         transformOrigin: Item.TopRight
@@ -275,13 +275,13 @@ ApplicationWindow {
         y: 230
         width: 90
         height: 209
-        color: root.rpmColor
         anchors.left: rpmSweepMid.left
         anchors.leftMargin: 103
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 361
         opacity: 1
         visible: false
+        color: "#3f465e"
         rotation: 0
         transformOrigin: Item.Top
     }
@@ -293,7 +293,7 @@ ApplicationWindow {
         width: 697
         height: 145
         visible: false
-        color: root.rpmColor
+        color: "#3f465e"
         anchors.left: parent.left
         anchors.top: rpmSweepOrange.top
         anchors.bottom: rpmSweepOrange.bottom
