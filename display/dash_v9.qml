@@ -39,7 +39,7 @@ ApplicationWindow {
         y: 232
         width: 303
         height: 200
-        visible: false
+        visible: true
         color: "#3f465e"
         z: 0
         rotation: 90
@@ -280,7 +280,7 @@ ApplicationWindow {
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 361
         opacity: 1
-        visible: false
+        visible: true
         color: "#3f465e"
         rotation: 0
         transformOrigin: Item.Top
@@ -292,7 +292,7 @@ ApplicationWindow {
         y: 9
         width: 697
         height: 145
-        visible: false
+        visible: true
         color: "#3f465e"
         anchors.left: parent.left
         anchors.top: rpmSweepOrange.top
@@ -308,7 +308,7 @@ ApplicationWindow {
         y: 9
         width: 175
         height: 145
-        visible: false
+        visible: true
         color: "#ff9000"
         transformOrigin: Item.Center
         anchors.left: parent.left
@@ -322,7 +322,7 @@ ApplicationWindow {
         y: 9
         width: 180
         height: 145
-        visible: false
+        visible: true
         color: "#ff0000"
         transformOrigin: Item.Center
         anchors.left: parent.left
@@ -609,11 +609,13 @@ ApplicationWindow {
             id: head_divider
             x: 0
             y: 36
-            width: 702
+            width: 701
             height: 4
             color: "#5a5f78"
             anchors.bottom: parent.bottom
-            anchors.rightMargin: 8
+            anchors.leftMargin: -1
+            anchors.topMargin: 0
+            anchors.rightMargin: 9
             anchors.bottomMargin: 0
             border.color: "#7a755f"
             border.width: 2
@@ -1371,10 +1373,10 @@ ApplicationWindow {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.6600000262260437}D{i:31;invisible:true}D{i:35;invisible:true}
-D{i:34;invisible:true}D{i:33;invisible:true}D{i:54;invisible:true}D{i:55;invisible:true}
-D{i:53;invisible:true}D{i:57;invisible:true}D{i:58;invisible:true}D{i:61;invisible:true}
-D{i:63;invisible:true}D{i:62;invisible:true}D{i:64;invisible:true}D{i:65;invisible:true}
-D{i:66;invisible:true}D{i:56;invisible:true}D{i:68;invisible:true}D{i:67;invisible:true}
+    D{i:0;formeditorZoom:0.75}D{i:31;invisible:true}D{i:35;invisible:true}D{i:34;invisible:true}
+D{i:33;invisible:true}D{i:54;invisible:true}D{i:55;invisible:true}D{i:53;invisible:true}
+D{i:57;invisible:true}D{i:58;invisible:true}D{i:61;invisible:true}D{i:63;invisible:true}
+D{i:62;invisible:true}D{i:64;invisible:true}D{i:65;invisible:true}D{i:66;invisible:true}
+D{i:56;invisible:true}D{i:68;invisible:true}D{i:67;invisible:true}
 }
 ##^##*/

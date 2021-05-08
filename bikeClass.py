@@ -84,8 +84,8 @@ class Bike:
             self.GPIO = GPIO
             self.GPIO.setmode(GPIO.BCM)
             self.GPIO.setwarnings(False)
-            self.GPIO.setup(27,GPIO.IN,GPIO.PUD_UP)#fix
-            self.GPIO.add_event_detect(27,GPIO.FALLING,callback=self.rpmCalc,bouncetime=2)
+            self.GPIO.setup(27,GPIO.IN,GPIO.PUD_DOWN)#fix
+            self.GPIO.add_event_detect(27,GPIO.RISING,callback=self.rpmCalc,bouncetime=2)
 
         if _imu == True:#IMU
             self.imu = adafruit_bno055.BNO055_I2C(busio.I2C(board.SCL, board.SDA))
@@ -173,7 +173,7 @@ class Bike:
         print('rpm')
         timeDelta = time.monotonic()-self.rpm_elapse
         self.rpm_elapse = time.monotonic()
-        self.rpm_elapse = int(60/timeDelta) # 1rev/mmps conversion
+        self.rpm = int(60/timeDelta) # 1rev/mmps conversion
         return self.rpm
 
     def setTrack(self,track='tckc'):
