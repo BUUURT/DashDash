@@ -17,12 +17,11 @@ from influxdb_client import InfluxDBClient, Point, WritePrecision
 from influxdb_client.client.write_api import SYNCHRONOUS
 
 ### to do ###
-# test all ports at once
+#camera
+#timeout for speed and rpm
+ # lap timing / sector timing
+## ui config vs whatever
 
-# influx output wrapup
- # lap timing / sector timing tuple
-
-##from multiprocessing import Process
 
 class Bike:
     def __init__(self,
@@ -55,7 +54,6 @@ class Bike:
         self.wheel_elapse = time.monotonic()
 
         #timing
-
         self.current_sector = 1
         self.lapTime = 0
         self.lastLap = 0
@@ -74,17 +72,11 @@ class Bike:
             self.GPIO.setwarnings(False)
 
         if _wheelspeed == True:
-            self.GPIO = GPIO
-            self.GPIO.setmode(GPIO.BCM)
-            self.GPIO.setwarnings(False)
-            self.GPIO.setup(17,GPIO.IN,GPIO.PUD_UP)#fix
+            self.GPIO.setup(17,GPIO.IN,GPIO.PUD_UP)
             self.GPIO.add_event_detect(17,GPIO.FALLING,callback=self.speedCalc,bouncetime=20)
 
         if _rpm == True:
-            self.GPIO = GPIO
-            self.GPIO.setmode(GPIO.BCM)
-            self.GPIO.setwarnings(False)
-            self.GPIO.setup(27,GPIO.IN,GPIO.PUD_DOWN)#fix
+            self.GPIO.setup(27,GPIO.IN,GPIO.PUD_DOWN)
             self.GPIO.add_event_detect(27,GPIO.RISING,callback=self.rpmCalc,bouncetime=2)
 
         if _imu == True:#IMU
@@ -103,8 +95,9 @@ class Bike:
 
         self.sensorDict=dict()
         self.sensorThread = threading.Thread(target=self.call_sensorDict)
-        # self.influxThread = threading.Thread(target=self.influxUpdate, args=(self.sensorDict,))
         self.sensorThread.start()
+
+        # self.influxThread = threading.Thread(target=self.influxUpdate, args=(self.sensorDict,))
         # self.influxThread.start()
 
 
@@ -160,20 +153,18 @@ class Bike:
 
     def speedCalc(self,channel):
         #circ = 3140 #mm @ 500mm dia / ~20"
-        timeDelta = time.monotonic()-self.wheel_elapse
+        wheelTimeDelta = time.monotonic()-self.wheel_elapse
         self.wheel_elapse = time.monotonic()
         if self.units == 'standard':
-            self.speed = round(7.023979/timeDelta,2) # mph/mmps conversion
+            self.speed = round(7.023979/wheelTimeDelta,2) # mph/mmps conversion
         if self.units == 'metric':
-            self.speed = round(timeDelta/277.778,2) # mmps to kmh
+            self.speed = round(wheelTimeDelta/277.778,2) # mmps to kmh
         # return self.speed
 
     def rpmCalc(self,channel):
-        #circ = 3140 #mm @ 500mm dia / ~20"
-        print('rpm')
-        timeDelta = time.monotonic()-self.rpm_elapse
+        rpmTimeDelta = time.monotonic()-self.rpm_elapse
         self.rpm_elapse = time.monotonic()
-        self.rpm = int(60/timeDelta) # 1rev/mmps conversion
+        self.rpm = int(60/rpmTimeDelta) # 1rev/pulse  conversion
         return self.rpm
 
     def setTrack(self,track='tckc'):
@@ -194,14 +185,16 @@ class Bike:
         sectorindex = {1:2,2:3,3:1}
         nextsector = sectorindex[self.current_sector]
         if self.mapData[nextsector].contains(self.location)[0]:
-            secTimeFinal = time.monotonic()-self.sectorTime
+            oldTime = time.monotonic()-self.sectorTime
             self.sectorTime = time.monotonic()
             self.current_sector = nextsector
 
             if nextsector == 1:
                 self.lap += 1
+                tDelta = self.lastLap
                 self.lastLap = time.monotonic()- self.lapTime
                 self.lapTime = time.monotonic()
+                self.lapDelta = pyth
                 if self.lastLap<self.bestLap:
                     self.bestlap = self.lastlap
 
@@ -210,6 +203,7 @@ class Bike:
             lap = self.lap
             gpsTup = self.call_gps()
             imuDict = self.call_imu()
+
 
             self.sensorDict = {
                 "speed" : self.speed,
@@ -230,11 +224,10 @@ class Bike:
                 # "s2Time" : self.s2Time,
                 # "s3Time" : self.s3Time
                 }
-            if len(self.sensorDict) !=0:
+
+            try:
                 sensorList = [f"{k}={v}" for k,v in self.sensorDict.items()]
                 data = f'rammerRpi,lap={self.lap} {",".join(sensorList)}'#{str(time.time()).replace(".","")+"0"}'
-
-                try:
                     self.write_api.write(self.bucket,self.org, data)
                 except:
                     print('influx error')
