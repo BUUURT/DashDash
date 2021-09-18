@@ -228,13 +228,10 @@ class Bike:
                 sensorList = [f"{k}={v}" for k,v in self.sensorDict.items()]
                 data = f'rammerRpi,lap={self.lap} {",".join(sensorList)}'#{str(time.time()).replace(".","")+"0"}'
                 self.write_api.write(self.bucket,self.org, data)
-<<<<<<< HEAD
+
             except:
-=======
-                except:
->>>>>>> 5cba5f22db39eb3ebf6ff2646908f04fc294aa92
-                    print('influx error')
-            time.sleep(0.001)t
+                print('influx error')
+            time.sleep(0.001)
 
     # def influxUpdate(self,sensorDict):
     #     print(sensorDict)
