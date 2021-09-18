@@ -204,7 +204,6 @@ class Bike:
             gpsTup = self.call_gps()
             imuDict = self.call_imu()
 
-
             self.sensorDict = {
                 "speed" : self.speed,
                 "rpm" : self.rpm,
@@ -228,10 +227,10 @@ class Bike:
             try:
                 sensorList = [f"{k}={v}" for k,v in self.sensorDict.items()]
                 data = f'rammerRpi,lap={self.lap} {",".join(sensorList)}'#{str(time.time()).replace(".","")+"0"}'
-                    self.write_api.write(self.bucket,self.org, data)
+                self.write_api.write(self.bucket,self.org, data)
                 except:
                     print('influx error')
-            time.sleep(0.001)
+            time.sleep(0.001)t
 
     # def influxUpdate(self,sensorDict):
     #     print(sensorDict)
