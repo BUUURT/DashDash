@@ -8,7 +8,7 @@ import threading
 import board
 import busio
 import RPi.GPIO as GPIO
-import Adafruit_BNO055 as adafruit_bno055
+import adafruit_bno055
 import adafruit_gps
 import adafruit_max31855
 import digitalio
