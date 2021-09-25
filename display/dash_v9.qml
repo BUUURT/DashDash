@@ -13,7 +13,7 @@ ApplicationWindow {
     color: "#d4d1d1"
     width:1280
     height:800
-    //visibility: "FullScreen"
+    visibility: "FullScreen"
 
     property color mainFontColor: "black"
     property color mainBorderColor: "black"
@@ -32,7 +32,8 @@ ApplicationWindow {
     property int page: 0
     property var units: 'standard'
 
-    NumberAnimation on rpm { to: 13000; duration: 5000}
+    NumberAnimation on rpm { to: 13000; duration: 3000}
+    NumberAnimation on rpm { to: 0; duration: 1000}
 
     Rectangle {
         id: rpmSweepMid
@@ -130,14 +131,7 @@ ApplicationWindow {
 
     }
 
-//    Timer {
-//        interval: 5000
-//        running: true
-//        repeat: false
-//        onTriggered: {
-//            NumberAnimation on root.rpm { to: 13000; duration 5000}
-//        }
-//    }
+
 
     Timer {
         interval: 16
