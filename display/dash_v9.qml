@@ -32,7 +32,7 @@ ApplicationWindow {
     property int page: 0
     property var units: 'standard'
 
-    Behavior on rpm {SmoothedAnimation { velocity : 200 } }
+    NumberAnimation on rpm { to: 13000; duration: 5000}
 
     Rectangle {
         id: rpmSweepMid
