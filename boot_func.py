@@ -18,8 +18,8 @@ from PyQt5.QtQuick import QQuickView
 
 from bikeClass import Bike
 
-# bike = Bike(_wheelspeed=False,_rpm=False,_gps=False,_imu=False,_engTemp=False)
-#bike = Bike(debug=True)
+bike = Bike(_wheelspeed=False,_rpm=False,_gps=False,_imu=False,_engTemp=False)
+#bike = Bike()
 class Bridge(QObject):
 
     @Slot(result=QVariant)
