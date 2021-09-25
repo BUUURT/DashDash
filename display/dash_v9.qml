@@ -32,8 +32,13 @@ ApplicationWindow {
     property int page: 0
     property var units: 'standard'
 
-    NumberAnimation on rpm { from: 0; to: 13000; duration: 2500}
-    NumberAnimation on rpm { from: 13000; to: 0; duration: 1250}
+    SequentialAnimation{
+        running: true
+        NumberAnimation {target: root; property: rpm;  from: 0; to: 13000; duration: 2500}
+        NumberAnimation {target: root; property: rpm;  from: 13000; to: 0; duration: 1500}
+
+    }
+
 
     Rectangle {
         id: rpmSweepMid

@@ -25,6 +25,7 @@ from influxdb_client.client.write_api import SYNCHRONOUS
 
 class Bike:
     def __init__(self,
+        debug = False
         _wheelspeed=True,
         _rpm=True,
         _gps=True,
