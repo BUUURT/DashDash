@@ -32,6 +32,7 @@ ApplicationWindow {
     property int page: 0
     property var units: 'standard'
 
+    Behavior on rpm {SmoothedAnimation { velocity : 200 } }
 
     Rectangle {
         id: rpmSweepMid
@@ -129,14 +130,14 @@ ApplicationWindow {
 
     }
 
-    Timer {
-        interval: 5000
-        running: true
-        repeat: false
-        onTriggered: {
-            NumberAnimation on root.rpm { to: 13000; duration 5000}
-        }
-    }
+//    Timer {
+//        interval: 5000
+//        running: true
+//        repeat: false
+//        onTriggered: {
+//            NumberAnimation on root.rpm { to: 13000; duration 5000}
+//        }
+//    }
 
     Timer {
         interval: 16
