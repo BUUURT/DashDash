@@ -32,12 +32,7 @@ ApplicationWindow {
     property int page: 0
     property var units: 'standard'
 
-    SequentialAnimation{
-        running: true
-        NumberAnimation {target: root; property: rpm;  from: 0; to: 13000; duration: 2500}
-        NumberAnimation {target: root; property: rpm;  from: 13000; to: 0; duration: 1500}
 
-    }
 
 
     Rectangle {
@@ -1363,6 +1358,13 @@ ApplicationWindow {
         color: "#ff0000"
         anchors.verticalCenter: parent.verticalCenter
         anchors.horizontalCenter: parent.horizontalCenter
+    }
+
+    SequentialAnimation{
+        running: true
+        NumberAnimation {target: root; property: rpm;  to: 13000; duration: 2500}
+        NumberAnimation {target: root; property: rpm;  to: 0; duration: 1500}
+
     }
 
 
