@@ -129,10 +129,18 @@ ApplicationWindow {
 
     }
 
+    Timer {
+        interval: 5000
+        running: true
+        repeat: false
+        onTriggered: {
+            NumberAnimation on root.rpm { to: 13000; duration 5000}
+        }
+    }
 
     Timer {
         interval: 16
-        running: true
+        running: false
         repeat: true
         onTriggered: {
             var sensorDict = con.sensorRefresh()
