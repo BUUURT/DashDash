@@ -1363,7 +1363,7 @@ ApplicationWindow {
     SequentialAnimation{
         running: true
         NumberAnimation {target: root; property: rpm;  to: 13000; duration: 2500}
-        NumberAnimation {target: root; property: rpm;  to: 0; duration: 1500}
+        //NumberAnimation {target: root; property: rpm;  to: 0; duration: 1500}
 
     }
 
