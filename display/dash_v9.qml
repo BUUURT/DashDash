@@ -171,12 +171,11 @@ ApplicationWindow {
         repeat: true
         onTriggered: {
             var sensorDict = con.sensorRefresh()
-            //            root.rpm = parseInt(sensorDict['rpm'])    //con.rpm()
-            //            root.speed = parseInt(sensorDict['speed'])    //con.speed(w)
+            root.rpm = parseInt(sensorDict['rpm'])    //con.rpm()
+            root.speed = parseInt(sensorDict['speed'])    //con.speed(w)
             tempAirDisp.text = String(sensorDict['airTemp'])    //qsTr(con.airTemp())
-            //            tempEngDisp.text = String(sensorDict['engTemp'])
+            tempEngDisp.text = String(sensorDict['engTemp'])
             //            root.engTemp = parseInt(sensorDict['engTemp'])
-
             //            sector1Val = sensorDict['s1Time']
             //            sector2Val = sensorDict['s2Time']
             //            sector3Val = sensorDict['s3Time']
@@ -298,15 +297,6 @@ ApplicationWindow {
         if (root.engTemp > 115 && root.engTemp < 160) {tempEngBg.color = Qt.rgba(0, 1, 1-(root.engTemp-115)/45, 1)}
         if (root.engTemp > 180 && root.engTemp < 200) {tempEngBg.color = Qt.rgba((root.engTemp-180)/20, 1, 0, 1)}
         if (root.engTemp > 200) {tempEngBg.color = Qt.rgba(1,1-(root.engTemp-200)/20, 0, 1)}
-        //        if (root.engTemp > 200) {tempEngBg.co0lor = Qt.rgba(0, (root.engTemp-70)/45, 1, 1)}
-
-        //        if (root.engTemp<160 ) {tempEngBg.color = '#0064ff'} //blue 160
-        //        if (root.engTemp<210 && root.engTemp>160) {tempEngBg.color = '#00ff00'} //gren 160
-        //        if (root.engTemp<230 && root.engTemp>210) {tempEngBg.color = '#b4ff00'} //lime 210
-        //        if (root.engTemp<250 && root.engTemp>230) {tempEngBg.color = '#ffff00'} //yellow 230
-        //        if (root.engTemp<280 && root.engTemp>250) {tempEngBg.color = '#ffb400'} //orange 250
-        //        if (root.engTemp>280) {tempEngBg.color = '#ff0000'} //red 280
-
     }
 
     onSpeedChanged: {
@@ -625,6 +615,7 @@ ApplicationWindow {
             y: 546
             width: 75
             height: 75
+            visible: false
             stepSize: 1
             to: 13000
             onValueChanged: {root.rpm = value}
@@ -642,6 +633,7 @@ ApplicationWindow {
             id: slider
             x: 273
             y: 636
+            visible: false
             value: 0
             to: 300
             onValueChanged: {root.engTemp = value}
@@ -651,6 +643,7 @@ ApplicationWindow {
             id: slider1
             x: 273
             y: 704
+            visible: false
             value: 0
             to: 100
             onValueChanged: {root.speed = value}
@@ -799,7 +792,7 @@ ApplicationWindow {
             id: timingPage
             width: 680
             height: 540
-            visible: false
+            visible: true
             anchors.left: parent.left
             anchors.top: parent.bottom
             anchors.topMargin: 0
@@ -1430,7 +1423,7 @@ ApplicationWindow {
             x: 0
             width: 701
             height: 512
-            visible: true
+            visible: false
             anchors.top: parent.top
             anchors.topMargin: 36
 
