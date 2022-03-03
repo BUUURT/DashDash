@@ -13,7 +13,7 @@ ApplicationWindow {
     color: "#d4d1d1"
     width:1280
     height:800
-    //visibility: "FullScreen"
+    visibility: "FullScreen"
 
     property color mainFontColor: "black"
     property color mainBorderColor: "black"
@@ -38,11 +38,6 @@ ApplicationWindow {
     property bool msgPit: false
     property bool msgCustom: false
 
-    SequentialAnimation {
-        running: true
-        NumberAnimation { target: root; property: "rpm"; to: 13000; duration: 1000 }
-        NumberAnimation { target: root; property: "rpm"; to: 0; duration: 1000 }
-    }
 
     onMsgTempChanged: {if (root.msgTemp==true){root.page = 2}}
     onMsgPitChanged: {if (root.msgPit==true) root.page = 2}
@@ -606,7 +601,7 @@ ApplicationWindow {
         visible: true
         anchors.fill: parent
         enabled: false
-        //        cursorShape: Qt.BlankCursor
+        cursorShape: Qt.BlankCursor
 
         Dial {
             id: dial
@@ -1540,7 +1535,7 @@ ApplicationWindow {
             id: configPage
             width: 700
             height: 512
-            visible: true
+            visible: false
             anchors.left: parent.left
             anchors.top: parent.top
             anchors.leftMargin: 0
