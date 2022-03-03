@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.13.2, 2021-05-06T17:38:58. -->
+<!-- Written by QtCreator 4.13.2, 2022-03-01T22:14:59. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -173,7 +173,7 @@
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration.C:/py/Rammer/display/main.py</value>
     <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/py/Rammer/display/main.py</value>
     <value type="bool" key="PythonEditor.RunConfiguation.Buffered">false</value>
-    <value type="QString" key="PythonEditor.RunConfiguation.Interpreter">{b10d8852-ee39-41fc-9597-76557412d500}</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Interpreter">{7ed91df2-df30-43fb-abf1-923e521df23c}</value>
     <value type="QString" key="PythonEditor.RunConfiguation.Script">C:\py\Rammer\display\main.py</value>
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="bool" key="RunConfiguration.Arguments.multi">false</value>
@@ -183,7 +183,6 @@
     <value type="bool" key="RunConfiguration.UseMultiProcess">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
-    <value type="bool" key="RunConfiguration.UseTerminal">true</value>
     <value type="QString" key="RunConfiguration.WorkingDirectory"></value>
     <value type="QString" key="RunConfiguration.WorkingDirectory.default">C:/py/Rammer/display</value>
    </valuemap>

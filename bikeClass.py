@@ -67,6 +67,14 @@ class Bike:
         self.s2Time=0
         self.s3Time=0
 
+        # if debug == True:
+        #     _wheelspeed = False
+        #     _rpm=True
+        #     _gps=True
+        #     _imu=True
+        #     _engTemp=True
+        #     _camera=True
+
         if _wheelspeed == True or _rpm == True:
             self.GPIO = GPIO
             self.GPIO.setmode(GPIO.BCM)
@@ -215,7 +223,7 @@ class Bike:
                 "gps_long" : gpsTup[1],
                 "rotationX" : imuDict['rotX'],
                 "rotationY" : imuDict['rotX'],
-                "rotationZ" : imuDict['rotZ'],
+                "rotationZ" : imuDict['rbotZ'],
                 "accelX" : imuDict['accelX'],
                 "accelY" : imuDict['accelY'],
                 "accelZ" : imuDict['accelZ']
@@ -234,17 +242,6 @@ class Bike:
                 print('influx error')
             time.sleep(0.001)
 
-    # def influxUpdate(self,sensorDict):
-    #     print(sensorDict)
-    #     while True:
-    #         if len(sensorDict) !=0:
-    #             sensorList = [f"{k}={v}" for k,v in sensorDict.items()]
-    #             data = f'rammerRpi,lap={self.lap} {",".join(sensorList)}'#{str(time.time()).replace(".","")+"0"}'
-    #             try:
-    #                 self.write_api.write(self.bucket,self.org, data)
-    #             except:
-    #                 print('influx error')
-    #         time.sleep(0.1)
 
     def messageRefresh(self):
         pass

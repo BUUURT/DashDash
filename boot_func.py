@@ -16,10 +16,9 @@ from PyQt5.QtGui import QGuiApplication
 from PyQt5.QtQml import QQmlApplicationEngine
 from PyQt5.QtQuick import QQuickView
 
-from bikeClass import Bike
+# from bikeClass import Bike
+# bike = Bike(_wheelspeed=False,_rpm=False,_gps=False,_imu=False,_engTemp=False)
 
-bike = Bike(_wheelspeed=False,_rpm=False,_gps=False,_imu=False,_engTemp=False)
-#bike = Bike()
 class Bridge(QObject):
 
     @Slot(result=QVariant)
@@ -82,6 +81,32 @@ class Bridge(QObject):
 #        data = requests.get(r'http://192.168.254.12:9000/dashGet')
 #        data = ast.literal_eval(data.text)
 #        return data[value]
+class Debug(QObject):
+
+    @Slot(result=QVariant)
+    def sensorRefresh(self):
+        sensorDict = {
+                            "speed" : int(str(time.monotonic()).split('.')[0][-2:]),
+                            "rpm" : int(str(time.monotonic()).split('.')[0][-1:])*1444,
+                            #brake :
+                            "engTemp" : int(str(time.monotonic()).split('.')[0][-2:])*10,
+                            "airTemp" : int(str(time.monotonic()).split('.')[0][-2:])
+                            ##"gps_lat" : 0,
+                            #"gps_long" : gpsTup[1],
+                            # "rotationX" : imuDict['rotX'],
+                            # "rotationY" : imuDict['rotX'],
+                            # "rotationZ" : imuDict['rotZ'],
+                            # "accelX" : imuDict['accelX'],
+                            # "accelY" : imuDict['accelY'],
+                            # "accelZ" : imuDict['accelZ']
+                            }
+        return sensorDict
+
+    @Slot(result=str)
+    def sessionTime(self):
+        floatTime = 1482382.062-time.monotonic()#-bike.sessionTime
+        minutes,seconds = divmod(floatTime,60)
+        return "%02d:%02d"%(minutes,seconds)
 
 
 if __name__ == '__main__':
@@ -90,7 +115,8 @@ if __name__ == '__main__':
     engine = QQmlApplicationEngine()
 
     # Instance of the Python object
-    bridge = Bridge()
+    #bridge = Bridge()
+    bridge = Debug()
 
     # Expose the Python object to QML
     context = engine.rootContext()

@@ -1,3 +1,3 @@
 {
-    "files": ["dialog.ui","basestation.qml","stck.qml","dash_v9.qml","images/dashMask.png","main.py","test.qml","bikeClass.py","c2.qml","bootFunc.py","sharts.qml","pit_message.qml"]
+    "files": ["dialog.ui","Test.qml","c2.qml","stck.qml","bikeClass.py","sharts.qml","dash_v9.qml","basestation.qml","images/dashMask.png","pit_message.qml","main.py","bootFunc.py","t.qml"]
 }
