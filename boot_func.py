@@ -115,8 +115,8 @@ if __name__ == '__main__':
     engine = QQmlApplicationEngine()
 
     # Instance of the Python object
-    #bridge = Bridge()
-    bridge = Debug()
+    bridge = Bridge()
+    # bridge = Debug()
 
     # Expose the Python object to QML
     context = engine.rootContext()
