@@ -169,7 +169,7 @@ ApplicationWindow {
             root.rpm = parseInt(sensorDict['rpm'])    //con.rpm()
             root.speed = parseInt(sensorDict['speed'])    //con.speed(w)
             tempAirDisp.text = String(sensorDict['airTemp'])    //qsTr(con.airTemp())
-            root.engTemp = String(sensorDict['engTemp'])
+            root.engTemp = sensorDict['engTemp']
 
             //            root.engTemp = parseInt(sensorDict['engTemp'])
             //            sector1Val = sensorDict['s1Time']
