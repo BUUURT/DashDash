@@ -167,7 +167,7 @@ ApplicationWindow {
         onTriggered: {
             var sensorDict = con.sensorRefresh()
             root.rpm = parseInt(sensorDict['rpm'])    //con.rpm()
-            root.speed = parseInt(sensorDict['speed'])    //con.speed(w)
+            speed.text = parseInt(sensorDict['speed'])    //con.speed(w)
             tempAirDisp.text = String(sensorDict['airTemp'])    //qsTr(con.airTemp())
             root.engTemp = sensorDict['engTemp']
 
