@@ -15,6 +15,7 @@ ApplicationWindow {
     height:800
     visibility: "FullScreen"
 
+
     property color mainFontColor: "black"
     property color mainBorderColor: "black"
     property color mainBgColor: "white"
@@ -630,7 +631,7 @@ ApplicationWindow {
             id: slider
             x: 273
             y: 636
-            visible: false
+            visible: true
             value: 0
             to: 300
             onValueChanged: {root.engTemp = value}
@@ -1717,10 +1718,6 @@ ApplicationWindow {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.6600000262260437}D{i:38;invisible:true}D{i:54;invisible:true}
-D{i:55;invisible:true}D{i:56;invisible:true}D{i:60;invisible:true}D{i:46;invisible:true}
-D{i:65;invisible:true}D{i:64;invisible:true}D{i:67;invisible:true}D{i:66;invisible:true}
-D{i:69;invisible:true}D{i:68;invisible:true}D{i:70;invisible:true}D{i:71;invisible:true}
-D{i:63;invisible:true}D{i:84;invisible:true}D{i:62;invisible:true}D{i:93;invisible:true}
+    D{i:0;formeditorZoom:0.6600000262260437}
 }
 ##^##*/
