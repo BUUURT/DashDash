@@ -166,10 +166,10 @@ ApplicationWindow {
         repeat: true
         onTriggered: {
             var sensorDict = con.sensorRefresh()
-            root.rpm = parseInt(sensorDict['rpm'])    //con.rpm()
-            speed.text = parseInt(sensorDict['speed'])    //con.speed(w)
-            tempAirDisp.text = String(sensorDict['airTemp'])    //qsTr(con.airTemp())
-            root.engTemp = sensorDict['engTemp']
+            root.rpm = parseInt(sensorDict['rpm'])
+            speed.text = parseInt(sensorDict['speed'])
+//            tempAirDisp.text = String(sensorDict['airTemp'])
+//            root.engTemp = sensorDict['engTemp']
 
             //            root.engTemp = parseInt(sensorDict['engTemp'])
             //            sector1Val = sensorDict['s1Time']
@@ -202,6 +202,9 @@ ApplicationWindow {
         repeat: true
         onTriggered: {
             sessionTimeVal.text = con.sessionTime()
+            var sensorDict = con.sensorRefresh()
+            tempAirDisp.text = String(sensorDict['airTemp'])
+            root.engTemp = sensorDict['engTemp']
             //teamMsg.text = con.biketest()
             //positionNumber.text = con.raceTimeData('selfPosition')
             //lapNumber.text = con.raceTimeData('selfLaps')
