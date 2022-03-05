@@ -223,7 +223,7 @@ class Bike:
                 "gps_long" : gpsTup[1],
                 "rotationX" : imuDict['rotX'],
                 "rotationY" : imuDict['rotX'],
-                "rotationZ" : imuDict['rbotZ'],
+                "rotationZ" : imuDict['rotZ'],
                 "accelX" : imuDict['accelX'],
                 "accelY" : imuDict['accelY'],
                 "accelZ" : imuDict['accelZ']
