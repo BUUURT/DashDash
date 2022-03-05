@@ -627,15 +627,15 @@ ApplicationWindow {
 //            }
 //        }
 
-        Slider {
-            id: slider
-            x: 273
-            y: 636
-            visible: true
-            value: 0
-            to: 300
-            onValueChanged: {root.engTemp = value}
-        }
+//        Slider {
+//            id: slider
+//            x: 273
+//            y: 636
+//            visible: true
+//            value: 0
+//            to: 300
+//            onValueChanged: {root.engTemp = value}
+//        }
 
 //        Slider {
 //            id: slider1
