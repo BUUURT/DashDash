@@ -606,46 +606,46 @@ ApplicationWindow {
         enabled: false
         cursorShape: Qt.BlankCursor
 
-        Dial {
-            id: dial
-            value:0
-            x: 286
-            y: 546
-            width: 75
-            height: 75
-            visible: false
-            stepSize: 1
-            to: 13000
-            onValueChanged: {root.rpm = value}
+//        Dial {
+//            id: dial
+//            value:0
+//            x: 286
+//            y: 546
+//            width: 75
+//            height: 75
+//            visible: false
+//            stepSize: 1
+//            to: 13000
+//            onValueChanged: {root.rpm = value}
 
-            Text {
-                id: text1
-                x: 26
-                y: 30
-                text: qsTr("RPM")
-                font.pixelSize: 12
-            }
-        }
+//            Text {
+//                id: text1
+//                x: 26
+//                y: 30
+//                text: qsTr("RPM")
+//                font.pixelSize: 12
+//            }
+//        }
 
-        Slider {
-            id: slider
-            x: 273
-            y: 636
-            visible: true
-            value: 0
-            to: 300
-            onValueChanged: {root.engTemp = value}
-        }
+//        Slider {
+//            id: slider
+//            x: 273
+//            y: 636
+//            visible: true
+//            value: 0
+//            to: 300
+//            onValueChanged: {root.engTemp = value}
+//        }
 
-        Slider {
-            id: slider1
-            x: 273
-            y: 704
-            visible: false
-            value: 0
-            to: 100
-            onValueChanged: {root.speed = value}
-        }
+//        Slider {
+//            id: slider1
+//            x: 273
+//            y: 704
+//            visible: false
+//            value: 0
+//            to: 100
+//            onValueChanged: {root.speed = value}
+//        }
 
         Button {
             id: settingsIcon
@@ -1685,7 +1685,7 @@ ApplicationWindow {
             visible: true
             anchors.top: parent.top
             anchors.topMargin: 40
-            mouseEnabled: true
+            mouseEnabled: false
             maximumTouchPoints: 1
             onPressed: {root.page = (root.page != 2) ? root.page+1 : 0}
         }
