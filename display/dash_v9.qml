@@ -28,8 +28,7 @@ ApplicationWindow {
 
     property bool darkMode: false
     property int rpm: 0
-    property int speed: 0
-    property int engTemp: 0
+//    property int engTemp: 0
     property int shiftLight: 12000
     property var pageSelect: "main" //unused
     property int page: 2
@@ -287,17 +286,18 @@ ApplicationWindow {
     }
 
     onEngTempChanged: {
-        tempEngDisp.text = root.engTemp
-        if (root.engTemp < 70) {tempEngBg.color = '#0000ff'}
-        if (root.engTemp > 70 && root.engTemp < 115) {tempEngBg.color = Qt.rgba(0, (root.engTemp-70)/45, 1, 0.9)}
-        if (root.engTemp > 115 && root.engTemp < 160) {tempEngBg.color = Qt.rgba(0, 1, 1-(root.engTemp-115)/45, 1)}
-        if (root.engTemp > 180 && root.engTemp < 200) {tempEngBg.color = Qt.rgba((root.engTemp-180)/20, 1, 0, 1)}
-        if (root.engTemp > 200) {tempEngBg.color = Qt.rgba(1,1-(root.engTemp-200)/20, 0, 1)}
+//        tempEngDisp.text = root.engTemp
+        var engtemp = parseInt(tempEngDisp.text)
+        if (engTemp < 70) {tempEngBg.color = '#0000ff'}
+        if (engTemp > 70 && root.engTemp < 115) {tempEngBg.color = Qt.rgba(0, (engTemp-70)/45, 1, 0.9)}
+        if (engTemp > 115 && root.engTemp < 160) {tempEngBg.color = Qt.rgba(0, 1, 1-(engTemp-115)/45, 1)}
+        if (engTemp > 180 && root.engTemp < 200) {tempEngBg.color = Qt.rgba((engTemp-180)/20, 1, 0, 1)}
+        if (engTemp > 200) {tempEngBg.color = Qt.rgba(1,1-(engTemp-200)/20, 0, 1)}
     }
 
-    onSpeedChanged: {
-        speed.text = root.speed
-    }
+//    onSpeedChanged: {
+//        speed.text = root.speed
+//    }
 
     Rectangle {
         id: rpmSweepLow
@@ -604,7 +604,7 @@ ApplicationWindow {
         preventStealing: false
         hoverEnabled: false
         enabled: false
-        cursorShape: Qt.BlankCursor
+//        cursorShape: Qt.BlankCursor
 
 //        Dial {
 //            id: dial
@@ -627,15 +627,15 @@ ApplicationWindow {
 //            }
 //        }
 
-//        Slider {
-//            id: slider
-//            x: 273
-//            y: 636
-//            visible: true
-//            value: 0
-//            to: 300
-//            onValueChanged: {root.engTemp = value}
-//        }
+        Slider {
+            id: slider
+            x: 273
+            y: 636
+            visible: true
+            value: 0
+            to: 300
+            onValueChanged: {root.engTemp = value}
+        }
 
 //        Slider {
 //            id: slider1
