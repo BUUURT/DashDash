@@ -16,8 +16,8 @@ from PyQt5.QtGui import QGuiApplication
 from PyQt5.QtQml import QQmlApplicationEngine
 from PyQt5.QtQuick import QQuickView
 
-from bikeClass import Bike
-bike = Bike(_wheelspeed=True,_rpm=True,_gps=False,_imu=False,_engTemp=True)
+# from bikeClass import Bike
+# bike = Bike(_wheelspeed=True,_rpm=True,_gps=False,_imu=False,_engTemp=True)
 
 class Bridge(QObject):
 
@@ -115,8 +115,8 @@ if __name__ == '__main__':
     engine = QQmlApplicationEngine()
 
     # Instance of the Python object
-    bridge = Bridge()
-    # bridge = Debug()
+    # bridge = Bridge()
+    bridge = Debug()
 
     # Expose the Python object to QML
     context = engine.rootContext()
