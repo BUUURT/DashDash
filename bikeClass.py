@@ -233,14 +233,14 @@ class Bike:
                 # "s3Time" : self.s3Time
                 }
 
-            try:
-                sensorList = [f"{k}={v}" for k,v in self.sensorDict.items()]
-                data = f'rammerRpi,lap={self.lap} {",".join(sensorList)}'#{str(time.time()).replace(".","")+"0"}'
-                self.write_api.write(self.bucket,self.org, data)
-
-            except:
-                print('influx error')
-            time.sleep(0.001)
+            # try:
+            #     sensorList = [f"{k}={v}" for k,v in self.sensorDict.items()]
+            #     data = f'rammerRpi,lap={self.lap} {",".join(sensorList)}'#{str(time.time()).replace(".","")+"0"}'
+            #     self.write_api.write(self.bucket,self.org, data)
+            #
+            # except:
+            #     print('influx error')
+            time.sleep(0.016)
 
 
     def messageRefresh(self):
