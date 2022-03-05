@@ -600,6 +600,8 @@ ApplicationWindow {
         id: mouseArea
         visible: true
         anchors.fill: parent
+        preventStealing: false
+        hoverEnabled: false
         enabled: false
         cursorShape: Qt.BlankCursor
 
@@ -1460,6 +1462,8 @@ ApplicationWindow {
                         anchors.right: parent.right
                         anchors.top: parent.top
                         anchors.bottom: parent.bottom
+                        cursorShape: Qt.BlankCursor
+                        enabled: false
                         anchors.leftMargin: 0
                         anchors.topMargin: 0
                     }
@@ -1489,6 +1493,8 @@ ApplicationWindow {
                         anchors.right: parent.right
                         anchors.top: parent.top
                         anchors.bottom: parent.bottom
+                        enabled: false
+                        cursorShape: Qt.BlankCursor
                         anchors.topMargin: 0
                         anchors.leftMargin: 0
                     }
@@ -1521,6 +1527,8 @@ ApplicationWindow {
                         anchors.right: parent.right
                         anchors.top: parent.top
                         anchors.bottom: parent.bottom
+                        cursorShape: Qt.BlankCursor
+                        enabled: false
                         anchors.leftMargin: 0
                         anchors.topMargin: 0
                     }
