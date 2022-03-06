@@ -5,16 +5,19 @@ import adafruit_bno055
 
 
 sensor = adafruit_bno055.BNO055_I2C(busio.I2C(board.SCL, board.SDA))
+
+
 def imuEuler():
     raw = sensor.euler
-    x=raw[0]
-    y=raw[1]
-    z=raw[2]
+    x = raw[0]
+    y = raw[1]
+    z = raw[2]
     return str(y)
+
 
 def imuTemp():
     raw = sensor.temperature
-    output = raw.split('.')[0]
+    output = raw.split(".")[0]
     return raw
 
 
