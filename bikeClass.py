@@ -83,10 +83,10 @@ class Bike:
             self.GPIO.setwarnings(False)
 
         if _wheelspeed == True:
-            self.GPIO.setup(17, GPIO.IN, GPIO.PUD_DOWN)
-            # self.GPIO.setup(17, GPIO.IN, GPIO.PUD_UP)
+            # self.GPIO.setup(17, GPIO.IN, GPIO.PUD_DOWN)
+            self.GPIO.setup(17, GPIO.IN, GPIO.PUD_UP)
             self.GPIO.add_event_detect(
-                17, GPIO.RISING, callback=self.speedCalc, bouncetime=20
+                17, GPIO.FALLING, callback=self.speedCalc, bouncetime=20
             )
 
         if _rpm == True:
